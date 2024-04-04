@@ -8,7 +8,7 @@ class Equipo{
 private:
     string _name;
     int _tamaño;
-    Personajes** Lista_Personajes; //array
+    vector<Personajes*> _Lista_Personajes;
 public:
     Equipo();
     Equipo(const string& name,const int& n);

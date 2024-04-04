@@ -2,14 +2,15 @@
 #define PERSONAJES_H
 
 #include <iostream>
+#include <vector>
 #include <objetos.h>
 using namespace std;
 
 class Personajes{
 protected:
     string _name;
-    int _atributos[7]; //Nivel, Salud, Poder, Precisión, Proteccion, especial1 y especial2
-    Objetos* _inventario[4];
+    vector<int> _atributos; //Nivel, Salud, Poder, Precisión, Proteccion, especial1 y especial2
+    vector<Objetos*> _inventario;
 public:
     Personajes();
     Personajes(const string& name);
