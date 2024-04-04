@@ -21,7 +21,7 @@ public:
     void setName(const string& name);
     virtual void setAtributos(const vector<int> atributos, const int tamaño) =0;
     virtual void setAtributos() =0;
-    virtual void setInventario(const Objetos* objetos[]) =0;
+    virtual void setInventario(const vector<Objetos*>) =0;
     int tirar_dados() const;
     virtual void Display() const =0; //Display
     virtual int Ataque() =0;

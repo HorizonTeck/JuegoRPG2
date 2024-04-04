@@ -10,7 +10,7 @@ public:
     Arquero(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
     virtual void setAtributos(const vector<int> atributos, const int tamaño);
     virtual void setAtributos();
-    virtual void setInventario(const vector<Objetos*> objetos);^
+    virtual void setInventario(const vector<Objetos*> objetos);
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
