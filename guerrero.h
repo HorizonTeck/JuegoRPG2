@@ -12,8 +12,8 @@ public:
     virtual void setAtributos();
     virtual void setInventario(const Objetos **objetos);
     virtual void Display() const;
-    virtual void Ataque(Personajes& Defensor);
-    virtual void Defensa(Personajes& Atacante);
+    virtual int Ataque();
+    virtual int Defensa();
     virtual string identificador();
     virtual~Guerrero();
 };

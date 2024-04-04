@@ -36,12 +36,20 @@ void Guerrero::Display() const {
     cout <<" Fuerza: "<<_atributos[5]<<" Escudo: "<<_atributos[6]<<endl;
 }
 
-void Guerrero::Ataque(Personajes& Defensor) {
-
+int Guerrero::Ataque() {
+    const int* atributos = getAtributos();
+    int ataque=0;
+    ataque = atributos[2]*atributos[0]+atributos[5];//FALTA LAS ARMAS
+    return ataque;
+    delete[] atributos;
 }
 
-void Guerrero::Defensa(Personajes& Atacante) {
-
+int Guerrero::Defensa() {
+    const int* atributos = getAtributos();
+    int defensa=0;
+    defensa = atributos[4]*atributos[0]+atributos[6];
+    return defensa;
+    delete[] atributos;
 }
 
 string Guerrero::identificador(){
@@ -50,4 +58,3 @@ string Guerrero::identificador(){
 Guerrero::~Guerrero() {
 
 }
-
