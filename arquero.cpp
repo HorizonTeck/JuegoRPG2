@@ -37,19 +37,19 @@ void Arquero::Display() const {
 }
 
 int Arquero::Ataque() {
-    const int* atributos = getAtributos();
+    vector<int> atributos ;
+    atributos = getAtributos();
     int ataque=0;
     ataque = atributos[2]*atributos[0];//FALTA LAS ARMAS Y FLECHAS
     return ataque;
-    delete[] atributos;
 }
 
 int Arquero::Defensa() {
-    const int* atributos = getAtributos();
+    vector<int> atributos ;
+    atributos = getAtributos();
     int defensa=0;
     defensa = atributos[4]*atributos[0]+2*atributos[5];
     return defensa;
-    delete[] atributos;
 }
 
 string Arquero::identificador(){

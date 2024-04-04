@@ -20,8 +20,7 @@ void Mago::setAtributos(){
     _atributos[2] = 0 + rand() % (30-0+1); //poder
     _atributos[3] = 1 + rand() % (12-1+1); //precisión
     _atributos[4] = 15 + rand() % (30-15+1); //protección
-    _atributos[5] = 1 + rand() % (15-1+1); //fuerza
-    _atributos[6] = 0 + rand() % (30-0+1); //escudo
+    _atributos[5] = 1 + rand() % (15-1+1); //mana
 }
 
 void Mago::setInventario(const Objetos **objetos) {
@@ -33,23 +32,23 @@ void Mago::setInventario(const Objetos **objetos) {
 void Mago::Display() const {
     cout<< " Mago: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
-    cout <<" Fuerza: "<<_atributos[5]<<" Escudo: "<<_atributos[6]<<endl;
+    cout <<" Mana: "<<_atributos[5]<<endl;
 }
 
 int Mago::Ataque() {
-    const int* atributos = getAtributos();
+    vector<int> atributos ;
+    atributos = getAtributos();
     int ataque=0;
-    ataque = atributos[2]*atributos[0]+atributos[5];//FALTA LAS ARMAS
+    ataque = atributos[2]*atributos[0];//FALTA LAS ARMAS
     return ataque;
-    delete[] atributos;
 }
 
 int Mago::Defensa() {
-    const int* atributos = getAtributos();
+    vector<int> atributos ;
+    atributos = getAtributos();
     int defensa=0;
-    defensa = atributos[4]*atributos[0]+atributos[6];
+    defensa = atributos[4]*atributos[0];
     return defensa;
-    delete[] atributos;
 }
 
 string Mago::identificador(){
