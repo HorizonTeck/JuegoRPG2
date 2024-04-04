@@ -29,6 +29,3 @@ public:
     virtual~Personajes();
 };
 #endif // PERSONAJES_H
-
-//hola buenas tardes
-//ADIOS
