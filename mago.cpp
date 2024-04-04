@@ -4,9 +4,9 @@ Mago::Mago() : Personajes() {}
 
 Mago::Mago(const string& name) : Personajes(name) {}
 
-Mago::Mago(const string& name, const int atributos[], const Objetos** inventario) : Personajes(name, atributos, inventario) {}
+Mago::Mago(const string& name,vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {}
 
-void Mago::setAtributos(const int atributos[], const int tamaño) {
+void Mago::setAtributos(vector<int> atributos, const int tamaño) {
     for(int i=0;i<tamaño;i++){
         this->_atributos[i] = atributos[i];
     }
@@ -23,7 +23,7 @@ void Mago::setAtributos(){
     _atributos[5] = 1 + rand() % (15-1+1); //mana
 }
 
-void Mago::setInventario(const Objetos **objetos) {
+void Mago::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){
         *_inventario[i] = *objetos[i];
     }

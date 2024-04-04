@@ -4,9 +4,9 @@ Arquero::Arquero() : Personajes() {}
 
 Arquero::Arquero(const string& name) : Personajes(name) {}
 
-Arquero::Arquero(const string& name, const int atributos[], const Objetos** inventario) : Personajes(name, atributos, inventario) {}
+Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {}
 
-void Arquero::setAtributos(const int atributos[], const int tamaño) {
+void Arquero::setAtributos(vector<int> atributos, const int tamaño) {
     for(int i=0;i<tamaño;i++){
         this->_atributos[i] = atributos[i];
     }
@@ -24,7 +24,7 @@ void Arquero::setAtributos(){
     _atributos[6] = 0 + rand() % (30-0+1); //carcaj
 }
 
-void Arquero::setInventario(const Objetos **objetos) {
+void Arquero::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){
         *_inventario[i] = *objetos[i];
     }

@@ -4,9 +4,9 @@ Guerrero::Guerrero() : Personajes() {}
 
 Guerrero::Guerrero(const string& name) : Personajes(name) {}
 
-Guerrero::Guerrero(const string& name, const int atributos[], const Objetos** inventario) : Personajes(name, atributos, inventario) {}
+Guerrero::Guerrero(const string& name, vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {}
 
-void Guerrero::setAtributos(const int atributos[], const int tamaño) {
+void Guerrero::setAtributos(vector<int> atributos, const int tamaño) {
     for(int i=0;i<tamaño;i++){
         this->_atributos[i] = atributos[i];
     }
@@ -24,7 +24,7 @@ void Guerrero::setAtributos(){
     _atributos[6] = 0 + rand() % (30-0+1); //escudo
 }
 
-void Guerrero::setInventario(const Objetos **objetos) {
+void Guerrero::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){
         *_inventario[i] = *objetos[i];
     }

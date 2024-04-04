@@ -7,7 +7,7 @@ Personajes::Personajes(){
 Personajes::Personajes(const string& name){
     _name=name;
 }
-Personajes::Personajes(const string& name, const int atributos[], const Objetos* inventario[]){
+Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos*>  inventario){
     _name=name;
     for(int i=0;i<6;i++){
         _atributos[i] = atributos[i];
