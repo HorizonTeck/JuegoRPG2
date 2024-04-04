@@ -5,8 +5,10 @@ CONFIG -= qt
 
 SOURCES += \
         armas.cpp \
+        arquero.cpp \
         equipo.cpp \
         guerrero.cpp \
+        mago.cpp \
         main.cpp \
         objetos.cpp \
         personajes.cpp \
@@ -14,8 +16,10 @@ SOURCES += \
 
 HEADERS += \
     armas.h \
+    arquero.h \
     equipo.h \
     guerrero.h \
+    mago.h \
     objetos.h \
     personajes.h \
     pociones.h
