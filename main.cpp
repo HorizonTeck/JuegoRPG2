@@ -5,10 +5,10 @@
 
 using namespace std;
 
-void guardarObjetos(vector<Objetos*> objetos, int numObjetos, const string& nombreArchivo) {
+void guardarObjetos(vector<Objetos*> objetos, const string& nombreArchivo) {
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
-        for (int i = 0; i < numObjetos; ++i) {
+        for (int i = 0; i < objetos.size(); ++i) {
             objetos[i]->serializar(archivo);
         }
         archivo.close();
@@ -17,12 +17,12 @@ void guardarObjetos(vector<Objetos*> objetos, int numObjetos, const string& nomb
     }
 }
 
-void cargarObjetos(vector<Objetos*> objetos, int numObjetos, const string& nombreArchivo) {
+void cargarObjetos(vector<Objetos*> objetos, const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
     string TipoObjeto, name, Tipo;
     int power;
     if (archivo.is_open()) {
-        for (int i = 0; i < numObjetos; ++i) {
+        for (int i = 0; i < objetos.size(); ++i) {
             archivo >> TipoObjeto >> name >> Tipo >> power;
             if(TipoObjeto=="Arma"){
                 objetos[i] = new Armas(TipoObjeto, name, Tipo, power);
@@ -60,9 +60,11 @@ int contarLineas(const string& nombreArchivo) {
 int main(){
     int Ndeobjetos = 1;                                          //Ejemplo de guardar objetos en txt
     vector<Objetos*> Lista_Objetos;
-    Lista_Objetos.push_back(new Armas("Arma", "Juan", "Cortante", 46));
+    Lista_Objetos.push_back(new Armas("Arma", "julian", "Cortante", 46));
     Lista_Objetos.push_back(new Armas("Arma", "Pepe", "Contundente", 50));
-    guardarObjetos(Lista_Objetos, Ndeobjetos, "ObjetosPrueba.txt");
+    Lista_Objetos.push_back(new Armas("Arma", "Monica", "Gorda", 1000000));
+    guardarObjetos(Lista_Objetos, "ObjetosPrueba.txt");
+
 
 
     /* int Ndeobjetos = contarLineas("objetos.txt");      //Ejemplo de como se cargarian objetos desde txt en el programa
