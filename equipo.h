@@ -13,10 +13,10 @@ public:
     Equipo();
     Equipo(const string& name,const int& n);
     string getName() const;
-    Personajes** getLista_Personajes() const;
+    vector<Personajes*> getLista_Personajes() const;
     Personajes* getLista_Personajes(int n) const;
     void setName(const string& name);
-    void setLista_Personajes(Personajes **lista);
+    void setLista_Personajes(vector<Personajes*> lista);
     void display() const;
     ~Equipo();
 };

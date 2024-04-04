@@ -16,8 +16,8 @@ public:
     Personajes(const string& name);
     Personajes(const string& name, const int atributos[],const Objetos **inventario);
     string getName() const;
-    const int* getAtributos() const;
-    const Objetos* const* getInventario() const;
+    vector<int> getAtributos() const;
+    vector<Objetos*> getInventario() const;
     void setName(const string& name);
     virtual void setAtributos(const int atributos[], const int tamaño) =0;
     virtual void setAtributos() =0;

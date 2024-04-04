@@ -28,11 +28,11 @@ void Personajes::setName(const string &name){
     _name=name;
 }
 
-const Objetos* const* Personajes::getInventario() const{
+vector<Objetos*> Personajes::getInventario() const{
     return _inventario;
 }
 
-const int* Personajes::getAtributos() const{
+vector<int> Personajes::getAtributos() const{
     return _atributos;
 }
 int Personajes::tirar_dados() const{

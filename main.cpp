@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void guardarObjetos(Objetos **objetos, int numObjetos, const string& nombreArchivo) {
+void guardarObjetos(Objetos** objetos, int numObjetos, const string& nombreArchivo) {
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < numObjetos; ++i) {
@@ -58,7 +58,7 @@ int contarLineas(const string& nombreArchivo) {
 }
 
 int main(){
-    /* int Ndeobjetos = 1;                                          //Ejemplo de guardar objetos en txt
+    int Ndeobjetos = 1;                                          //Ejemplo de guardar objetos en txt
     Objetos** Lista_Objetos = new Objetos*[Ndeobjetos];
     Lista_Objetos[0] = new Armas("Arma", "Name", "Cortante", 46);
     Lista_Objetos[1] = new Armas("Arma", "Name", "Cortante", 46);
@@ -66,7 +66,7 @@ int main(){
     for(int i=0;i<Ndeobjetos;i++){
         delete Lista_Objetos[i];
     }
-    delete[] Lista_Objetos; */
+    delete[] Lista_Objetos;
 
     /* int Ndeobjetos = contarLineas("objetos.txt");      //Ejemplo de como se cargarian objetos desde txt en el programa
     if(Ndeobjetos<0) cout<<"No hay suficientes objetos"<<endl;
