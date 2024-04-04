@@ -24,8 +24,8 @@ public:
     virtual void setInventario(const Objetos* objetos[]) =0;
     int tirar_dados() const;
     virtual void Display() const =0; //Display
-    virtual void Ataque(Personajes& Defensor) =0;
-    virtual void Defensa(Personajes& Atacante) =0;
+    virtual int Ataque() =0;
+    virtual int Defensa() =0;
     virtual string identificador() =0;
     virtual~Personajes();
 };
