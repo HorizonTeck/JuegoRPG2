@@ -6,57 +6,83 @@ using namespace std;
 
 int main(){
     Funciones funcion;
-    int tecla=0;
-    while(tecla!=4){
+    int tecla = 0;
+    while(tecla != 4){
         cout << "Bienvenido a JuegoRPG2, que desea hacer: "<<endl;
         cout << "1. Menu de carga  2. Menu de creacion  3. Menu de Juego 4. Salir"<<endl;
-        cin>>tecla;
+        cin >> tecla;
         switch(tecla){
             case 1:{
-                cout << "1. Cargar los equipos    2. Guardar los equipos   3. Cargar los objetos   4. Guardar los objetos   5. Cargar personajes  6. Guardar Personaje  7. atras" <<endl;
-                cin>>tecla;
-                switch(tecla){
-                    case 1:{
-                        funcion.cargar();
+                while(tecla!=7){
+                    cout << "1. Cargar los equipos    2. Guardar los equipos   3. Cargar los objetos   4. Guardar los objetos"<<endl;
+                    cout << "5. Cargar personajes  6. Guardar Personaje  7. atras" <<endl;
+                    cin >> tecla;
+                    switch(tecla){
+                        case 1:{
+                            funcion.cargar();
+                            break;
+                        }
+                        case 2:{
+                            funcion.guardar();
+                            break;
+                        }
+                        case 3:{
+                            funcion.cargar();
+                            break;
+                        }
+                        case 4:{
+                            funcion.guardar();
+                            break;
+                        }
+                        case 5:{
+                            funcion.cargar();
+                            break;
+                        }
+                        case 6:{
+                            funcion.guardar();
+                            break;
+                        }
+                        case 7:{
+                            break;
+                        }
+                        default:{
+                            cout<<"No has introducido una tecla valida, se volvera al menú anterior"<<endl;
+                            break;
+                        }
                     }
-                    case 2:{
-                        funcion.guardar();
-                    }
-                    case 3:{
-                        funcion.cargar();
-                    }
-                    case 4:{
-                        funcion.guardar();
-                    }
-                    case 5:{
-                        funcion.cargar();
-                    }
-                    case 6:{
-                        funcion.guardar();
-                    }
-                    case 7:{
-                        break;
-                    }
-            }
-        }
-            case 2:{
-                cout << "1. Crear un equipo  2. Eliminar un equipo  3. Crear un personaje  4. Eliminar un personaje  5. Crear un objeto  6. Eliminar un objeto  7. atras"<<endl;
-                cin>>tecla;
-                switch(tecla){
-                    case 7:
-                        break;
                 }
+                break;
+            }
+
+
+            case 2:{
+                while(tecla!=7){
+                    cout << "1. Crear un equipo  2. Eliminar un equipo  3. Crear un personaje  4. Eliminar un personaje" <<endl;
+                    cout <<"5. Crear un objeto  6. Eliminar un objeto  7. atras"<<endl;
+                    cin >> tecla;
+                    switch(tecla){
+                        case 7:
+                            break;
+                    }
+                    break;
+                }
+                break;
             }
             case 3:{
-
+                break;
             }
             case 4:{
                 break;
             }
-
+            default:{
+                cout<<"No has introducido una tecla valida, se volvera al menú anterior"<<endl;
+                break;
+            }
         }
     }
-    cout<<"Hasta la proxima"<<endl;
+    cout << "Hasta la proxima" << endl;
+
+
 
 
 
