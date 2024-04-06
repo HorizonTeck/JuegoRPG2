@@ -58,7 +58,11 @@ void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
 }
 
 void Funciones::cargar(){
-
+    cout<<"La version del juego corresponde con la entrega 2 del trabajo"<<endl;
+    cout<<"por lo que esta parte no esta aun disponible"<<endl;
+    cout<<"puedes usar las pequeñas 'demos' que estan abajo del main, descomentando las que quieras"<<endl;
+    cout<<"Se te enviara al menu anterior en 5 segundos"<<endl;
+    this_thread::sleep_for(chrono::seconds(4));
 }
 
 void Funciones::guardar(){

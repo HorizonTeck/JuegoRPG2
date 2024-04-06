@@ -6,6 +6,8 @@
 #include <armas.h>
 #include <pociones.h>
 #include <vector>
+#include <thread>
+#include <chrono>
 
 
 
