@@ -7,6 +7,7 @@ SOURCES += \
         armas.cpp \
         arquero.cpp \
         equipo.cpp \
+        funciones.cpp \
         guerrero.cpp \
         mago.cpp \
         main.cpp \
@@ -18,6 +19,7 @@ HEADERS += \
     armas.h \
     arquero.h \
     equipo.h \
+    funciones.h \
     guerrero.h \
     mago.h \
     objetos.h \

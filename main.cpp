@@ -1,83 +1,87 @@
-#include <equipo.h>
-#include <guerrero.h>
-#include <armas.h>
-#include <pociones.h>
+#include <funciones.h>
 
 using namespace std;
 
-void guardarObjetos(vector<Objetos*> objetos, const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo);
-    if (archivo.is_open()) {
-        for (int i = 0; i < objetos.size(); ++i) {
-            objetos[i]->serializar(archivo);
-        }
-        archivo.close();
-    } else {
-        cerr << "Error al abrir el archivo para escritura." << endl;
-    }
-}
 
-void cargarObjetos(vector<Objetos*> objetos, const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
-    string TipoObjeto, name, Tipo;
-    int power;
-    if (archivo.is_open()) {
-        for (int i = 0; i < objetos.size(); ++i) {
-            archivo >> TipoObjeto >> name >> Tipo >> power;
-            if(TipoObjeto=="Arma"){
-                objetos[i] = new Armas(TipoObjeto, name, Tipo, power);
-            }
-            else if(TipoObjeto=="Poción"){
-                objetos[i] = new Pociones(TipoObjeto, name, Tipo, power);
-            }
-            else{
-                cout<<"El tipo de arma introducido en la fila "<< i+1 << " no es valido"<<endl;
-            }
-        }
-        archivo.close();
-    } else {
-        cerr << "Error al abrir el archivo para lectura." << std::endl;
-    }
-}
-
-int contarLineas(const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
-    if (!archivo.is_open()) {
-        cerr << "Error al abrir el archivo." << endl;
-        return -1;
-    }
-    int contador = 0;
-    string linea;
-    while (getline(archivo, linea)) {
-        if (!linea.empty()) {
-            contador++;
-        }
-    }
-    archivo.close();
-    return contador;
-}
 
 int main(){
-    int Ndeobjetos = 1;                                          //Ejemplo de guardar objetos en txt
+    Funciones funcion;
+    int tecla=0;
+    while(tecla!=4){
+        cout << "Bienvenido a JuegoRPG2, que desea hacer: "<<endl;
+        cout << "1. Menu de carga  2. Menu de creacion  3. Menu de Juego 4. Salir"<<endl;
+        cin>>tecla;
+        switch(tecla){
+            case 1:{
+                cout << "1. Cargar los equipos    2. Guardar los equipos   3. Cargar los objetos   4. Guardar los objetos   5. Cargar personajes  6. Guardar Personaje  7. atras" <<endl;
+                cin>>tecla;
+                switch(tecla){
+                    case 1:{
+                        funcion.cargar();
+                    }
+                    case 2:{
+                        funcion.guardar();
+                    }
+                    case 3:{
+                        funcion.cargar();
+                    }
+                    case 4:{
+                        funcion.guardar();
+                    }
+                    case 5:{
+                        funcion.cargar();
+                    }
+                    case 6:{
+                        funcion.guardar();
+                    }
+                    case 7:{
+                        break;
+                    }
+            }
+        }
+            case 2:{
+                cout << "1. Crear un equipo  2. Eliminar un equipo  3. Crear un personaje  4. Eliminar un personaje  5. Crear un objeto  6. Eliminar un objeto  7. atras"<<endl;
+                cin>>tecla;
+                switch(tecla){
+                    case 7:
+                        break;
+                }
+            }
+            case 3:{
+
+            }
+            case 4:{
+                break;
+            }
+
+        }
+    }
+    cout<<"Hasta la proxima"<<endl;
+
+
+
+                                        //Ejemplo de guardar objetos en txt
     vector<Objetos*> Lista_Objetos;
     Lista_Objetos.push_back(new Armas("Arma", "julian", "Cortante", 46));
     Lista_Objetos.push_back(new Armas("Arma", "Pepe", "Contundente", 50));
     Lista_Objetos.push_back(new Armas("Arma", "Monica", "Gorda", 1000000));
-    guardarObjetos(Lista_Objetos, "ObjetosPrueba.txt");
+    funcion.guardar(Lista_Objetos, "ObjetosPrueba.txt");
+    for(auto objeto : Lista_Objetos){
+        delete objeto;
+    }
 
 
+        //Ejemplo de como se cargarian objetos desde txt en el programa
 
-    /* int Ndeobjetos = contarLineas("objetos.txt");      //Ejemplo de como se cargarian objetos desde txt en el programa
-    if(Ndeobjetos<0) cout<<"No hay suficientes objetos"<<endl;
+    if( funcion.contarLineas("objetos.txt") < 0) cout<<"No hay suficientes objetos"<<endl;
     else{
-        Objetos** Lista_Objetos= new Objetos*[Ndeobjetos];
-        cargarObjetos(Lista_Objetos,Ndeobjetos,"objetos.txt");
-        for (int i = 0; i < Ndeobjetos; ++i){
+        vector<Objetos*> Lista_Objetos;
+        funcion.cargar(Lista_Objetos,"objetos.txt");
+        for (int i=0;i<static_cast<int>(Lista_Objetos.size());i++){
             Lista_Objetos[i]->display();
-            Lista_Objetos[i]=nullptr;
             delete Lista_Objetos[i];
         }
-    } */
+    }
 
     /* Personajes **lista = new Personajes*[3];  //Ejemplo de como seria poner una lista de personajes en equipo
     lista[0] = new Guerrero;
