@@ -1,52 +1,55 @@
 #include <funciones.h>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
-
-
-int main(){
+int main() {
     Funciones funcion;
+    vector<Equipo*> Lista_Equipos;
     int tecla = 0;
-    while(tecla != 4){
-        cout << "Bienvenido a JuegoRPG2, que desea hacer: "<<endl;
-        cout << "1. Menu de carga  2. Menu de creacion  3. Menu de Juego 4. Salir"<<endl;
+    cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
+    while (tecla != 4) {
+        this_thread::sleep_for(chrono::seconds(1));
+        system("clear");
+        cout << "1. Menu de carga  2. Menu de creacion  3. Menu de Juego  4. Salir" << endl;
         cin >> tecla;
-        switch(tecla){
-            case 1:{
-                while(tecla!=7){
-                    cout << "1. Cargar los equipos    2. Guardar los equipos   3. Cargar los objetos   4. Guardar los objetos"<<endl;
-                    cout << "5. Cargar personajes  6. Guardar Personaje  7. atras" <<endl;
+        switch (tecla) {
+            case 1: {
+                while (tecla != 7) {
+                    cout << "1. Cargar los equipos    2. Guardar los equipos   3. Cargar los objetos   4. Guardar los objetos" << endl;
+                    cout << "5. Cargar personajes  6. Guardar Personaje  7. Atrás" << endl;
                     cin >> tecla;
-                    switch(tecla){
-                        case 1:{
+                    switch (tecla) {
+                        case 1: {
                             funcion.cargar();
                             break;
                         }
-                        case 2:{
+                        case 2: {
                             funcion.guardar();
                             break;
                         }
-                        case 3:{
+                        case 3: {
                             funcion.cargar();
                             break;
                         }
-                        case 4:{
+                        case 4: {
                             funcion.guardar();
                             break;
                         }
-                        case 5:{
+                        case 5: {
                             funcion.cargar();
                             break;
                         }
-                        case 6:{
+                        case 6: {
                             funcion.guardar();
                             break;
                         }
-                        case 7:{
+                        case 7: {
                             break;
                         }
-                        default:{
-                            cout<<"No has introducido una tecla valida, se volvera al menú anterior"<<endl;
+                        default: {
+                            cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                             break;
                         }
                     }
@@ -55,32 +58,90 @@ int main(){
             }
 
 
-            case 2:{
-                while(tecla!=7){
-                    cout << "1. Crear un equipo  2. Eliminar un equipo  3. Crear un personaje  4. Eliminar un personaje" <<endl;
-                    cout <<"5. Crear un objeto  6. Eliminar un objeto  7. atras"<<endl;
+            case 2: {
+                while (tecla != 7) {
+                    this_thread::sleep_for(chrono::seconds(1));
+                    system("clear");
+                    cout << "1. Crear un equipo"<<endl<<"2. Eliminar un equipo"<<endl<<"3. Crear un personaje"<<endl<<"4. Eliminar un personaje" << endl;
+                    cout << "5. Crear un objeto"<<endl<<"6. Eliminar un objeto"<<endl<<"7. Atrás" << endl;
                     cin >> tecla;
-                    switch(tecla){
-                        case 7:
+                    switch (tecla) {
+                        case 1: {
+                            string *nombre=new string;
+                            cout<<"Como quieres nombrar el equipo: "<<endl;
+                            cin>>*nombre;
+                            Lista_Equipos.push_back(new Equipo(*nombre));
+                            delete nombre;
                             break;
+                        }
+                        case 2: {
+                            if(static_cast<int>(Lista_Equipos.size())<=0){
+                                cout<<"No hay ningun equipo disponible actualmente"<<endl;
+                            }
+                            else{
+                                int *seleccion=new int;
+                                cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
+                                for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
+                                    cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
+                                }
+                                cout<<"Cual de ellos quieres borrar? "<<endl;
+                                cin>>*seleccion;
+                                if (*seleccion > 0 && *seleccion <= static_cast<int>(Lista_Equipos.size())){
+                                    cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[*seleccion-1]->getName()<<endl;
+                                    auto it = Lista_Equipos.begin() + *seleccion - 1;
+                                    delete *it;
+                                    Lista_Equipos.erase(it);
+                                    cout << "El equipo ha sido eliminado correctamente." << endl;
+                                } else {
+                                    cout << "Selección inválida." << endl;
+                                }
+                                delete seleccion;
+                            }
+                            break;
+                        }
+                        case 3: {
+                            break;
+                        }
+                        case 4: {
+                            break;
+                        }
+                        case 5: {
+                            break;
+                        }
+                        case 6: {
+                            break;
+                        }
+                        case 7: {
+                            break;
+                        }
+                        default: {
+                            cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
+                            break;
+                        }
                     }
-                    break;
                 }
                 break;
             }
-            case 3:{
+
+
+            case 3: {
                 break;
             }
-            case 4:{
+
+
+            case 4: {
                 break;
             }
-            default:{
-                cout<<"No has introducido una tecla valida, se volvera al menú anterior"<<endl;
+
+
+            default: {
+                cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                 break;
             }
         }
     }
-    cout << "Hasta la proxima" << endl;
+    cout << "Hasta la próxima" << endl;
+
 
 
 
@@ -124,4 +185,5 @@ int main(){
     cout<<endl;
     equipo.display(); */
 
+    return 0;
 }

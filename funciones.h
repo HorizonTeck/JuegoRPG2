@@ -5,6 +5,7 @@
 #include <guerrero.h>
 #include <armas.h>
 #include <pociones.h>
+#include <vector>
 
 
 

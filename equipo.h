@@ -7,11 +7,10 @@
 class Equipo{
 private:
     string _name;
-    int _tamaño;
     vector<Personajes*> _Lista_Personajes;
 public:
     Equipo();
-    Equipo(const string& name,const int& n);
+    Equipo(const string& name);
     string getName() const;
     vector<Personajes*> getLista_Personajes() const;
     Personajes* getLista_Personajes(int n) const;
