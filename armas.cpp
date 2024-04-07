@@ -9,24 +9,16 @@ Armas::~Armas() {
 
 }
 
-string Armas::getTipoObjeto() const {
-    return _TipoObjeto;
-}
-
 int Armas::getPower() const {
     return _power;
 }
 
-void Armas::setPower(const int& power) {
-    _power = power;
-}
-
-void Armas::setTipoObjeto(const string& TipoObjeto) {
-    _TipoObjeto = TipoObjeto;
-}
-
 string Armas::getTipo() const{
     return _TipoArma;
+}
+
+void Armas::setPower(const int& power) {
+    _power = power;
 }
 
 void Armas::setTipo(const string& TipoArma){

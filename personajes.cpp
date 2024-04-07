@@ -32,6 +32,11 @@ vector<Objetos*> Personajes::getInventario() const{
     return _inventario;
 }
 
+int Personajes::getAtributos(int atrib)
+{
+    return _atributos[atrib];
+}
+
 vector<int> Personajes::getAtributos() const{
     return _atributos;
 }

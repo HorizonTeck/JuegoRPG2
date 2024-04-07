@@ -8,8 +8,8 @@ public:
     Mago();
     Mago(const string& name);
     Mago(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
-    virtual void setAtributos(const vector<int> atributos, const int tamaño);
     virtual void setAtributos();
+    virtual void setAtributos(const vector<int> atributos);
     virtual void setInventario(const vector<Objetos*> objetos);
     virtual void Display() const;
     virtual int Ataque();

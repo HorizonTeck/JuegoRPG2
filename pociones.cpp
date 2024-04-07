@@ -8,28 +8,30 @@ Pociones::Pociones(const string& TipoObjeto, const string& name, const string& T
 
 Pociones::~Pociones() {}
 
-string Pociones::getTipoObjeto() const {
-    return _TipoObjeto;
-}
 
 int Pociones::getPower() const {
     return _power;
-}
-
-void Pociones::setPower(const int& power) {
-    _power = power;
-}
-
-void Pociones::setTipoObjeto(const string& TipoObjeto) {
-    _TipoObjeto = TipoObjeto;
 }
 
 string Pociones::getTipo() const {
     return _TipoPocion;
 }
 
+void Pociones::setPower(const int& power) {
+    _power = power;
+}
+
 void Pociones::setTipo(const string& TipoPocion) {
     _TipoPocion = TipoPocion;
+}
+
+void Pociones::LanzarPocion(Personajes* Defensor)
+{
+    if(_TipoPocion=="Mana"||_TipoPocion=="mana")
+    {
+
+    }
+    delete atrib;
 }
 
 void Pociones::serializar(ofstream& archivo) const {

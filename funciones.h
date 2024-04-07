@@ -3,6 +3,8 @@
 
 #include <equipo.h>
 #include <guerrero.h>
+#include <arquero.h>
+#include <mago.h>
 #include <armas.h>
 #include <pociones.h>
 #include <vector>

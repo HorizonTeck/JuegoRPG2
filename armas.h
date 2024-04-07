@@ -10,10 +10,8 @@ public:
     Armas();
     Armas(const string& name, const string& TipoObjeto, const string& TipoArma, const int& power);
     virtual string getTipo() const;
-    virtual string getTipoObjeto() const;
     virtual int getPower() const;
     virtual void setPower(const int& power);
-    virtual void setTipoObjeto(const string& TipoObjetos);
     virtual void setTipo(const string& TipoArma);
     virtual void serializar(ofstream& archivo) const;
     virtual void display() const;

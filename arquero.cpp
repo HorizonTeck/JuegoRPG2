@@ -1,27 +1,27 @@
 #include "arquero.h"
 
-Arquero::Arquero() : Personajes() {}
+Arquero::Arquero() : Personajes() {_atributos.resize(7);}
 
-Arquero::Arquero(const string& name) : Personajes(name) {}
+Arquero::Arquero(const string& name) : Personajes(name) {_atributos.resize(7);}
 
-Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {}
+Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {_atributos.resize(7);}
 
-void Arquero::setAtributos(vector<int> atributos, const int tamaño) {
-    for(int i=0;i<tamaño;i++){
-        this->_atributos[i] = atributos[i];
-    }
-    //se puede quitar tamaño y poner 6 quizá
-}
 
 void Arquero::setAtributos(){
     srand(static_cast<unsigned int>(time(nullptr)));
-    _atributos[0] = 0; //nivel
-    _atributos[1] = 0 + rand() % (100-0+1); //salud
-    _atributos[2] = 0 + rand() % (30-0+1); //poder
-    _atributos[3] = 1 + rand() % (12-1+1); //precisión
-    _atributos[4] = 15 + rand() % (30-15+1); //protección
-    _atributos[5] = 1 + rand() % (15-1+1); //agilidad
-    _atributos[6] = 0 + rand() % (30-0+1); //carcaj
+    _atributos[0]=0; //nivel
+    _atributos[1]=0 + rand() % (100-0+1); //salud
+    _atributos[2]=0 + rand() % (30-0+1); //poder
+    _atributos[3]=1 + rand() % (12-1+1); //precisión
+    _atributos[4]=15 + rand() % (30-15+1); //protección
+    _atributos[5]=1 + rand() % (15-1+1); //agilidad
+    _atributos[6]=0 + rand() % (30-0+1); //carcaj
+}
+
+void Arquero::setAtributos(vector<int> atributos) {
+    for(int i=0;i<static_cast<int>(atributos.size());i++){
+        this->_atributos[i] = atributos[i];
+    }
 }
 
 void Arquero::setInventario(vector<Objetos*> objetos) {
@@ -37,18 +37,14 @@ void Arquero::Display() const {
 }
 
 int Arquero::Ataque() {
-    vector<int> atributos ;
-    atributos = getAtributos();
     int ataque=0;
-    ataque = atributos[2]*atributos[0];//FALTA LAS ARMAS Y FLECHAS
+    ataque = getAtributos(2)*getAtributos(0);//FALTA LAS ARMAS Y FLECHAS
     return ataque;
 }
 
 int Arquero::Defensa() {
-    vector<int> atributos ;
-    atributos = getAtributos();
     int defensa=0;
-    defensa = atributos[4]*atributos[0]+2*atributos[5];
+    defensa = getAtributos(4)*getAtributos(0)+2*getAtributos(5);
     return defensa;
 }
 

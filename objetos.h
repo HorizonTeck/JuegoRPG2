@@ -14,12 +14,13 @@ public:
     Objetos();
     Objetos(const string& TipoObjeto, const string& name, const int& power);
     virtual string getName() const;
-    virtual string getTipoObjeto() const =0;
-    virtual int getPower() const =0;
+    virtual string getTipoObjeto() const;
     virtual string getTipo() const=0;
+    virtual int getPower() const =0;
     virtual void setName(const string& name);
+    virtual void setTipoObjeto(const string& TipoObjeto);
+    virtual void setTipo(const string& tipo)=0;
     virtual void setPower(const int& power)=0;
-    virtual void setTipoObjeto(const string& TipoObjeto)=0;
     virtual void display() const =0;
     virtual void serializar(ofstream& archivo) const =0;
     virtual~Objetos();
