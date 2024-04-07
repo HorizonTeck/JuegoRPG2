@@ -25,6 +25,14 @@ void Guerrero::setAtributos(vector<int> atributos) {
     }
 }
 
+void Guerrero::setAtributos(int atrib, int posicion) {
+    if(posicion<=6)
+    {
+        _atributos[posicion]=atrib;
+    }else
+        cout<< "Posicion no encontrada"<<endl;
+}
+
 void Guerrero::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){
         *_inventario[i] = *objetos[i];

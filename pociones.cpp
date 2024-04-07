@@ -29,9 +29,9 @@ void Pociones::LanzarPocion(Personajes* Defensor)
 {
     if(_TipoPocion=="Mana"||_TipoPocion=="mana")
     {
-
-    }
-    delete atrib;
+        Defensor->setAtributos(15,5);
+    }else
+        Defensor->setAtributos(100,1);
 }
 
 void Pociones::serializar(ofstream& archivo) const {

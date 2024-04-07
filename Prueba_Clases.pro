@@ -9,6 +9,7 @@ SOURCES += \
         equipo.cpp \
         funciones.cpp \
         guerrero.cpp \
+        hechizos.cpp \
         mago.cpp \
         main.cpp \
         objetos.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     equipo.h \
     funciones.h \
     guerrero.h \
+    hechizos.h \
     mago.h \
     objetos.h \
     personajes.h \

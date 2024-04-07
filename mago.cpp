@@ -20,6 +20,13 @@ void Mago::setAtributos(vector<int> atributos) {
         this->_atributos[i] = atributos[i];
     }
 }
+void Mago::setAtributos(int atrib, int posicion) {
+    if(posicion<=5)
+    {
+        _atributos[posicion]=atrib;
+    }else
+        cout<< "Posicion no encontrada"<<endl;
+}
 
 void Mago::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){

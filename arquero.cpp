@@ -24,6 +24,14 @@ void Arquero::setAtributos(vector<int> atributos) {
     }
 }
 
+void Arquero::setAtributos(int atrib, int posicion) {
+    if(posicion<=6)
+    {
+        _atributos[posicion]=atrib;
+    }else
+        cout<< "Posicion no encontrada"<<endl;
+}
+
 void Arquero::setInventario(vector<Objetos*> objetos) {
     for(int i=0;i<4;i++){
         *_inventario[i] = *objetos[i];
