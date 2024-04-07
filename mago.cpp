@@ -6,17 +6,17 @@ Mago::Mago(const string& name) : Personajes(name) {_atributos.resize(6);}
 
 Mago::Mago(const string& name,vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {_atributos.resize(6);}
 
-void Mago::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCION DE NUMEROS FUERA DE ELLOS
+void Mago::setAtributos(bool random){
     int* comprobacion=new int();
     _atributos[0]=1; //nivel
     if(random==0)
     {
         srand(static_cast<unsigned int>(time(nullptr)));
         _atributos[1]=0 + rand() % (100-0+1); //salud
-        _atributos[2]=0 + rand() % (30-0+1); //poder
+        _atributos[2]=0 + rand() % (70-50+1); //poder
         _atributos[3]=1 + rand() % (12-1+1); //precisión
-        _atributos[4]=15 + rand() % (30-15+1); //protección
-        _atributos[5]=1 + rand() % (15-1+1); //mana
+        _atributos[4]=15 + rand() % (60-50+1); //protección
+        _atributos[5]=1 + rand() % (15-0+1); //mana
     }else
     {
         cout << "Dime la salud de tu personaje"<< endl;
@@ -30,7 +30,7 @@ void Mago::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCION D
         }
         cout << "Dime el poder de tu personaje"<< endl;
         cin>> *comprobacion;
-        if(*comprobacion>=0&&*comprobacion<=30)
+        if(*comprobacion>=70&&*comprobacion<=50)
         {
             _atributos[2]=*comprobacion;
          } else

@@ -7,7 +7,7 @@ Arquero::Arquero(const string& name) : Personajes(name) {_atributos.resize(7);}
 Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {_atributos.resize(7);}
 
 
-void Arquero::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCION DE NUMEROS FUERA DE ELLOS
+void Arquero::setAtributos(bool random){
     int* comprobacion=new int();
     _atributos[0]=1; //nivel
     if(random==0)
@@ -16,9 +16,9 @@ void Arquero::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCIO
         _atributos[1]=0 + rand() % (100-0+1); //salud
         _atributos[2]=0 + rand() % (30-0+1); //poder
         _atributos[3]=1 + rand() % (12-1+1); //precisión
-        _atributos[4]=15 + rand() % (30-15+1); //protección
+        _atributos[4]=15 + rand() % (40-20+1); //protección
         _atributos[5]=1 + rand() % (15-1+1); //agilidad
-        _atributos[6]=0 + rand() % (30-0+1); //carcaj
+        _atributos[6]=0 + rand() % (10-1+1); //carcaj
     }else
     {
         cout << "Dime la salud de tu personaje"<< endl;
@@ -50,7 +50,7 @@ void Arquero::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCIO
         }
         cout << "Dime protecion de tu personaje"<< endl;
         cin>> *comprobacion;
-        if(*comprobacion>=15&&*comprobacion<=30)
+        if(*comprobacion>=20&&*comprobacion<=40)
         {
             _atributos[4]=*comprobacion;
          } else
@@ -68,7 +68,7 @@ void Arquero::setAtributos(bool random){//HAY QUE TOCAR LOS LIMITES Y LA ADICCIO
         }
         cout << "Dime las flechas que tiene tu personaje en el carcaj"<< endl;
         cin>> *comprobacion;
-        if(*comprobacion>=0&&*comprobacion<=30)
+        if(*comprobacion>=0&&*comprobacion<=10)
         {
             _atributos[6]=*comprobacion;
          }else

@@ -8,7 +8,7 @@ Guerrero::Guerrero(const string& name, vector<int> atributos, vector<Objetos*>  
 
 
 
-void Guerrero::setAtributos(bool random){ //HAY QUE TOCAR LOS LIMITES Y LA ADICCION DE NUMEROS FUERA DE ELLOS
+void Guerrero::setAtributos(bool random){
     int* comprobacion=new int();
     _atributos[0]=1; //nivel
     if(random==0)
