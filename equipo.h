@@ -16,6 +16,7 @@ public:
     Personajes* getLista_Personajes(int n) const;
     void setName(const string& name);
     void setLista_Personajes(vector<Personajes*> lista);
+    void setLista_Personajes(Personajes*);
     void display() const;
     ~Equipo();
 };

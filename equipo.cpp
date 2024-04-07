@@ -25,6 +25,9 @@ void Equipo::setLista_Personajes(vector<Personajes*> lista) {
         _Lista_Personajes[i] = lista[i];
     }
 }
+void Equipo::setLista_Personajes(Personajes* Personaje){
+    _Lista_Personajes.push_back(Personaje);
+}
 
 
 void Equipo::display() const {

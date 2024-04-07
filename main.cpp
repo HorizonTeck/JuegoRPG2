@@ -90,7 +90,7 @@ int main() {
                                 }
                                 cout<<"Cual de ellos quieres borrar? "<<endl;
                                 cin>>tecla;
-                                while(tecla < 0 && tecla>=static_cast<int>(Lista_Equipos.size())){
+                                while(tecla < 0 || tecla> static_cast<int>(Lista_Equipos.size())){
                                     cout << "Seleccion invalida" <<endl;
                                     cin>>tecla;
                                 }
@@ -136,28 +136,41 @@ int main() {
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla!=2){
-                                cout <<"Seleccion invalida"<<endl;
-                                cin>>tecla;
+                                cout << "Seleccion invalida" << endl;
+                                cout << "Por favor, selecciona 1 o 2: ";
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cin >> tecla;
                             }
                             if(tecla==1){
-                                cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
-                                for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
-                                    cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
+                                if(static_cast<int>(Lista_Equipos.size())<=0){
+                                    cout << "Actualmente no hay ningun equipo disponible"<<endl;
+                                    cout << "Le recuerdo que para usar el personaje debera añadirlo a un equipo"<<endl;
+
                                 }
-                                cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
-                                cin>>tecla;
-                                while(tecla < 0 && tecla>=static_cast<int>(Lista_Equipos.size())){
-                                    cout << "Seleccion invalida" <<endl;
+                                else{
+                                    cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
+                                    for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
+                                        cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
+                                    }
+                                    cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
                                     cin>>tecla;
+                                    while(tecla < 0 || tecla > static_cast<int>(Lista_Equipos.size())){
+                                        cout << "Seleccion invalida" << endl;
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                        cin >> tecla;
+                                    }
+                                    cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
+                                    Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
+                                    Lista_Equipos[tecla-1]->display();
                                 }
-                                cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
-                                Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
-                                cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
-                                Lista_Equipos[tecla-1]->display();
                             }
                             else{
-
+                                cout << "Le recuerdo que para usar el personaje debera añadirlo a un equipo"<<endl;
                             }
+                            this_thread::sleep_for(chrono::seconds(3));
                             break;
                         }
                         case 4: {
