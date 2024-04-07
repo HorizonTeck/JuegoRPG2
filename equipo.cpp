@@ -29,6 +29,15 @@ void Equipo::setLista_Personajes(Personajes* Personaje){
     _Lista_Personajes.push_back(Personaje);
 }
 
+void Equipo::borrar(int posicion){
+    auto it = _Lista_Personajes.begin() + posicion - 1;
+    delete *it;
+    _Lista_Personajes.erase(it);
+}
+
+int Equipo::gettamaño(){
+    return static_cast<int>(_Lista_Personajes.size());
+}
 
 void Equipo::display() const {
     cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << endl;

@@ -42,6 +42,6 @@ vector<int> Personajes::getAtributos() const{
 }
 int Personajes::tirar_dados() const{
      srand(static_cast<unsigned int>(time(nullptr)));
-     return (1+rand()%(6-1+1));
+     return (1+rand()%(12-1+1));
 }
 

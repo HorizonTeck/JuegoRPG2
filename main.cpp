@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    Funciones funcion;
+    /* Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     int tecla = 0;
@@ -110,7 +110,9 @@ int main() {
                             cin >>tecla;
                             while(tecla!=1 && tecla!=2 && tecla!=3){
                                 cout << "Seleccion invalida" << endl;
-                                cin>>tecla;
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cin >> tecla;
                             }
                             if(tecla == 1){
                                 Lista_Personajes.push_back(new Mago(*name));
@@ -174,12 +176,97 @@ int main() {
                             break;
                         }
                         case 4: {
+                            cout << "Quieres eliminar un personaje con o sin equipo?"<<endl<<"1. con "<<endl<<"2. sin"<<endl;
+                            cin>>tecla;
+                            while(tecla!=1 && tecla !=2){
+                                cout << "Seleccion invalida" << endl;
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cin >> tecla;
+                            }
+                            if(tecla==1){
+                                if(static_cast<int>(Lista_Equipos.size())<=0){
+                                    cout<<"No hay ningun equipo disponible actualmente"<<endl;
+                                }
+                                else{
+                                    cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
+                                    for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
+                                        cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
+                                    }
+                                    cout<<"De cual de ellos quieres coger el personaje? "<<endl;
+                                    cin>>tecla;
+                                    while(tecla < 0 || tecla> static_cast<int>(Lista_Equipos.size())){
+                                        cout << "Seleccion invalida" << endl;
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                        cin >> tecla;
+                                    }
+                                    if(Lista_Equipos[tecla-1]->gettamaño()<=0){
+                                        cout << "Has elegido el equipo: "<<Lista_Equipos[tecla-1]->getName()<<endl;
+                                        cout << "Pero este equipo no tiene ningun personaje miembro"<<endl;
+                                        cout << "Se te devolvera al menu anterior" <<endl;
+                                    }
+                                    else{
+                                        cout << "Has elegido el equipo: "<<endl;
+                                        Lista_Equipos[tecla-1]->display();
+                                        cout << "Cual personaje quieres eliminar?" <<endl;
+                                        for(int i=0;i < Lista_Equipos[tecla-1]->gettamaño();i++){
+                                            cout <<i+1<<". "<<Lista_Equipos[tecla-1]->getLista_Personajes()[i]->getName()<<endl;
+                                        }
+                                        int *temp = new int;
+                                        cin>>*temp;
+                                        while(*temp <0 && *temp > Lista_Equipos[tecla-1]->gettamaño()){
+                                            cout << "Seleccion invalida" << endl;
+                                            cin.clear();
+                                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                            cin >> tecla;
+                                        }
+                                        cout << "Has seleccionado:"<<endl;
+                                        cout << "Personaje con nombre: " << Lista_Equipos[tecla-1]->getLista_Personajes()[*temp-1]->getName();
+                                        cout << " del Equipo: "<< Lista_Equipos[tecla-1]->getName()<<endl;
+                                        Lista_Equipos[tecla-1]->borrar(*temp);
+                                        cout <<endl<< "Ahora el equipo pasa a ser:"<<endl;
+                                        Lista_Equipos[tecla-1]->display();
+
+                                    }
+                                }
+                            }
+                            else{
+                                if(static_cast<int>(Lista_Personajes.size())<=0){
+                                    cout<<"No hay ningun personaje sin equipo disponible actualmente"<<endl;
+                                }
+                                else{
+                                    cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes"<<endl;
+                                    for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
+                                        cout<<"Personaje numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Personajes[i]->getName()<<endl;
+                                    }
+                                    cout<<"Cual de ellos quieres borrar? "<<endl;
+                                    cin>>tecla;
+                                    while(tecla < 0 || tecla> static_cast<int>(Lista_Personajes.size())){
+                                        cout << "Seleccion invalida" << endl;
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                        cin >> tecla;
+                                    }
+                                    cout<<"Personaje seleccionado para borrar con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
+                                    auto it = Lista_Personajes.begin() + tecla - 1;
+                                    delete *it;
+                                    Lista_Personajes.erase(it);
+                                    cout << "El personaje ha sido eliminado correctamente." << endl;
+                            }
+                        }
+                            this_thread::sleep_for(chrono::seconds(3));
                             break;
+
                         }
                         case 5: {
+                            cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
+                            cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
                             break;
                         }
                         case 6: {
+                            cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
+                            cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
                             break;
                         }
                         case 7: {
@@ -196,6 +283,8 @@ int main() {
 
 
             case 3: {
+                cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
+                cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
                 break;
             }
 
@@ -211,14 +300,14 @@ int main() {
             }
         }
     }
-    cout << "Hasta la próxima" << endl;
+    cout << "Hasta la próxima" << endl; */
 
 
 
 
 
 
-                                        //Ejemplo de guardar objetos en txt
+    //Ejemplo de crear y guardar objetos en txt
     /* vector<Objetos*> Lista_Objetos;
     Lista_Objetos.push_back(new Armas("Arma", "julian", "Cortante", 46));
     Lista_Objetos.push_back(new Armas("Arma", "Pepe", "Contundente", 50));
@@ -229,7 +318,7 @@ int main() {
     } */
 
 
-        //Ejemplo de como se cargarian objetos desde txt en el programa
+   //Ejemplo de como se instanciarian objetos cargandolos desde txt en el programa
 
     /* if( funcion.contarLineas("objetos.txt") < 0) cout<<"No hay suficientes objetos"<<endl;
     else{
@@ -241,20 +330,27 @@ int main() {
         }
     } */
 
-    /* Personajes **lista = new Personajes*[3];  //Ejemplo de como seria poner una lista de personajes en equipo
-    lista[0] = new Guerrero;
-    lista[1] = new Guerrero;
-    lista[2] = new Guerrero;
-    lista[0]->setName("pepe");
-    lista[1]->setName("juan");
-    lista[2]->setName("Lola");
-    Equipo equipo("equipo",3);
-    equipo.setLista_Personajes(lista);
-    for(int i=0;i<3;i++){
-        delete lista[i];
+    //ejemplo de ataque y defensa de un personaje (si salen numeros mas grandes de salud, es porque no estan metidas las armas todavia
+    /* vector<Personajes*> Personajes;
+    Personajes.push_back(new Guerrero("Pepito"));
+    Personajes.push_back(new Arquero("Fulanito"));
+    for(auto objeto : Personajes){
+        objeto->setAtributos(0);
+        objeto->Display();
+        cout<<endl;
     }
-    cout<<endl;
-    equipo.display(); */
+    if(Personajes[0]->tirar_dados() < Personajes[0]->getAtributos(3)){
+        cout << "Ataque efectivo"<<endl;
+        int ataque = Personajes[0]->Ataque();
+        int defensa = Personajes[1]->Defensa();
+        int salud = Personajes[1]->getAtributos(1);
+        Personajes[1]->setAtributos(salud-(ataque-defensa), 1);
+        cout << "Nuevas estadisticas de: "<<Personajes[1]->getName()<<endl<<endl;
+        Personajes[1]->Display();
+    }
+    else{
+        cout << "Ataque inefectivo"<<endl;
+    } */
 
     return 0;
 }

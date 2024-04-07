@@ -102,7 +102,7 @@ void Arquero::setInventario(vector<Objetos*> objetos) {
 void Arquero::Display() const {
     cout<< " Arquero: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
-    cout <<" Fuerza: "<<_atributos[5]<<" Escudo: "<<_atributos[6]<<endl;
+    cout <<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
 }
 
 int Arquero::Ataque() {

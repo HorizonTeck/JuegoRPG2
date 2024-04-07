@@ -108,7 +108,10 @@ void Guerrero::Display() const {
 
 int Guerrero::Ataque() {
     int ataque=0;
-    ataque = getAtributos(2)*getAtributos(0)+getAtributos(5);//FALTA LAS ARMAS
+    int poder = getAtributos(2);
+    int nivel = getAtributos(0);
+    int fuerza = getAtributos(5);
+    ataque = poder*nivel+fuerza;//FALTA LAS ARMAS
     return ataque;
 }
 
