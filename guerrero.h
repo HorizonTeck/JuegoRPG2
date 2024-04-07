@@ -9,7 +9,7 @@ public:
     Guerrero(const string& name);
     Guerrero(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
     virtual void setAtributos(const vector<int> atributos);
-    virtual void setAtributos();
+    virtual void setAtributos(bool random);
     virtual void setAtributos(int atrib, int posicion);
     virtual void setInventario(const vector<Objetos*> objetos);
     virtual void Display() const;

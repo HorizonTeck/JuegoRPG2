@@ -14,7 +14,7 @@ public:
     virtual int getPower() const;
     virtual void setPower(const int& power);
     virtual void setTipo(const string& TipoPocion);
-    void LanzarPocion(Personajes* Defensor);
+    void LanzarPocion(Personajes& Defensor);
     virtual void serializar(ofstream& archivo) const;
     virtual void display() const;
     virtual~Pociones();
