@@ -29,7 +29,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[1]=*comprobacion;
         } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime el poder de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -38,7 +38,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[2]=*comprobacion;
         } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime precision de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -47,7 +47,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[3]=*comprobacion;
         } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime protecion de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -56,7 +56,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[4]=*comprobacion;
         } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime la fuerza de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -65,7 +65,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[5]=*comprobacion;
         } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime la resistencia del escudo"<< endl;
         cin>> *comprobacion;
@@ -74,7 +74,7 @@ void Guerrero::setAtributos(bool random){
             _atributos[6]=*comprobacion;
         }else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
     }
     delete comprobacion;
@@ -108,10 +108,14 @@ void Guerrero::Display() const {
 
 int Guerrero::Ataque() {
     int ataque=0;
-    int poder = getAtributos(2);
-    int nivel = getAtributos(0);
-    int fuerza = getAtributos(5);
-    ataque = poder*nivel+fuerza;//FALTA LAS ARMAS
+    ataque = getAtributos(2)*getAtributos(0)+getAtributos(5);
+    for(auto objeto : _inventario)
+    {
+        if(objeto->getTipoObjeto()=="Arma")
+        {
+        ataque += objeto->getPower();
+    }
+    }
     return ataque;
 }
 

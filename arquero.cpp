@@ -28,7 +28,7 @@ void Arquero::setAtributos(bool random){
             _atributos[1]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime el poder de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -37,7 +37,7 @@ void Arquero::setAtributos(bool random){
             _atributos[2]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime precision de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -46,7 +46,7 @@ void Arquero::setAtributos(bool random){
             _atributos[3]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime protecion de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -55,7 +55,7 @@ void Arquero::setAtributos(bool random){
             _atributos[4]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime la agilidad de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -64,7 +64,7 @@ void Arquero::setAtributos(bool random){
             _atributos[5]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
         cout << "Dime las flechas que tiene tu personaje en el carcaj"<< endl;
         cin>> *comprobacion;
@@ -73,7 +73,7 @@ void Arquero::setAtributos(bool random){
             _atributos[6]=*comprobacion;
          }else
         {
-            cout<< "VALOR INCORRECTO";
+            cout<< "VALOR INCORRECTO"<<endl;
         }
     }
     delete comprobacion;
@@ -107,7 +107,14 @@ void Arquero::Display() const {
 
 int Arquero::Ataque() {
     int ataque=0;
-    ataque = getAtributos(2)*getAtributos(0);//FALTA LAS ARMAS Y FLECHAS
+    ataque = getAtributos(2)*getAtributos(0);
+    for(auto objeto : _inventario)
+    {
+        if(objeto->getTipoObjeto()=="Arma")
+        {
+        ataque= ataque+ objeto->getPower()/getAtributos(6);
+    }
+    }
     return ataque;
 }
 
