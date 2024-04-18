@@ -114,7 +114,7 @@ int Guerrero::Ataque() {
         if(objeto->getTipoObjeto()=="Arma")
         {
         ataque += objeto->getPower();
-    }
+        }
     }
     return ataque;
 }

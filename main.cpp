@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    /*Funciones funcion;
+    Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     int tecla = 0;
@@ -300,7 +300,7 @@ int main() {
             }
         }
     }
-    cout << "Hasta la próxima" << endl;*/
+    cout << "Hasta la próxima" << endl;
 
 
 
