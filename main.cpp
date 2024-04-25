@@ -308,27 +308,27 @@ int main() {
 
 
     //Ejemplo de crear y guardar objetos en txt
-    /* vector<Objetos*> Lista_Objetos;
+    /*vector<Objetos*> Lista_Objetos;
     Lista_Objetos.push_back(new Armas("Arma", "julian", "Cortante", 46));
     Lista_Objetos.push_back(new Armas("Arma", "Pepe", "Contundente", 50));
-    Lista_Objetos.push_back(new Armas("Arma", "Monica", "Gorda", 1000000));
+    Lista_Objetos.push_back(new Pociones("Pocion", "ladolorosa", "Salud", 100));
     funcion.guardar(Lista_Objetos, "ObjetosPrueba.txt");
     for(auto objeto : Lista_Objetos){
         delete objeto;
-    } */
+    }*/
 
 
    //Ejemplo de como se instanciarian objetos cargandolos desde txt en el programa
 
-    /* if( funcion.contarLineas("objetos.txt") < 0) cout<<"No hay suficientes objetos"<<endl;
+    /*if(funcion.contarLineas("ObjetosPrueba.txt") < 0) cout<<"No hay suficientes objetos"<<endl;
     else{
         vector<Objetos*> Lista_Objetos;
-        funcion.cargar(Lista_Objetos,"objetos.txt");
+        funcion.cargar(Lista_Objetos,"ObjetosPrueba.txt");
         for (int i=0;i<static_cast<int>(Lista_Objetos.size());i++){
             Lista_Objetos[i]->display();
             delete Lista_Objetos[i];
         }
-    } */
+    }*/
 
     //ejemplo de ataque y defensa de un personaje (si salen numeros mas grandes de salud, es porque no estan metidas las armas todavia
     /* vector<Personajes*> Personajes;
