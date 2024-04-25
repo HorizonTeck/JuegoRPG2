@@ -26,7 +26,14 @@ void Mago::setAtributos(bool random){
             _atributos[1]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO"<<endl;
+            cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+            if(*comprobacion<0)
+            {
+                _atributos[1]=0;
+            }else if(*comprobacion>100) //Comprobacion para que no se cuele nada que no sea un numero
+            {
+                _atributos[1]=100;
+            }
         }
         cout << "Dime el poder de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -35,7 +42,14 @@ void Mago::setAtributos(bool random){
             _atributos[2]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO"<<endl;
+            cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+            if(*comprobacion<70)
+            {
+                _atributos[2]=70;
+            }else if(*comprobacion>50) //Comprobacion para que no se cuele nada que no sea un numero
+            {
+                _atributos[2]=50;
+            }
         }
         cout << "Dime precision de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -44,7 +58,14 @@ void Mago::setAtributos(bool random){
             _atributos[3]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO"<<endl;
+            cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+            if(*comprobacion<1)
+            {
+                _atributos[3]=1;
+            }else if(*comprobacion>12) //Comprobacion para que no se cuele nada que no sea un numero
+            {
+                _atributos[3]=12;
+            }
         }
         cout << "Dime protecion de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -53,7 +74,14 @@ void Mago::setAtributos(bool random){
             _atributos[4]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO"<<endl;
+            cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+            if(*comprobacion<15)
+            {
+                _atributos[4]=15;
+            }else if(*comprobacion>30) //Comprobacion para que no se cuele nada que no sea un numero
+            {
+                _atributos[4]=30;
+            }
         }
         cout << "Dime el mana de tu personaje"<< endl;
         cin>> *comprobacion;
@@ -62,7 +90,14 @@ void Mago::setAtributos(bool random){
             _atributos[5]=*comprobacion;
          } else
         {
-            cout<< "VALOR INCORRECTO"<<endl;
+            cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+            if(*comprobacion<1)
+            {
+                _atributos[5]=1;
+            }else if(*comprobacion>15) //Comprobacion para que no se cuele nada que no sea un numero
+            {
+                _atributos[5]=15;
+            }
         }
     }
     delete comprobacion;
