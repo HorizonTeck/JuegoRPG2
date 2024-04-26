@@ -22,7 +22,6 @@ public:
     void setName(const string& name);
     virtual void setAtributos(const vector<int> atributos)=0;
     virtual void setAtributos(int atrib, int posicion) =0;
-    virtual void setAtributos(bool random) =0;
     virtual void setInventario(const vector<Objetos*>) =0;
     int tirar_dados() const;
     virtual void Display() const =0; //Display

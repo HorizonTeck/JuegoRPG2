@@ -69,4 +69,124 @@ void Funciones::guardar(){
 
 }
 
-
+void Funciones::setAtributos(bool random, Arquero& A)
+{
+    int* comprobacion=new int();
+    A.setAtributos(1,0); //nivel
+    if(random==1)
+    {
+        srand(static_cast<unsigned int>(time(nullptr)));
+        A.setAtributos(0 + rand() % (100-0+1),1); //salud
+        A.setAtributos(0 + rand() % (30-0+1),2); //poder
+        A.setAtributos(1 + rand() % (12-1+1),3); //precisión
+        A.setAtributos(20 + rand() % (40-20+1),4); //protección
+        A.setAtributos(1 + rand() % (10-1+1),5); //agilidad
+        A.setAtributos(1 + rand() % (15-1+1),6); //carcaj
+    }else
+    {
+        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,100),1);
+        cout << "Dime el poder de tu personaje (0-30)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,30),2);
+        cout << "Dime precision de tu personaje (1-12)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,12),3);
+        cout << "Dime protecion de tu personaje (20-40)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,20,40),4);
+        cout << "Dime la agilidad de tu personaje (1-10)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,10),5);
+        cout << "Dime las flechas que tiene tu personaje en el carcaj (1-15)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,15),6);
+    }
+    delete comprobacion;
+}
+void Funciones::setAtributos(bool random, Guerrero& A)
+{
+    int* comprobacion=new int();
+    A.setAtributos(1,0); //nivel
+    if(random==1)
+    {
+        srand(static_cast<unsigned int>(time(nullptr)));
+        A.setAtributos(0 + rand() % (100-0+1),1); //salud
+        A.setAtributos(0 + rand() % (30-0+1),2); //poder
+        A.setAtributos(1 + rand() % (12-1+1),3); //precisión
+        A.setAtributos(15 + rand() % (30-15+1),4); //protección
+        A.setAtributos(0 + rand() % (30-0+1),5); //escudo
+        A.setAtributos(1 + rand() % (15-1+1),6); //fuerza
+    }else
+    {
+        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,100),1);
+        cout << "Dime el poder de tu personaje (0-30)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,30),2);
+        cout << "Dime precision de tu personaje (1-12)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,12),3);
+        cout << "Dime protecion de tu personaje (15-30)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,15,30),4);
+        cout << "Dime el escudo de tu personaje (0-30)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,30),5);
+        cout << "Dime la fuerza de tu personaje (1-15)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,15),6);
+    }
+    delete comprobacion;
+}
+void Funciones::setAtributos(bool random, Mago& A)
+{
+    int* comprobacion=new int();
+    A.setAtributos(1,0); //nivel
+    if(random==1)
+    {
+        srand(static_cast<unsigned int>(time(nullptr)));
+        A.setAtributos(0 + rand() % (100-0+1),1); //salud
+        A.setAtributos(50 + rand() % (70-50+1),2); //poder
+        A.setAtributos(1 + rand() % (12-1+1),3); //precisión
+        A.setAtributos(50 + rand() % (60-50+1),4); //protección
+        A.setAtributos(0 + rand() % (100-0+1),5); //mana
+    }else
+    {
+        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,100),1);
+        cout << "Dime el poder de tu personaje (50-70)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,50,70),2);
+        cout << "Dime precision de tu personaje (1-12)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,1,12),3);
+        cout << "Dime protecion de tu personaje (50-60)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,50,60),4);
+        cout << "Dime el mana de tu personaje (0-100)"<< endl;
+        cin>> *comprobacion;
+        A.setAtributos(comprobar(*comprobacion,0,100),5);
+    }
+    delete comprobacion;
+}
+int Funciones::comprobar(int comprobacion, int LI, int LS)
+{
+    if(comprobacion>=LI&&comprobacion<=LS)
+    {
+        return comprobacion;
+     } else
+    {
+        cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
+        if(comprobacion<LI)
+        {
+            return LI;
+        }else
+        {
+            return LS;
+        }
+    }
+}

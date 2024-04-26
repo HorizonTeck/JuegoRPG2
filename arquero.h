@@ -8,7 +8,6 @@ public:
     Arquero ();
     Arquero(const string& name);
     Arquero(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
-    virtual void setAtributos(bool random);
     virtual void setAtributos(int atrib, int posicion);
     virtual void setAtributos(const vector<int> atributos);
     virtual void setInventario(const vector<Objetos*> objetos);
