@@ -13,7 +13,7 @@ int main() {
         this_thread::sleep_for(chrono::seconds(1));
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
-        cout << "1. Menu de carga (no disponible)"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Salir" << endl;
+        cout << "1. Menu de carga (no disponible)"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Menu de Display" <<endl<<"5. Salir"<<endl;
         cin >> tecla;
         switch (tecla) {
             case 1: {
@@ -154,40 +154,10 @@ int main() {
                                 cin>>tecla;
                             }
                             if(tecla==1){
-                                if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Arquero"){
-                                    Arquero *tmp=dynamic_cast<Arquero*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(1,tmp);
-                                    tmp=new Arquero;
-                                    delete tmp;
-                                } else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Mago"){
-                                    Mago *tmp=dynamic_cast<Mago*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(1,tmp);
-                                    tmp=new Mago;
-                                    delete tmp;
-                                }else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Guerrero"){
-                                    Guerrero *tmp=dynamic_cast<Guerrero*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(1,tmp);
-                                    tmp=new Guerrero;
-                                    delete tmp;
-                                }
+                                funcion.setAtributos(1,Lista_Personajes);
                             }
                             else{
-                                if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Arquero"){
-                                    Arquero *tmp=dynamic_cast<Arquero*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(0,tmp);
-                                    tmp=new Arquero;
-                                    delete tmp;
-                                } else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Mago"){
-                                    Mago *tmp=dynamic_cast<Mago*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(0,tmp);
-                                    tmp=new Mago;
-                                    delete tmp;
-                                }else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Guerrero"){
-                                    Guerrero *tmp=dynamic_cast<Guerrero*>(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    funcion.setAtributos(0,tmp);
-                                    tmp=new Guerrero;
-                                    delete tmp;
-                                }
+                                funcion.setAtributos(0,Lista_Personajes);
                             }
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
@@ -344,13 +314,25 @@ int main() {
                 cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
                 break;
             }
-
-
             case 4: {
+                cout<<"Estas en el menú de Display, que deseas hacer?: "<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
+                cin>>tecla;
+                while(tecla <=0 || tecla>=4){
+                    cout << "Seleccion invalida" << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cin >> tecla;
+                }
+                switch(tecla){
+                    case 1:{
+
+                    }
+                }
                 break;
             }
-
-
+            case 5: {
+                break;
+            }
             default: {
                 cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                 break;

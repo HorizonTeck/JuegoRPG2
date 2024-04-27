@@ -173,6 +173,24 @@ void Funciones::setAtributos(bool random, Mago* A)
     }
     delete comprobacion;
 }
+void Funciones::setAtributos(bool random, vector<Personajes*> &Lista_Personajes){
+    if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Arquero"){
+        Arquero *tmp=dynamic_cast<Arquero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+        setAtributos(random,tmp);
+        tmp=new Arquero;
+        delete tmp;
+    } else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Mago"){
+        Mago *tmp=dynamic_cast<Mago*>(Lista_Personajes[Lista_Personajes.size()-1]);
+        setAtributos(random,tmp);
+        tmp=new Mago;
+        delete tmp;
+    }else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Guerrero"){
+        Guerrero *tmp=dynamic_cast<Guerrero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+        setAtributos(random,tmp);
+        tmp=new Guerrero;
+        delete tmp;
+    }
+}
 int Funciones::comprobar(int comprobacion, int LI, int LS)
 {
     if(comprobacion>=LI&&comprobacion<=LS)
