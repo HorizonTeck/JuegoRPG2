@@ -18,7 +18,7 @@ public:
     void setLista_Personajes(vector<Personajes*> lista);
     void setLista_Personajes(Personajes*);
     int gettamaño();
-    void borrar(int n);
+    void borrarPersonaje(int n);
     void display() const;
     ~Equipo();
 };

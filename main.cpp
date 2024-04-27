@@ -77,6 +77,28 @@ int main() {
                             cin>>*nombre;
                             Lista_Equipos.push_back(new Equipo(*nombre));
                             delete nombre;
+                            if(Lista_Personajes.size()<=0){
+                                cout<<"Actualmente no hay ningun Personaje sin Equipo disponible"<<endl;
+                            }else{
+                                cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes sin Equipo"<<endl;
+                                for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
+                                    cout<<"Personaje numero: "<< i+1 <<" Nombre del Personaje: "<<Lista_Personajes[i]->getName()<<endl;
+                                }
+                                cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
+                                cin>>tecla;
+                                while(tecla <= 0 || tecla> static_cast<int>(Lista_Personajes.size())){
+                                    cout << "Seleccion invalida" <<endl;
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                    cin>>tecla;
+                                }
+                                cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
+                                Lista_Equipos[Lista_Equipos.size()-1]->setLista_Personajes(Lista_Personajes[tecla-1]);
+                                auto it = Lista_Personajes.begin() + tecla - 1;
+                                delete *it;
+                                Lista_Personajes.erase(it);
+                                cout << "El Personaje ha sido eliminado correctamente." << endl;
+                            }
                             break;
                         }
                         case 2: {
@@ -90,8 +112,10 @@ int main() {
                                 }
                                 cout<<"Cual de ellos quieres borrar? "<<endl;
                                 cin>>tecla;
-                                while(tecla < 0 || tecla> static_cast<int>(Lista_Equipos.size())){
+                                while(tecla <= 0 || tecla> static_cast<int>(Lista_Equipos.size())){
                                     cout << "Seleccion invalida" <<endl;
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                                     cin>>tecla;
                                 }
                                 cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
@@ -130,10 +154,40 @@ int main() {
                                 cin>>tecla;
                             }
                             if(tecla==1){
-                                Lista_Personajes[Lista_Personajes.size()-1]->setAtributos(0);
+                                if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Arquero"){
+                                    Arquero *tmp=dynamic_cast<Arquero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(1,tmp);
+                                    tmp=new Arquero;
+                                    delete tmp;
+                                } else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Mago"){
+                                    Mago *tmp=dynamic_cast<Mago*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(1,tmp);
+                                    tmp=new Mago;
+                                    delete tmp;
+                                }else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Guerrero"){
+                                    Guerrero *tmp=dynamic_cast<Guerrero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(1,tmp);
+                                    tmp=new Guerrero;
+                                    delete tmp;
+                                }
                             }
                             else{
-                                Lista_Personajes [Lista_Personajes.size()-1]->setAtributos(1);
+                                if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Arquero"){
+                                    Arquero *tmp=dynamic_cast<Arquero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(0,tmp);
+                                    tmp=new Arquero;
+                                    delete tmp;
+                                } else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Mago"){
+                                    Mago *tmp=dynamic_cast<Mago*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(0,tmp);
+                                    tmp=new Mago;
+                                    delete tmp;
+                                }else if(Lista_Personajes[Lista_Personajes.size()-1]->identificador()=="Guerrero"){
+                                    Guerrero *tmp=dynamic_cast<Guerrero*>(Lista_Personajes[Lista_Personajes.size()-1]);
+                                    funcion.setAtributos(0,tmp);
+                                    tmp=new Guerrero;
+                                    delete tmp;
+                                }
                             }
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
@@ -157,7 +211,7 @@ int main() {
                                     }
                                     cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
                                     cin>>tecla;
-                                    while(tecla < 0 || tecla > static_cast<int>(Lista_Equipos.size())){
+                                    while(tecla <= 0 || tecla > static_cast<int>(Lista_Equipos.size())){
                                         cout << "Seleccion invalida" << endl;
                                         cin.clear();
                                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -167,6 +221,9 @@ int main() {
                                     Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
                                     cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
                                     Lista_Equipos[tecla-1]->display();
+                                    auto it = Lista_Personajes.begin() + tecla - 1;
+                                    delete *it;
+                                    Lista_Personajes.erase(it);
                                 }
                             }
                             else{
@@ -215,7 +272,7 @@ int main() {
                                         }
                                         int *temp = new int;
                                         cin>>*temp;
-                                        while(*temp <0 && *temp > Lista_Equipos[tecla-1]->gettamaño()){
+                                        while(*temp <=0 && *temp > Lista_Equipos[tecla-1]->gettamaño()){
                                             cout << "Seleccion invalida" << endl;
                                             cin.clear();
                                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -224,7 +281,7 @@ int main() {
                                         cout << "Has seleccionado:"<<endl;
                                         cout << "Personaje con nombre: " << Lista_Equipos[tecla-1]->getLista_Personajes()[*temp-1]->getName();
                                         cout << " del Equipo: "<< Lista_Equipos[tecla-1]->getName()<<endl;
-                                        Lista_Equipos[tecla-1]->borrar(*temp);
+                                        Lista_Equipos[tecla-1]->borrarPersonaje(*temp);
                                         cout <<endl<< "Ahora el equipo pasa a ser:"<<endl;
                                         Lista_Equipos[tecla-1]->display();
 

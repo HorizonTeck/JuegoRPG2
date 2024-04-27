@@ -21,9 +21,9 @@ public:
     void guardar(vector<Objetos*>& objetos, const string& nombreArchivo);
     void guardar();
     int contarLineas(const string& nombreArchivo);
-    void setAtributos(bool random, Arquero& P);
-    void setAtributos(bool random, Guerrero& P);
-    void setAtributos(bool random, Mago& P);
+    void setAtributos(bool random, Arquero* P);
+    void setAtributos(bool random, Guerrero* P);
+    void setAtributos(bool random, Mago* P);
     int comprobar(int comprobacion,int LI, int LS);
 
 };

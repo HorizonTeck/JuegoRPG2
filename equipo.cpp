@@ -29,7 +29,7 @@ void Equipo::setLista_Personajes(Personajes* Personaje){
     _Lista_Personajes.push_back(Personaje);
 }
 
-void Equipo::borrar(int posicion){
+void Equipo::borrarPersonaje(int posicion){
     auto it = _Lista_Personajes.begin() + posicion - 1;
     delete *it;
     _Lista_Personajes.erase(it);
