@@ -24,7 +24,7 @@ public:
     void setAtributos(bool random, Arquero* P);
     void setAtributos(bool random, Guerrero* P);
     void setAtributos(bool random, Mago* P);
-    void setAtributos(bool random, vector<Personajes*> &Lista_Personajes);
+    void setAtributos(bool random, Personajes* Lista_Personajes);
     int comprobar(int comprobacion,int LI, int LS);
 
 };

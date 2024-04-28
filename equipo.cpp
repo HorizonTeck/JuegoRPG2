@@ -1,6 +1,6 @@
 #include "equipo.h"
 
-Equipo::Equipo(const string& name) : _name(name) {
+Equipo::Equipo(const string& name) : _name(name){
 }
 
 Equipo::Equipo() : _name("NO_NAME_DEFINED"){}
@@ -43,7 +43,7 @@ void Equipo::Display() const {
     cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << endl;
     cout << "Integrantes:" << endl;
     for (int i = 0; i < static_cast<int>(_Lista_Personajes.size()); i++) {
-        cout << _Lista_Personajes[i]->getName() << endl;
+        cout << i+1<<". "<<_Lista_Personajes[i]->getName() << endl;
     }
 }
 

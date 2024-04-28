@@ -6,8 +6,12 @@ using namespace std;
 int main() {
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
-    vector<Equipo*> Lista_Equipos_Personaje;
     vector<Personajes*> Lista_Personajes;
+    Lista_Equipos.push_back(new Equipo("Losduros"));
+    Lista_Personajes.push_back(new Mago("Julian"));
+    funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]);
+    Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
+    Lista_Personajes.pop_back();
     int tecla = 0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 5) {
@@ -91,6 +95,7 @@ int main() {
                                     while(tecla!=2){
                                         if(Lista_Personajes.size()<=0){
                                             cout<<"Actualmente no hay ningun Personaje sin Equipo o has asignado ya todos a un Equipo"<<endl;
+                                            tecla=2;
                                         }else{
                                             cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes sin Equipo"<<endl;
                                             for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
@@ -109,8 +114,6 @@ int main() {
                                             auto it = Lista_Personajes.begin() + tecla - 1;
                                             delete *it;
                                             Lista_Personajes.erase(it);
-                                            Lista_Equipos_Personaje.push_back(Lista_Equipos[Lista_Equipos.size()-1]);
-                                            Lista_Equipos.pop_back();
                                             cout << "El Personaje ha sido añadido correctamente. Desea añadir otro mas?" << endl;
                                             cout<<"1. SI"<<endl<<"2. NO"<<endl;
                                             cin>>tecla;
@@ -185,10 +188,10 @@ int main() {
                                 cin>>tecla;
                             }
                             if(tecla==1){
-                                funcion.setAtributos(1,Lista_Personajes);
+                                funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]);
                             }
                             else{
-                                funcion.setAtributos(0,Lista_Personajes);
+                                funcion.setAtributos(0,Lista_Personajes[Lista_Personajes.size()-1]);
                             }
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
@@ -203,7 +206,6 @@ int main() {
                                 if(static_cast<int>(Lista_Equipos.size())<=0){
                                     cout << "Actualmente no hay ningun equipo disponible"<<endl;
                                     cout << "Le recuerdo que para usar el personaje debera añadirlo a un equipo"<<endl;
-
                                 }
                                 else{
                                     cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
@@ -346,7 +348,7 @@ int main() {
                 break;
             }
             case 4: {
-                cout<<"Estas en el menú de Display, que deseas hacer?: "<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
+                cout<<"Estas en el menú de Display, que deseas hacer?: "<<endl<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
                 cin>>tecla;
                 while(tecla <=0 || tecla>=4){
                     cout << "Seleccion invalida" << endl;
@@ -367,27 +369,48 @@ int main() {
                         break;
                     }
                     case 2:{
-                        if(Lista_Equipos_Personaje.size()<=0){
+                        if(Lista_Equipos.size()<=0){
                             cout<<"Actualmente no hay ningun Equipo creado"<<endl;
                         }else{
-                            cout<<"Selecciones uno de estos Equipos con personajes: "<<endl;
-                            for(int i=0;i<static_cast<int>(Lista_Equipos_Personaje.size());i++){
-                                cout<<i+1<<". "<<Lista_Equipos_Personaje[i]->getName()<<endl;
+                            int tmp=0;
+                            for(auto objeto : Lista_Equipos){
+                                if(objeto->gettamaño()>0){
+                                    tmp++;
+                                }
                             }
-                            cin>>tecla;
-                            while(tecla<=0||tecla>static_cast<int>(Lista_Equipos_Personaje.size())){
-                                cout << "Seleccion invalida" << endl;
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin >> tecla;
+                            if(tmp>0){
+                                cout<<"Elige un equipo con personajes: "<<endl;
+                                tmp=0;
+                                for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++){
+                                    if(Lista_Equipos[i]->gettamaño()>0){
+                                        tmp++;
+                                        cout<<tmp<<". "<<Lista_Equipos[i]->getName()<<endl;
+                                    }
+                                }
+                                cin>>tecla;
+                                while(tecla<tmp||tecla>tmp){
+                                    cout << "Seleccion invalida" << endl;
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                    cin >> tecla;
+                                }
+                                for(int i=0;i<tmp;i++){
+                                    if(Lista_Equipos[i]->gettamaño()>0) tmp=i;
+                                }
+                                cout<<"Elige ahora uno de los personajes del Equipo: "<<endl;
+                                Lista_Equipos[tmp]->Display();
+                                cin>>tecla;
+                                while(tecla<Lista_Equipos[tmp]->gettamaño()||tecla>Lista_Equipos[tmp]->gettamaño()){
+                                    cout << "Seleccion invalida" << endl;
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                    cin >> tecla;
+                                }
+                                Lista_Equipos[tmp]->getLista_Personajes()[tecla-1]->Display();
+                                this_thread::sleep_for(chrono::seconds(2));
+                            }else{
+                               cout<<"Aunque hay equipos creados, ninguno de ellos tiene personajes"<<endl;
                             }
-                            Lista_Equipos_Personaje[tecla-1]->Display();
-                            cout<<"Display de los Personajes del equipo: "<<endl;
-                            for(auto objeto : Lista_Equipos_Personaje[tecla-1]->getLista_Personajes()){
-                                objeto->Display();
-                                cout<<endl;
-                            }
-                            this_thread::sleep_for(chrono::seconds(2));
                         }
                         break;
                     }
