@@ -39,7 +39,7 @@ int Equipo::gettamaño(){
     return static_cast<int>(_Lista_Personajes.size());
 }
 
-void Equipo::display() const {
+void Equipo::Display() const {
     cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << endl;
     cout << "Integrantes:" << endl;
     for (int i = 0; i < static_cast<int>(_Lista_Personajes.size()); i++) {

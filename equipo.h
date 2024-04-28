@@ -19,7 +19,7 @@ public:
     void setLista_Personajes(Personajes*);
     int gettamaño();
     void borrarPersonaje(int n);
-    void display() const;
+    void Display() const;
     ~Equipo();
 };
 
