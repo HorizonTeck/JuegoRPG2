@@ -9,7 +9,7 @@ int main() {
     vector<Personajes*> Lista_Personajes;
     int tecla = 0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
-    while (tecla != 4) {
+    while (tecla != 5) {
         this_thread::sleep_for(chrono::seconds(1));
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
@@ -77,6 +77,46 @@ int main() {
                             cin>>*nombre;
                             Lista_Equipos.push_back(new Equipo(*nombre));
                             delete nombre;
+                            cout<<"Quieres añadir algun personaje al Equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
+                            cin>>tecla;
+                            while(tecla !=1 && tecla!= 2){
+                                cout << "Seleccion invalida" <<endl;
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cin>>tecla;
+                            }
+                            switch(tecla){
+                                case 1:{
+                                    if(Lista_Personajes.size()<=0){
+                                        cout<<"Actualmente no hay ningun Personaje sin Equipo disponible"<<endl;
+                                    }else{
+                                        cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes sin Equipo"<<endl;
+                                        for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
+                                            cout<<"Personaje numero: "<< i+1 <<" Nombre del Personaje: "<<Lista_Personajes[i]->getName()<<endl;
+                                        }
+                                        cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
+                                        cin>>tecla;
+                                        while(tecla <= 0 || tecla> static_cast<int>(Lista_Personajes.size())){
+                                            cout << "Seleccion invalida" <<endl;
+                                            cin.clear();
+                                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                            cin>>tecla;
+                                        }
+                                        cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
+                                        Lista_Equipos[Lista_Equipos.size()-1]->setLista_Personajes(Lista_Personajes[tecla-1]);
+                                        auto it = Lista_Personajes.begin() + tecla - 1;
+                                        delete *it;
+                                        Lista_Personajes.erase(it);
+                                        cout << "El Personaje ha sido eliminado correctamente." << endl;
+                                    }
+                                    break;
+                                }
+                                case 2:{
+                                    cout<<"Le recuerdo que para usar el Equipo en un combate debera añadirle personajes"<<endl;
+                                    break;
+                                }
+                                break;
+                            }
                             if(Lista_Personajes.size()<=0){
                                 cout<<"Actualmente no hay ningun Personaje sin Equipo disponible"<<endl;
                             }else{
@@ -336,6 +376,26 @@ int main() {
             default: {
                 cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                 break;
+            }
+        }
+        if(tecla ==5){
+            cout<<"Esta seguro de que quiere salir?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
+            cin>>tecla;
+            while(tecla !=1 && tecla!=2){
+                cout << "Seleccion invalida" << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin >> tecla;
+            }
+            switch(tecla){
+                case 1:{
+                    tecla = 5;
+                    break;
+                }
+                case 2:{
+                    tecla=0;
+                    break;
+                }
             }
         }
     }
