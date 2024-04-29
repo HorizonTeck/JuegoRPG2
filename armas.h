@@ -8,6 +8,7 @@ private:
     string _TipoArma;
 public:
     Armas();
+    Armas(const string&TipoObjeto,const string& name, const string& TipoArma);
     Armas(const string& name, const string& TipoObjeto, const string& TipoArma, const int& power);
     virtual string getTipo() const;
     virtual int getPower() const;

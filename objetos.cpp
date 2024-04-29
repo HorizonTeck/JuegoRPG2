@@ -4,7 +4,7 @@
 Objetos::Objetos(){
 
 }
-
+Objetos::Objetos(const string&TipoObjeto,const string& name) : _name(name), _TipoObjeto(TipoObjeto) {}
 Objetos::Objetos(const string& TipoObjeto, const string& name, const int& power) : _name(name), _power(power), _TipoObjeto(TipoObjeto) {
 
 }

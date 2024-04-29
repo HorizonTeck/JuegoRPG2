@@ -25,8 +25,12 @@ public:
     void setAtributos(bool random, Guerrero* P);
     void setAtributos(bool random, Mago* P);
     void setAtributos(bool random, Personajes* Lista_Personajes);
+    void setAtributos(bool random, Armas* Arma);
+    void setAtributos(bool random, Pociones* Pocion);
+    void setAtributos(bool random, Objetos* Objeto);
     int comprobar(int comprobacion,int LI, int LS);
     int seleccion_invalida();
+    void crear_objeto();
 };
 
 #endif // FUNCIONES_H

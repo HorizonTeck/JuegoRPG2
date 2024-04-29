@@ -191,6 +191,36 @@ void Funciones::setAtributos(bool random, Personajes* Personaje){
         delete tmp;
     }
 }
+void Funciones::setAtributos(bool random, Armas *Arma){
+
+}
+void Funciones::setAtributos(bool random, Pociones *Pocion){
+
+}
+void Funciones::setAtributos(bool random, Objetos* Objeto){
+
+}
+void Funciones::crear_objeto(){
+    int tecla=0;
+    string name;
+    cout<<"Como quiere llamar al objeto?:"<<endl;
+    cin>>name;
+    cout<<"De que tipo quieres que sea el objeto?"<<endl<<"1. Arma"<<endl<<"2. Poción"<<endl;
+    cin>>tecla;
+    while(tecla!=1&&tecla!=2){
+        tecla=seleccion_invalida();
+    }
+    if(tecla==1){
+        cout<<"De que tipo quieres que sea el Arma?:"<<endl<<"1. Cortante"<<endl<<"2. Contundente"<<endl<<"3. Distancia"<<endl<<"4. Báculos"<<endl;
+        cin>>tecla;
+        while(tecla<1||tecla>4){
+            tecla=seleccion_invalida();
+        }
+        if(tecla==1){
+            Objetos *objeto=new Armas();
+        }
+    }
+}
 int Funciones::comprobar(int comprobacion, int LI, int LS)
 {
     if(comprobacion>=LI&&comprobacion<=LS)

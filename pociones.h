@@ -9,7 +9,8 @@ private:
     string _TipoPocion;
 public:
     Pociones();
-    Pociones(const string& name, const string& TipoObjeto, const string& TipoArma, const int& power);
+    Pociones(const string& name, const string& TipoObjeto, const string& TipoPocion);
+    Pociones(const string& name, const string& TipoObjeto, const string& TipoPocion, const int& power);
     virtual string getTipo() const;
     virtual int getPower() const;
     virtual void setPower(const int& power);

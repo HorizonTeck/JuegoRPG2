@@ -167,18 +167,13 @@ int main() {
                             else{
                                 Lista_Personajes.push_back(new Arquero(*name));
                             }
+                            delete name;
                             cout << "Como quieres asignarle los atributos?" <<endl<<"1. Random (El niver será 1)"<<endl<<"2. Manualmente"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla!=2){
-                                cout << "Seleccion invalida" <<endl;
-                                cin>>tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
-                            if(tecla==1){
-                                funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]);
-                            }
-                            else{
-                                funcion.setAtributos(0,Lista_Personajes[Lista_Personajes.size()-1]);
-                            }
+                            (tecla==1) ? funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]) : funcion.setAtributos(0,Lista_Personajes[Lista_Personajes.size()-1]);
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla!=2){
@@ -287,8 +282,12 @@ int main() {
 
                         }
                         case 5: {
-                            cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
-                            cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
+                            ///////////////////////gordo
+                            string *name=new string;
+                            cout<<"Como quiere llamar al objeto?:"<<endl;
+                            cin>>*name;
+                            cout<<"De que tipo quieres que sea el objeto?"<<endl<<"1. Arma"<<endl<<"2. Poción"<<endl;
+                            delete name;
                             break;
                         }
                         case 6: {
@@ -405,16 +404,7 @@ int main() {
             while(tecla !=1 && tecla!=2){
                 tecla = funcion.seleccion_invalida();
             }
-            switch(tecla){
-                case 1:{
-                    tecla = 5;
-                    break;
-                }
-                case 2:{
-                    tecla=0;
-                    break;
-                }
-            }
+            (tecla==5) ? tecla=5 : tecla=0;
         }
     }
     cout << "Hasta la próxima" << endl;

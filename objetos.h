@@ -12,6 +12,7 @@ protected:
     string _TipoObjeto;
 public:
     Objetos();
+    Objetos(const string&TipoObjeto,const string& name);
     Objetos(const string& TipoObjeto, const string& name, const int& power);
     virtual string getName() const;
     virtual string getTipoObjeto() const;
