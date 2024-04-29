@@ -7,6 +7,7 @@ int main() {
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
+    vector<Objetos*> Lista_Objetos;
     Lista_Equipos.push_back(new Equipo("Losduros"));
     Lista_Personajes.push_back(new Mago("Julian"));
     funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]);
@@ -225,7 +226,7 @@ int main() {
                                     cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
                                     Lista_Equipos[tecla-1]->Display();
                                     auto it = Lista_Personajes.begin() + tecla - 1;
-                                    delete *it;
+                                    //delete *it;
                                     Lista_Personajes.erase(it);
                                 }
                             }
@@ -287,7 +288,6 @@ int main() {
                                         Lista_Equipos[tecla-1]->borrarPersonaje(*temp);
                                         cout <<endl<< "Ahora el equipo pasa a ser:"<<endl;
                                         Lista_Equipos[tecla-1]->Display();
-
                                     }
                                 }
                             }
