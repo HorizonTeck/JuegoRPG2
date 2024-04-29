@@ -208,3 +208,12 @@ int Funciones::comprobar(int comprobacion, int LI, int LS)
         }
     }
 }
+
+int Funciones::seleccion_invalida(){
+    int tmp=0;
+    cout << "Seleccion invalida" <<endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin>>tmp;
+    return tmp;
+}

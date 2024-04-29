@@ -23,7 +23,7 @@ void Mago::setInventario(vector<Objetos*> objetos) {
 }
 
 void Mago::Display() const {
-    cout<< " Mago: "<<_name<<" Atributos: "<<endl;
+    cout<< "Mago: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
     cout <<" Mana: "<<_atributos[5]<<endl;
 }

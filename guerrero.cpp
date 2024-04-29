@@ -26,7 +26,7 @@ void Guerrero::setInventario(vector<Objetos*> objetos) {
 }
 
 void Guerrero::Display() const {
-    cout<< " Guerrero: "<<_name<<" Atributos: "<<endl;
+    cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
     cout <<" Fuerza: "<<_atributos[5]<<" Escudo: "<<_atributos[6]<<endl;
 }

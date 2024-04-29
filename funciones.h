@@ -26,7 +26,7 @@ public:
     void setAtributos(bool random, Mago* P);
     void setAtributos(bool random, Personajes* Lista_Personajes);
     int comprobar(int comprobacion,int LI, int LS);
-
+    int seleccion_invalida();
 };
 
 #endif // FUNCIONES_H

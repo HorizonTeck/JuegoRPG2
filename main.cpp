@@ -86,10 +86,7 @@ int main() {
                             cout<<"Quieres añadir algun personaje al Equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
                             while(tecla !=1 && tecla!= 2){
-                                cout << "Seleccion invalida" <<endl;
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin>>tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
                             switch(tecla){
                                 case 1:{
@@ -105,10 +102,7 @@ int main() {
                                             cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
                                             cin>>tecla;
                                             while(tecla <= 0 || tecla> static_cast<int>(Lista_Personajes.size())){
-                                                cout << "Seleccion invalida" <<endl;
-                                                cin.clear();
-                                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                                cin>>tecla;
+                                                tecla = funcion.seleccion_invalida();
                                             }
                                             cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
                                             Lista_Equipos[Lista_Equipos.size()-1]->setLista_Personajes(Lista_Personajes[tecla-1]);
@@ -119,10 +113,7 @@ int main() {
                                             cout<<"1. SI"<<endl<<"2. NO"<<endl;
                                             cin>>tecla;
                                             while(tecla!=1&&tecla!=2){
-                                                cout << "Seleccion invalida" <<endl;
-                                                cin.clear();
-                                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                                cin>>tecla;
+                                                tecla = funcion.seleccion_invalida();
                                             }
                                         }
                                     }
@@ -148,10 +139,7 @@ int main() {
                                 cout<<"Cual de ellos quieres borrar? "<<endl;
                                 cin>>tecla;
                                 while(tecla <= 0 || tecla> static_cast<int>(Lista_Equipos.size())){
-                                    cout << "Seleccion invalida" <<endl;
-                                    cin.clear();
-                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                    cin>>tecla;
+                                    tecla = funcion.seleccion_invalida();
                                 }
                                 cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
                                 auto it = Lista_Equipos.begin() + tecla - 1;
@@ -168,10 +156,7 @@ int main() {
                             cout << "De que tipo quieres que sea el personaje? "<<endl<< "1. Mago" <<endl<<"2. Guerrero"<<endl<<"3. Arquero"<<endl;
                             cin >>tecla;
                             while(tecla!=1 && tecla!=2 && tecla!=3){
-                                cout << "Seleccion invalida" << endl;
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin >> tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
                             if(tecla == 1){
                                 Lista_Personajes.push_back(new Mago(*name));
@@ -197,11 +182,7 @@ int main() {
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla!=2){
-                                cout << "Seleccion invalida" << endl;
-                                cout << "Por favor, selecciona 1 o 2: ";
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin >> tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
                             if(tecla==1){
                                 if(static_cast<int>(Lista_Equipos.size())<=0){
@@ -216,10 +197,7 @@ int main() {
                                     cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
                                     cin>>tecla;
                                     while(tecla <= 0 || tecla > static_cast<int>(Lista_Equipos.size())){
-                                        cout << "Seleccion invalida" << endl;
-                                        cin.clear();
-                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                        cin >> tecla;
+                                        tecla = funcion.seleccion_invalida();
                                     }
                                     cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
                                     Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
@@ -240,10 +218,7 @@ int main() {
                             cout << "Quieres eliminar un personaje con o sin equipo?"<<endl<<"1. con "<<endl<<"2. sin"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla !=2){
-                                cout << "Seleccion invalida" << endl;
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin >> tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
                             if(tecla==1){
                                 if(static_cast<int>(Lista_Equipos.size())<=0){
@@ -257,10 +232,7 @@ int main() {
                                     cout<<"De cual de ellos quieres coger el personaje? "<<endl;
                                     cin>>tecla;
                                     while(tecla < 0 || tecla> static_cast<int>(Lista_Equipos.size())){
-                                        cout << "Seleccion invalida" << endl;
-                                        cin.clear();
-                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                        cin >> tecla;
+                                        tecla = funcion.seleccion_invalida();
                                     }
                                     if(Lista_Equipos[tecla-1]->gettamaño()<=0){
                                         cout << "Has elegido el equipo: "<<Lista_Equipos[tecla-1]->getName()<<endl;
@@ -277,10 +249,7 @@ int main() {
                                         int *temp = new int;
                                         cin>>*temp;
                                         while(*temp <=0 && *temp > Lista_Equipos[tecla-1]->gettamaño()){
-                                            cout << "Seleccion invalida" << endl;
-                                            cin.clear();
-                                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                            cin >> tecla;
+                                            *temp = funcion.seleccion_invalida();
                                         }
                                         cout << "Has seleccionado:"<<endl;
                                         cout << "Personaje con nombre: " << Lista_Equipos[tecla-1]->getLista_Personajes()[*temp-1]->getName();
@@ -288,6 +257,7 @@ int main() {
                                         Lista_Equipos[tecla-1]->borrarPersonaje(*temp);
                                         cout <<endl<< "Ahora el equipo pasa a ser:"<<endl;
                                         Lista_Equipos[tecla-1]->Display();
+                                        delete temp;
                                     }
                                 }
                             }
@@ -303,10 +273,7 @@ int main() {
                                     cout<<"Cual de ellos quieres borrar? "<<endl;
                                     cin>>tecla;
                                     while(tecla < 0 || tecla> static_cast<int>(Lista_Personajes.size())){
-                                        cout << "Seleccion invalida" << endl;
-                                        cin.clear();
-                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                        cin >> tecla;
+                                        tecla = funcion.seleccion_invalida();
                                     }
                                     cout<<"Personaje seleccionado para borrar con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
                                     auto it = Lista_Personajes.begin() + tecla - 1;
@@ -351,10 +318,7 @@ int main() {
                 cout<<"Estas en el menú de Display, que deseas hacer?: "<<endl<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
                 cin>>tecla;
                 while(tecla <=0 || tecla>=4){
-                    cout << "Seleccion invalida" << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cin >> tecla;
+                    tecla = funcion.seleccion_invalida();
                 }
                 switch(tecla){
                     case 1:{
@@ -389,10 +353,7 @@ int main() {
                                 }
                                 cin>>tecla;
                                 while(tecla<tmp||tecla>tmp){
-                                    cout << "Seleccion invalida" << endl;
-                                    cin.clear();
-                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                    cin >> tecla;
+                                    tecla = funcion.seleccion_invalida();
                                 }
                                 for(int i=0;i<tmp;i++){
                                     if(Lista_Equipos[i]->gettamaño()>0) tmp=i;
@@ -401,10 +362,7 @@ int main() {
                                 Lista_Equipos[tmp]->Display();
                                 cin>>tecla;
                                 while(tecla<Lista_Equipos[tmp]->gettamaño()||tecla>Lista_Equipos[tmp]->gettamaño()){
-                                    cout << "Seleccion invalida" << endl;
-                                    cin.clear();
-                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                    cin >> tecla;
+                                    tecla = funcion.seleccion_invalida();
                                 }
                                 Lista_Equipos[tmp]->getLista_Personajes()[tecla-1]->Display();
                                 this_thread::sleep_for(chrono::seconds(2));
@@ -424,10 +382,7 @@ int main() {
                             }
                             cin>>tecla;
                             while(tecla<=0||tecla>static_cast<int>(Lista_Personajes.size())){
-                                cout << "Seleccion invalida" << endl;
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cin >> tecla;
+                                tecla = funcion.seleccion_invalida();
                             }
                             Lista_Personajes[tecla-1]->Display();
                             this_thread::sleep_for(chrono::seconds(2));
@@ -448,10 +403,7 @@ int main() {
             cout<<"Esta seguro de que quiere salir?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
             cin>>tecla;
             while(tecla !=1 && tecla!=2){
-                cout << "Seleccion invalida" << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cin >> tecla;
+                tecla = funcion.seleccion_invalida();
             }
             switch(tecla){
                 case 1:{
