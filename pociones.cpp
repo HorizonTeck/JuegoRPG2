@@ -4,23 +4,13 @@ Pociones::Pociones() {}
 Pociones::Pociones(const string& TipoObjeto, const string& name, const string& TipoPocion) : Objetos(TipoObjeto,name){
     _TipoPocion=TipoPocion;
 }
-Pociones::Pociones(const string& TipoObjeto, const string& name, const string& TipoPocion, const int& power) : Objetos(TipoObjeto, name, power) {
-    _TipoPocion = TipoPocion;
+Pociones::Pociones(const string&TipoObjeto,const string& name,const string& TipoPocion, const int& power) : Objetos(TipoObjeto,name,power){
+    _TipoPocion=TipoPocion;
 }
-
 Pociones::~Pociones() {}
-
-
-int Pociones::getPower() const {
-    return _power;
-}
 
 string Pociones::getTipo() const {
     return _TipoPocion;
-}
-
-void Pociones::setPower(const int& power) {
-    _power = power;
 }
 
 void Pociones::setTipo(const string& TipoPocion) {
@@ -37,9 +27,9 @@ void Pociones::LanzarPocion(Personajes& Defensor)
 }
 
 void Pociones::serializar(ofstream& archivo) const {
-    archivo << _TipoObjeto << " " << _name << " " << _TipoPocion << " " << _power << endl;
+    archivo << _TipoObjeto << " " << _name << " " << _TipoPocion <<endl;
 }
 void Pociones::display() const {
-    cout << "Pocion: " << getName() << " Tipo: " << getTipo() << " Poder: " << getPower() << endl;
+    cout << "Pocion: " << getName() << " Tipo: " << getTipo() <<endl;
 }
 

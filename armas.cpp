@@ -4,25 +4,15 @@ Armas::Armas() {}
 Armas::Armas(const string&TipoObjeto,const string& name, const string& TipoArma) : Objetos(TipoObjeto,name){
     _TipoArma=TipoArma;
 }
-Armas::Armas(const string& TipoObjeto, const string& name, const string& TipoArma,const int& power) : Objetos(TipoObjeto,name,power) {
+Armas::Armas(const string&TipoObjeto,const string& name,const string& TipoArma, const int& power) : Objetos(TipoObjeto,name){
     _TipoArma=TipoArma;
 }
 Armas::~Armas() {
 
 }
-
-int Armas::getPower() const {
-    return _power;
-}
-
 string Armas::getTipo() const{
     return _TipoArma;
 }
-
-void Armas::setPower(const int& power) {
-    _power = power;
-}
-
 void Armas::setTipo(const string& TipoArma){
     _TipoArma=TipoArma;
 }

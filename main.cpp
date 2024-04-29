@@ -10,7 +10,7 @@ int main() {
     vector<Objetos*> Lista_Objetos;
     Lista_Equipos.push_back(new Equipo("Losduros"));
     Lista_Personajes.push_back(new Mago("Julian"));
-    funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]);
+    funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Personajes.pop_back();
     int tecla = 0;
@@ -168,12 +168,7 @@ int main() {
                                 Lista_Personajes.push_back(new Arquero(*name));
                             }
                             delete name;
-                            cout << "Como quieres asignarle los atributos?" <<endl<<"1. Random (El niver será 1)"<<endl<<"2. Manualmente"<<endl;
-                            cin>>tecla;
-                            while(tecla!=1 && tecla!=2){
-                                tecla = funcion.seleccion_invalida();
-                            }
-                            (tecla==1) ? funcion.setAtributos(1,Lista_Personajes[Lista_Personajes.size()-1]) : funcion.setAtributos(0,Lista_Personajes[Lista_Personajes.size()-1]);
+                            funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
                             cin>>tecla;
                             while(tecla!=1 && tecla!=2){
@@ -283,12 +278,7 @@ int main() {
                         }
                         case 5: {
                             ///////////////////////gordo
-                            string *name=new string;
-                            cout<<"Como quiere llamar al objeto?:"<<endl;
-                            cin>>*name;
-                            cout<<"De que tipo quieres que sea el objeto?"<<endl<<"1. Arma"<<endl<<"2. Poción"<<endl;
-                            delete name;
-                            break;
+                            //intentar hacerlo en funciones
                         }
                         case 6: {
                             cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;

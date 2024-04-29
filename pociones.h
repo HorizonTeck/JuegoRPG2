@@ -12,8 +12,6 @@ public:
     Pociones(const string& name, const string& TipoObjeto, const string& TipoPocion);
     Pociones(const string& name, const string& TipoObjeto, const string& TipoPocion, const int& power);
     virtual string getTipo() const;
-    virtual int getPower() const;
-    virtual void setPower(const int& power);
     virtual void setTipo(const string& TipoPocion);
     void LanzarPocion(Personajes& Defensor);
     virtual void serializar(ofstream& archivo) const;

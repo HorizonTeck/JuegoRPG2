@@ -173,7 +173,15 @@ void Funciones::setAtributos(bool random, Mago* A)
     }
     delete comprobacion;
 }
-void Funciones::setAtributos(bool random, Personajes* Personaje){
+void Funciones::setAtributos(Personajes* Personaje){
+    bool random;
+    int tecla;
+    cout << "Como quieres asignarle los atributos?" <<endl<<"1. Random (El niver será 1)"<<endl<<"2. Manualmente"<<endl;
+    cin>>tecla;
+    while(tecla!=1 && tecla!=2){
+        tecla = seleccion_invalida();
+    }
+    (tecla==1) ? random=1 : random=0;
     if(Personaje->identificador()=="Arquero"){
         Arquero *tmp=dynamic_cast<Arquero*>(Personaje);
         setAtributos(random,tmp);
@@ -192,17 +200,57 @@ void Funciones::setAtributos(bool random, Personajes* Personaje){
     }
 }
 void Funciones::setAtributos(bool random, Armas *Arma){
-
+    srand(static_cast<unsigned int>(time(nullptr)));
+    if(Arma->getTipoObjeto()=="Cortante"){
+        Arma->setPower(setAtributos(random,0,30));
+    }else if(Arma->getTipoObjeto()=="Contundente"){
+        Arma->setPower(setAtributos(random,0,50));
+    }else if(Arma->getTipoObjeto()=="Distancia"){
+        Arma->setPower(setAtributos(random,0,70));
+    }else{
+        Arma->setPower(setAtributos(random,0,40));
+    }
 }
+
 void Funciones::setAtributos(bool random, Pociones *Pocion){
-
+    srand(static_cast<unsigned int>(time(nullptr)));
+    Pocion->setPower(setAtributos(random,0,100));
 }
-void Funciones::setAtributos(bool random, Objetos* Objeto){
 
+int Funciones::setAtributos(bool random,int LI,int LS){
+    if(random==1){
+        return (LI + rand() % (LS-LI+1));
+    }else{
+        int poder;
+        cout<<"Introduce un valor para el poder"<<endl;
+        cin>>poder;
+        poder = comprobar(poder,LI,LS);
+        return poder;
+    }
 }
-void Funciones::crear_objeto(){
+void Funciones::setAtributos(Objetos* Objeto){
+    bool random;
+    int tecla;
+    cout << "Como quieres asignarle el poder?" <<endl<<"1. Random"<<endl<<"2. Manualmente"<<endl;
+    cin>>tecla;
+    while(tecla!=1 && tecla!=2){
+        tecla = seleccion_invalida();
+    }
+    (tecla==1) ? random=1 : random=0;
+    if(Armas *tmp=dynamic_cast<Armas*>(Objeto)){
+        setAtributos(random,tmp);
+        tmp=new Armas;
+        delete tmp;
+    } else if(Pociones *tmp=dynamic_cast<Pociones*>(Objeto)){
+        setAtributos(random,tmp);
+        tmp=new Pociones;
+        delete tmp;
+    }
+}
+Objetos* Funciones::crear_objeto(){
     int tecla=0;
     string name;
+    Objetos *objeto;
     cout<<"Como quiere llamar al objeto?:"<<endl;
     cin>>name;
     cout<<"De que tipo quieres que sea el objeto?"<<endl<<"1. Arma"<<endl<<"2. Poción"<<endl;
@@ -217,9 +265,32 @@ void Funciones::crear_objeto(){
             tecla=seleccion_invalida();
         }
         if(tecla==1){
-            Objetos *objeto=new Armas();
+            objeto=new Armas("Arma",name,"Cortante");
+        }
+        else if(tecla==2){
+            objeto=new Armas("Arma",name,"Contundente");
+        }
+        else if(tecla==3){
+            objeto=new Armas("Arma",name,"Distancia");
+        }
+        else{
+            objeto=new Armas("Arma",name,"Baculo");
+        }
+        setAtributos(objeto);
+    } else{
+        cout<<"De que tipo quieres que sea la pocion?: "<<endl<<"1. Salud"<<endl<<"2. Mana"<<endl;
+        cin>>tecla;
+        while(tecla!=1&&tecla!=2){
+            tecla = seleccion_invalida();
+        }
+        if(tecla==1){
+            objeto=new Pociones("Pocion",name,"Salud");
+        }
+        else{
+            objeto=new Pociones("Pocion",name,"Mana");
         }
     }
+    return objeto;
 }
 int Funciones::comprobar(int comprobacion, int LI, int LS)
 {
