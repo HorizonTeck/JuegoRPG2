@@ -84,10 +84,7 @@ int main() {
                             Lista_Equipos.push_back(new Equipo(*nombre));
                             delete nombre;
                             cout<<"Quieres añadir algun personaje al Equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
-                            cin>>tecla;
-                            while(tecla !=1 && tecla!= 2){
-                                tecla = funcion.seleccion_invalida();
-                            }
+                            tecla=funcion.seleccion_invalida(1,2);
                             switch(tecla){
                                 case 1:{
                                     while(tecla!=2){
@@ -100,10 +97,7 @@ int main() {
                                                 cout<<"Personaje numero: "<< i+1 <<" Nombre del Personaje: "<<Lista_Personajes[i]->getName()<<endl;
                                             }
                                             cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
-                                            cin>>tecla;
-                                            while(tecla <= 0 || tecla> static_cast<int>(Lista_Personajes.size())){
-                                                tecla = funcion.seleccion_invalida();
-                                            }
+                                            tecla=funcion.seleccion_invalida(0,static_cast<int>(Lista_Personajes.size()));
                                             cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
                                             Lista_Equipos[Lista_Equipos.size()-1]->setLista_Personajes(Lista_Personajes[tecla-1]);
                                             auto it = Lista_Personajes.begin() + tecla - 1;
@@ -111,10 +105,7 @@ int main() {
                                             Lista_Personajes.erase(it);
                                             cout << "El Personaje ha sido añadido correctamente. Desea añadir otro mas?" << endl;
                                             cout<<"1. SI"<<endl<<"2. NO"<<endl;
-                                            cin>>tecla;
-                                            while(tecla!=1&&tecla!=2){
-                                                tecla = funcion.seleccion_invalida();
-                                            }
+                                            tecla=funcion.seleccion_invalida(1,2);
                                         }
                                     }
                                     break;
@@ -123,7 +114,7 @@ int main() {
                                     cout<<"Le recuerdo que para usar el Equipo en un combate debera añadirle personajes"<<endl;
                                     break;
                                 }
-                                break;
+                                  break;
                             }
                             break;
                         }
@@ -137,10 +128,7 @@ int main() {
                                     cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
                                 }
                                 cout<<"Cual de ellos quieres borrar? "<<endl;
-                                cin>>tecla;
-                                while(tecla <= 0 || tecla> static_cast<int>(Lista_Equipos.size())){
-                                    tecla = funcion.seleccion_invalida();
-                                }
+                                tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
                                 cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
                                 auto it = Lista_Equipos.begin() + tecla - 1;
                                 delete *it;
@@ -154,10 +142,7 @@ int main() {
                             cout << "Como quieres llamar al personaje?" <<endl;
                             cin >> *name;
                             cout << "De que tipo quieres que sea el personaje? "<<endl<< "1. Mago" <<endl<<"2. Guerrero"<<endl<<"3. Arquero"<<endl;
-                            cin >>tecla;
-                            while(tecla!=1 && tecla!=2 && tecla!=3){
-                                tecla = funcion.seleccion_invalida();
-                            }
+                            tecla=funcion.seleccion_invalida(1,3);
                             if(tecla == 1){
                                 Lista_Personajes.push_back(new Mago(*name));
                             }
@@ -170,10 +155,7 @@ int main() {
                             delete name;
                             funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
                             cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
-                            cin>>tecla;
-                            while(tecla!=1 && tecla!=2){
-                                tecla = funcion.seleccion_invalida();
-                            }
+                            tecla=funcion.seleccion_invalida(1,2);
                             if(tecla==1){
                                 if(static_cast<int>(Lista_Equipos.size())<=0){
                                     cout << "Actualmente no hay ningun equipo disponible"<<endl;
@@ -185,10 +167,7 @@ int main() {
                                         cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
                                     }
                                     cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
-                                    cin>>tecla;
-                                    while(tecla <= 0 || tecla > static_cast<int>(Lista_Equipos.size())){
-                                        tecla = funcion.seleccion_invalida();
-                                    }
+                                    tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
                                     cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
                                     Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
                                     cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
@@ -206,10 +185,7 @@ int main() {
                         }
                         case 4: {
                             cout << "Quieres eliminar un personaje con o sin equipo?"<<endl<<"1. con "<<endl<<"2. sin"<<endl;
-                            cin>>tecla;
-                            while(tecla!=1 && tecla !=2){
-                                tecla = funcion.seleccion_invalida();
-                            }
+                            tecla=funcion.seleccion_invalida(1,2);
                             if(tecla==1){
                                 if(static_cast<int>(Lista_Equipos.size())<=0){
                                     cout<<"No hay ningun equipo disponible actualmente"<<endl;
@@ -220,10 +196,7 @@ int main() {
                                         cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
                                     }
                                     cout<<"De cual de ellos quieres coger el personaje? "<<endl;
-                                    cin>>tecla;
-                                    while(tecla < 0 || tecla> static_cast<int>(Lista_Equipos.size())){
-                                        tecla = funcion.seleccion_invalida();
-                                    }
+                                    tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
                                     if(Lista_Equipos[tecla-1]->gettamaño()<=0){
                                         cout << "Has elegido el equipo: "<<Lista_Equipos[tecla-1]->getName()<<endl;
                                         cout << "Pero este equipo no tiene ningun personaje miembro"<<endl;
@@ -237,10 +210,7 @@ int main() {
                                             cout <<i+1<<". "<<Lista_Equipos[tecla-1]->getLista_Personajes()[i]->getName()<<endl;
                                         }
                                         int *temp = new int;
-                                        cin>>*temp;
-                                        while(*temp <=0 && *temp > Lista_Equipos[tecla-1]->gettamaño()){
-                                            *temp = funcion.seleccion_invalida();
-                                        }
+                                        *temp=funcion.seleccion_invalida(1,Lista_Equipos[tecla-1]->gettamaño());
                                         cout << "Has seleccionado:"<<endl;
                                         cout << "Personaje con nombre: " << Lista_Equipos[tecla-1]->getLista_Personajes()[*temp-1]->getName();
                                         cout << " del Equipo: "<< Lista_Equipos[tecla-1]->getName()<<endl;
@@ -261,10 +231,7 @@ int main() {
                                         cout<<"Personaje numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Personajes[i]->getName()<<endl;
                                     }
                                     cout<<"Cual de ellos quieres borrar? "<<endl;
-                                    cin>>tecla;
-                                    while(tecla < 0 || tecla> static_cast<int>(Lista_Personajes.size())){
-                                        tecla = funcion.seleccion_invalida();
-                                    }
+                                    tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Personajes.size()));
                                     cout<<"Personaje seleccionado para borrar con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
                                     auto it = Lista_Personajes.begin() + tecla - 1;
                                     delete *it;
@@ -305,10 +272,7 @@ int main() {
             }
             case 4: {
                 cout<<"Estas en el menú de Display, que deseas hacer?: "<<endl<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
-                cin>>tecla;
-                while(tecla <=0 || tecla>=4){
-                    tecla = funcion.seleccion_invalida();
-                }
+                tecla=funcion.seleccion_invalida(1,3);
                 switch(tecla){
                     case 1:{
                         if(Lista_Equipos.size()<=0){
@@ -340,19 +304,13 @@ int main() {
                                         cout<<tmp<<". "<<Lista_Equipos[i]->getName()<<endl;
                                     }
                                 }
-                                cin>>tecla;
-                                while(tecla<tmp||tecla>tmp){
-                                    tecla = funcion.seleccion_invalida();
-                                }
-                                for(int i=0;i<tmp;i++){
+                                tecla=funcion.seleccion_invalida(1,tmp);
+                             for(int i=0;i<=tecla;i++){
                                     if(Lista_Equipos[i]->gettamaño()>0) tmp=i;
                                 }
                                 cout<<"Elige ahora uno de los personajes del Equipo: "<<endl;
                                 Lista_Equipos[tmp]->Display();
-                                cin>>tecla;
-                                while(tecla<Lista_Equipos[tmp]->gettamaño()||tecla>Lista_Equipos[tmp]->gettamaño()){
-                                    tecla = funcion.seleccion_invalida();
-                                }
+                                tecla=funcion.seleccion_invalida(1,Lista_Equipos[tecla]->gettamaño());
                                 Lista_Equipos[tmp]->getLista_Personajes()[tecla-1]->Display();
                                 this_thread::sleep_for(chrono::seconds(2));
                             }else{
@@ -369,10 +327,7 @@ int main() {
                             for(int i=0;i<static_cast<int>(Lista_Personajes.size());i++){
                                 cout<<i+1<<". "<<Lista_Personajes[i]->getName()<<endl;
                             }
-                            cin>>tecla;
-                            while(tecla<=0||tecla>static_cast<int>(Lista_Personajes.size())){
-                                tecla = funcion.seleccion_invalida();
-                            }
+                            tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Personajes.size()));
                             Lista_Personajes[tecla-1]->Display();
                             this_thread::sleep_for(chrono::seconds(2));
                         }
@@ -390,10 +345,7 @@ int main() {
         }
         if(tecla ==5){
             cout<<"Esta seguro de que quiere salir?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
-            cin>>tecla;
-            while(tecla !=1 && tecla!=2){
-                tecla = funcion.seleccion_invalida();
-            }
+            tecla=funcion.seleccion_invalida(1,2);
             (tecla==5) ? tecla=5 : tecla=0;
         }
     }

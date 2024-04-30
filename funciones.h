@@ -30,8 +30,7 @@ public:
     void setAtributos(Objetos* Objeto);
     int setAtributos(bool random,int LI,int LS);
     Objetos* crear_objeto();
-    int comprobar(int comprobacion,int LI, int LS);
-    int seleccion_invalida();
+    int seleccion_invalida(int LI, int LS);
 };
 
 #endif // FUNCIONES_H

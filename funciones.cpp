@@ -71,7 +71,6 @@ void Funciones::guardar(){
 
 void Funciones::setAtributos(bool random, Arquero* A)
 {
-    int* comprobacion=new int();
     A->setAtributos(1,0); //nivel
     if(random==1)
     {
@@ -85,29 +84,21 @@ void Funciones::setAtributos(bool random, Arquero* A)
     }else
     {
         cout << "Dime la salud de tu personaje (0-100)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,100),1);
+        A->setAtributos(seleccion_invalida(0,100),1);
         cout << "Dime el poder de tu personaje (0-30)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,30),2);
+        A->setAtributos(seleccion_invalida(0,30),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,12),3);
+        A->setAtributos(seleccion_invalida(1,12),3);
         cout << "Dime protecion de tu personaje (20-40)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,20,40),4);
+        A->setAtributos(seleccion_invalida(20,40),4);
         cout << "Dime la agilidad de tu personaje (1-10)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,10),5);
+        A->setAtributos(seleccion_invalida(1,10),5);
         cout << "Dime las flechas que tiene tu personaje en el carcaj (1-15)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,15),6);
+        A->setAtributos(seleccion_invalida(1,15),6);
     }
-    delete comprobacion;
 }
 void Funciones::setAtributos(bool random, Guerrero* A)
 {
-    int* comprobacion=new int();
     A->setAtributos(1,0); //nivel
     if(random==1)
     {
@@ -121,29 +112,21 @@ void Funciones::setAtributos(bool random, Guerrero* A)
     }else
     {
         cout << "Dime la salud de tu personaje (0-100)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,100),1);
+        A->setAtributos(seleccion_invalida(0,100),1);
         cout << "Dime el poder de tu personaje (0-30)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,30),2);
+        A->setAtributos(seleccion_invalida(0,30),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,12),3);
+        A->setAtributos(seleccion_invalida(1,12),3);
         cout << "Dime protecion de tu personaje (15-30)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,15,30),4);
+        A->setAtributos(seleccion_invalida(15,30),4);
         cout << "Dime el escudo de tu personaje (0-30)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,30),5);
+        A->setAtributos(seleccion_invalida(0,30),5);
         cout << "Dime la fuerza de tu personaje (1-15)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,15),6);
+        A->setAtributos(seleccion_invalida(1,15),6);
     }
-    delete comprobacion;
 }
 void Funciones::setAtributos(bool random, Mago* A)
 {
-    int* comprobacion=new int();
     A->setAtributos(1,0); //nivel
     if(random==1)
     {
@@ -156,31 +139,22 @@ void Funciones::setAtributos(bool random, Mago* A)
     }else
     {
         cout << "Dime la salud de tu personaje (0-100)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,100),1);
+        A->setAtributos(seleccion_invalida(0,100),1);
         cout << "Dime el poder de tu personaje (50-70)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,50,70),2);
+        A->setAtributos(seleccion_invalida(50,70),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,1,12),3);
+        A->setAtributos(seleccion_invalida(1,12),3);
         cout << "Dime protecion de tu personaje (50-60)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,50,60),4);
+        A->setAtributos(seleccion_invalida(50,60),4);
         cout << "Dime el mana de tu personaje (0-100)"<< endl;
-        cin>> *comprobacion;
-        A->setAtributos(comprobar(*comprobacion,0,100),5);
+        A->setAtributos(seleccion_invalida(0,100),5);
     }
-    delete comprobacion;
 }
 void Funciones::setAtributos(Personajes* Personaje){
     bool random;
     int tecla;
     cout << "Como quieres asignarle los atributos?" <<endl<<"1. Random (El niver será 1)"<<endl<<"2. Manualmente"<<endl;
-    cin>>tecla;
-    while(tecla!=1 && tecla!=2){
-        tecla = seleccion_invalida();
-    }
+    tecla=seleccion_invalida(1,2);
     (tecla==1) ? random=1 : random=0;
     if(Personaje->identificador()=="Arquero"){
         Arquero *tmp=dynamic_cast<Arquero*>(Personaje);
@@ -211,20 +185,17 @@ void Funciones::setAtributos(bool random, Armas *Arma){
         Arma->setPower(setAtributos(random,0,40));
     }
 }
-
 void Funciones::setAtributos(bool random, Pociones *Pocion){
     srand(static_cast<unsigned int>(time(nullptr)));
     Pocion->setPower(setAtributos(random,0,100));
 }
-
 int Funciones::setAtributos(bool random,int LI,int LS){
     if(random==1){
         return (LI + rand() % (LS-LI+1));
     }else{
         int poder;
         cout<<"Introduce un valor para el poder"<<endl;
-        cin>>poder;
-        poder = comprobar(poder,LI,LS);
+        poder = seleccion_invalida(LI,LS);
         return poder;
     }
 }
@@ -232,10 +203,7 @@ void Funciones::setAtributos(Objetos* Objeto){
     bool random;
     int tecla;
     cout << "Como quieres asignarle el poder?" <<endl<<"1. Random"<<endl<<"2. Manualmente"<<endl;
-    cin>>tecla;
-    while(tecla!=1 && tecla!=2){
-        tecla = seleccion_invalida();
-    }
+    tecla = seleccion_invalida(1,2);
     (tecla==1) ? random=1 : random=0;
     if(Armas *tmp=dynamic_cast<Armas*>(Objeto)){
         setAtributos(random,tmp);
@@ -254,16 +222,10 @@ Objetos* Funciones::crear_objeto(){
     cout<<"Como quiere llamar al objeto?:"<<endl;
     cin>>name;
     cout<<"De que tipo quieres que sea el objeto?"<<endl<<"1. Arma"<<endl<<"2. Poción"<<endl;
-    cin>>tecla;
-    while(tecla!=1&&tecla!=2){
-        tecla=seleccion_invalida();
-    }
+    tecla=seleccion_invalida(1,2);
     if(tecla==1){
         cout<<"De que tipo quieres que sea el Arma?:"<<endl<<"1. Cortante"<<endl<<"2. Contundente"<<endl<<"3. Distancia"<<endl<<"4. Báculos"<<endl;
-        cin>>tecla;
-        while(tecla<1||tecla>4){
-            tecla=seleccion_invalida();
-        }
+        tecla=seleccion_invalida(1,4);
         if(tecla==1){
             objeto=new Armas("Arma",name,"Cortante");
         }
@@ -279,10 +241,7 @@ Objetos* Funciones::crear_objeto(){
         setAtributos(objeto);
     } else{
         cout<<"De que tipo quieres que sea la pocion?: "<<endl<<"1. Salud"<<endl<<"2. Mana"<<endl;
-        cin>>tecla;
-        while(tecla!=1&&tecla!=2){
-            tecla = seleccion_invalida();
-        }
+       tecla=seleccion_invalida(1,2);
         if(tecla==1){
             objeto=new Pociones("Pocion",name,"Salud");
         }
@@ -292,29 +251,18 @@ Objetos* Funciones::crear_objeto(){
     }
     return objeto;
 }
-int Funciones::comprobar(int comprobacion, int LI, int LS)
-{
-    if(comprobacion>=LI&&comprobacion<=LS)
-    {
-        return comprobacion;
-     } else
-    {
-        cout<< "VALOR INCORRECTO, SE ASIGNA EL LIMITE MAS CERCANO"<<endl;
-        if(comprobacion<LI)
-        {
-            return LI;
-        }else
-        {
-            return LS;
-        }
-    }
-}
 
-int Funciones::seleccion_invalida(){
+int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;
-    cout << "Seleccion invalida" <<endl;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin>>tmp;
+    while(tmp<LI||tmp>LS)
+    {
+        cout << "Seleccion invalida" <<endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin>>tmp;
+    }
     return tmp;
 }

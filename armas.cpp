@@ -4,7 +4,7 @@ Armas::Armas() {}
 Armas::Armas(const string&TipoObjeto,const string& name, const string& TipoArma) : Objetos(TipoObjeto,name){
     _TipoArma=TipoArma;
 }
-Armas::Armas(const string&TipoObjeto,const string& name,const string& TipoArma, const int& power) : Objetos(TipoObjeto,name){
+Armas::Armas(const string&TipoObjeto,const string& name,const string& TipoArma, const int& power) : Objetos(TipoObjeto,name,power){
     _TipoArma=TipoArma;
 }
 Armas::~Armas() {
