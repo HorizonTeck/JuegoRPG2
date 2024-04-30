@@ -17,6 +17,10 @@ int main() {
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 5) {
         this_thread::sleep_for(chrono::seconds(1));
+        if(tecla!=0){
+            cout<<"Presione 1 para continuar"<<endl;
+            tecla=funcion.seleccion_invalida(1,1);
+        }
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
         cout << "1. Menu de carga (no disponible)"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Menu de Display" <<endl<<"5. Salir"<<endl;
@@ -305,12 +309,12 @@ int main() {
                                     }
                                 }
                                 tecla=funcion.seleccion_invalida(1,tmp);
-                             for(int i=0;i<=tecla;i++){
+                             for(int i=0;i<tecla;i++){
                                     if(Lista_Equipos[i]->gettamaño()>0) tmp=i;
                                 }
                                 cout<<"Elige ahora uno de los personajes del Equipo: "<<endl;
                                 Lista_Equipos[tmp]->Display();
-                                tecla=funcion.seleccion_invalida(1,Lista_Equipos[tecla]->gettamaño());
+                                tecla=funcion.seleccion_invalida(1,Lista_Equipos[tmp]->gettamaño());
                                 Lista_Equipos[tmp]->getLista_Personajes()[tecla-1]->Display();
                                 this_thread::sleep_for(chrono::seconds(2));
                             }else{
