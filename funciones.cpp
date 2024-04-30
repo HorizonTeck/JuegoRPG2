@@ -259,6 +259,7 @@ int Funciones::seleccion_invalida(int LI,int LS){
     {
         cout << "Seleccion invalida" <<endl;
         cin.clear();
+        cin.ignore(100, '\n');
         cin>>tmp;
     }
     return tmp;
