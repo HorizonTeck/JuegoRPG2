@@ -251,17 +251,14 @@ Objetos* Funciones::crear_objeto(){
     }
     return objeto;
 }
-
 int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;
     cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin>>tmp;
     while(tmp<LI||tmp>LS)
     {
         cout << "Seleccion invalida" <<endl;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin>>tmp;
     }
     return tmp;

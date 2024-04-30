@@ -346,7 +346,7 @@ int main() {
         if(tecla ==5){
             cout<<"Esta seguro de que quiere salir?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
             tecla=funcion.seleccion_invalida(1,2);
-            (tecla==5) ? tecla=5 : tecla=0;
+            (tecla==1) ? tecla=5 : tecla=0;
         }
     }
     cout << "Hasta la próxima" << endl;
