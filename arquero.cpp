@@ -1,4 +1,5 @@
 #include "arquero.h"
+#include <armas.h>
 
 Arquero::Arquero() : Personajes() {_atributos.resize(7);}
 
@@ -18,11 +19,6 @@ void Arquero::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
 
-void Arquero::setInventario(vector<Objetos*> objetos) {
-    for(int i=0;i<4;i++){
-        *_inventario[i] = *objetos[i];
-    }
-}
 
 void Arquero::Display() const {
     cout<< "Arquero: "<<_name<<" Atributos: "<<endl;
@@ -35,7 +31,7 @@ int Arquero::Ataque() {
     ataque = getAtributos(2)*getAtributos(0);
     for(auto objeto : _inventario)
     {
-        if(objeto->getTipoObjeto()=="Arma")
+        if(dynamic_cast<Armas*>(objeto))
         {
         ataque= ataque+ objeto->getPower()/getAtributos(6);
     }
@@ -49,9 +45,6 @@ int Arquero::Defensa() {
     return defensa;
 }
 
-string Arquero::identificador(){
-    return "Arquero";
-}
 Arquero::~Arquero() {
 
 }

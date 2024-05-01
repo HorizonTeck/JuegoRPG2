@@ -1,6 +1,8 @@
 #ifndef HECHIZOS_H
 #define HECHIZOS_H
-#include<mago.h>
+
+#pragma once
+#include "mago.h"
 
 class Hechizos
 {

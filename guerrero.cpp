@@ -1,4 +1,5 @@
 #include "guerrero.h"
+//#include <armas.h>
 
 Guerrero::Guerrero() : Personajes() {_atributos.resize(7);}
 
@@ -19,12 +20,6 @@ void Guerrero::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
 
-void Guerrero::setInventario(vector<Objetos*> objetos) {
-    for(int i=0;i<4;i++){
-        *_inventario[i] = *objetos[i];
-    }
-}
-
 void Guerrero::Display() const {
     cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
@@ -36,7 +31,7 @@ int Guerrero::Ataque() {
     ataque = getAtributos(2)*getAtributos(0)+getAtributos(5);
     for(auto objeto : _inventario)
     {
-        if(objeto->getTipoObjeto()=="Arma")
+        if(dynamic_cast<Armas*>(objeto))
         {
         ataque += objeto->getPower();
         }
@@ -50,9 +45,6 @@ int Guerrero::Defensa() {
     return defensa;
 }
 
-string Guerrero::identificador(){
-    return "Guerrero";
-}
 Guerrero::~Guerrero() {
 
 }

@@ -1,16 +1,17 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
+#pragma once
+
 #include <equipo.h>
 #include <guerrero.h>
 #include <arquero.h>
 #include <mago.h>
-#include <armas.h>
 #include <pociones.h>
+#include <armas.h>
 #include <vector>
 #include <thread>
 #include <chrono>
-
 
 
 class Funciones{

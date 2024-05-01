@@ -1,8 +1,8 @@
 #ifndef EQUIPO_H
 #define EQUIPO_H
 
-#include <personajes.h>
-#include <guerrero.h>
+#pragma once
+#include "personajes.h"
 
 class Equipo{
 private:

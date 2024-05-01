@@ -16,11 +16,6 @@ void Mago::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
 
-void Mago::setInventario(vector<Objetos*> objetos) {
-    for(int i=0;i<4;i++){
-        *_inventario[i] = *objetos[i];
-    }
-}
 
 void Mago::Display() const {
     cout<< "Mago: "<<_name<<" Atributos: "<<endl;
@@ -33,7 +28,7 @@ int Mago::Ataque() {
     ataque = getAtributos(2)*getAtributos(0);
     for(auto objeto : _inventario)
     {
-        if(objeto->getTipoObjeto()=="Arma")
+        if(dynamic_cast<Armas*>(objeto))
         {
         ataque += objeto->getPower();
     }
@@ -47,9 +42,6 @@ int Mago::Defensa() {
     return defensa;
 }
 
-string Mago::identificador(){
-    return "Mago";
-}
 
 Mago::~Mago() {
 

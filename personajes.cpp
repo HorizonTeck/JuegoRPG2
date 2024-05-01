@@ -20,6 +20,14 @@ Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos
 Personajes::~Personajes(){
 }
 
+void Personajes::setInventario(const vector<Objetos *> inventario){
+    for(auto objeto : inventario){
+        _inventario.push_back(objeto);
+    }
+}
+void Personajes::setInventario(Objetos* objeto){
+    _inventario.push_back(objeto);
+}
 
 string Personajes::getName() const{
     return _name;

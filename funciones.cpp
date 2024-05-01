@@ -42,13 +42,13 @@ void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
         for (int i = 0; i < lineas; ++i) {
             archivo >> TipoObjeto >> name >> Tipo >> power;
             if(TipoObjeto=="Arma"){
-                objetos.push_back( new Armas(TipoObjeto, name, Tipo, power));
+                objetos.push_back( new Armas(name, Tipo, power));
             }
             else if(TipoObjeto=="Poción"){
-                objetos.push_back( new Pociones(TipoObjeto, name, Tipo, power));
+                objetos.push_back( new Pociones(name, Tipo, power));
             }
             else{
-                cout<<"El tipo de arma introducido en la fila "<< i+1 << " no es valido"<<endl;
+                cout<<"El tipo de objeto introducido en la fila "<< i+1 << " no es valido"<<endl;
             }
         }
         archivo.close();
@@ -156,18 +156,15 @@ void Funciones::setAtributos(Personajes* Personaje){
     cout << "Como quieres asignarle los atributos?" <<endl<<"1. Random (El niver será 1)"<<endl<<"2. Manualmente"<<endl;
     tecla=seleccion_invalida(1,2);
     (tecla==1) ? random=1 : random=0;
-    if(Personaje->identificador()=="Arquero"){
-        Arquero *tmp=dynamic_cast<Arquero*>(Personaje);
+    if(Arquero *tmp=dynamic_cast<Arquero*>(Personaje)){
         setAtributos(random,tmp);
         tmp=new Arquero;
         delete tmp;
-    } else if(Personaje->identificador()=="Mago"){
-        Mago *tmp=dynamic_cast<Mago*>(Personaje);
+    } else if(Mago *tmp=dynamic_cast<Mago*>(Personaje)){
         setAtributos(random,tmp);
         tmp=new Mago;
         delete tmp;
-    }else if(Personaje->identificador()=="Guerrero"){
-        Guerrero *tmp=dynamic_cast<Guerrero*>(Personaje);
+    }else if(Guerrero *tmp=dynamic_cast<Guerrero*>(Personaje)){
         setAtributos(random,tmp);
         tmp=new Guerrero;
         delete tmp;
@@ -175,11 +172,11 @@ void Funciones::setAtributos(Personajes* Personaje){
 }
 void Funciones::setAtributos(bool random, Armas *Arma){
     srand(static_cast<unsigned int>(time(nullptr)));
-    if(Arma->getTipoObjeto()=="Cortante"){
+    if(Arma->getTipo()=="Cortante"){
         Arma->setPower(setAtributos(random,0,30));
-    }else if(Arma->getTipoObjeto()=="Contundente"){
+    }else if(Arma->getTipo()=="Contundente"){
         Arma->setPower(setAtributos(random,0,50));
-    }else if(Arma->getTipoObjeto()=="Distancia"){
+    }else if(Arma->getTipo()=="Distancia"){
         Arma->setPower(setAtributos(random,0,70));
     }else{
         Arma->setPower(setAtributos(random,0,40));
@@ -227,30 +224,32 @@ Objetos* Funciones::crear_objeto(){
         cout<<"De que tipo quieres que sea el Arma?:"<<endl<<"1. Cortante"<<endl<<"2. Contundente"<<endl<<"3. Distancia"<<endl<<"4. Báculos"<<endl;
         tecla=seleccion_invalida(1,4);
         if(tecla==1){
-            objeto=new Armas("Arma",name,"Cortante");
+            objeto=new Armas(name,"Cortante");
         }
         else if(tecla==2){
-            objeto=new Armas("Arma",name,"Contundente");
+            objeto=new Armas(name,"Contundente");
         }
         else if(tecla==3){
-            objeto=new Armas("Arma",name,"Distancia");
+            objeto=new Armas(name,"Distancia");
         }
         else{
-            objeto=new Armas("Arma",name,"Baculo");
+            objeto=new Armas(name,"Baculo");
         }
         setAtributos(objeto);
     } else{
         cout<<"De que tipo quieres que sea la pocion?: "<<endl<<"1. Salud"<<endl<<"2. Mana"<<endl;
        tecla=seleccion_invalida(1,2);
         if(tecla==1){
-            objeto=new Pociones("Pocion",name,"Salud");
+            objeto=new Pociones(name,"Salud");
         }
         else{
-            objeto=new Pociones("Pocion",name,"Mana");
+            objeto=new Pociones(name,"Mana");
         }
     }
+
     return objeto;
 }
+
 int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;
     cin.clear();

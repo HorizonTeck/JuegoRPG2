@@ -1,7 +1,8 @@
 #ifndef ARQUERO_H
 #define ARQUERO_H
-#include<personajes.h>
-#include<objetos.h>
+
+#pragma once
+#include "personajes.h"
 
 class Arquero : public Personajes{
 public:
@@ -10,11 +11,10 @@ public:
     Arquero(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
     virtual void setAtributos(int atrib, int posicion);
     virtual void setAtributos(const vector<int> atributos);
-    virtual void setInventario(const vector<Objetos*> objetos);
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
-    virtual string identificador();
+    //virtual string identificador();
     virtual~Arquero();
 };
 

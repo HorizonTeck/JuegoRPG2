@@ -1,10 +1,10 @@
 #include "armas.h"
 
 Armas::Armas() {}
-Armas::Armas(const string&TipoObjeto,const string& name, const string& TipoArma) : Objetos(TipoObjeto,name){
+Armas::Armas(const string& name, const string& TipoArma) : Objetos(name){
     _TipoArma=TipoArma;
 }
-Armas::Armas(const string&TipoObjeto,const string& name,const string& TipoArma, const int& power) : Objetos(TipoObjeto,name,power){
+Armas::Armas(const string& name,const string& TipoArma, const int& power) : Objetos(name,power){
     _TipoArma=TipoArma;
 }
 Armas::~Armas() {
@@ -18,7 +18,7 @@ void Armas::setTipo(const string& TipoArma){
 }
 
 void Armas::serializar(ofstream& archivo) const {
-    archivo << _TipoObjeto << " " << _name << " " << _TipoArma << " " <<_power << endl;
+    archivo << "Arma" << " " << _name << " " << _TipoArma << " " <<_power << endl;
 }
 
 void Armas::display() const {
