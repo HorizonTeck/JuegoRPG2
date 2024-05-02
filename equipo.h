@@ -1,7 +1,6 @@
 #ifndef EQUIPO_H
 #define EQUIPO_H
 
-#pragma once
 #include "personajes.h"
 
 class Equipo{

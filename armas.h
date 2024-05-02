@@ -1,7 +1,6 @@
 #ifndef ARMAS_H
 #define ARMAS_H
 
-#pragma once
 #include "objetos.h"
 
 class Armas : public Objetos{

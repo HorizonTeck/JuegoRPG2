@@ -1,7 +1,6 @@
 #ifndef ARQUERO_H
 #define ARQUERO_H
 
-#pragma once
 #include "personajes.h"
 
 class Arquero : public Personajes{
@@ -15,6 +14,7 @@ public:
     virtual int Ataque();
     virtual int Defensa();
     //virtual string identificador();
+    virtual void serializar(ofstream& archivo) const;
 };
 
 #endif // ARQUERO_H

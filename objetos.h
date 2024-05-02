@@ -2,7 +2,6 @@
 #define OBJETOS_H
 
 
-#pragma once
 #include <iostream>
 #include <fstream>
 

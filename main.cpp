@@ -36,27 +36,27 @@ int main() {
                     cin >> tecla;
                     switch (tecla){
                         case 1: {
-                            funcion.cargar();
+                            //funcion.cargar(Lista_Equipos,"GuardadoEquipos");
                             break;
                         }
                         case 2: {
-                            funcion.guardar();
+                            //funcion.guardar(Lista_Equipos,"GuardadoEquipos");
                             break;
                         }
                         case 3: {
-                            funcion.cargar();
+                            funcion.cargar(Lista_Objetos,"GuardadoObjetos");
                             break;
                         }
                         case 4: {
-                            funcion.guardar();
+                            funcion.guardar(Lista_Objetos,"GuardadoObjetos");
                             break;
                         }
                         case 5: {
-                            funcion.cargar();
+                            funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
                             break;
                         }
                         case 6: {
-                            funcion.guardar();
+                            funcion.guardar(Lista_Personajes,"GuardadoPersonajes");
                             break;
                         }
                         case 7: {

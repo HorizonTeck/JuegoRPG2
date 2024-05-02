@@ -1,7 +1,6 @@
 #ifndef PERSONAJES_H
 #define PERSONAJES_H
 
-#pragma once
 #include <iostream>
 #include <vector>
 #include <objetos.h>
@@ -33,5 +32,6 @@ public:
     virtual int Defensa() =0;
     //virtual string identificador() =0;
     virtual~Personajes();
+    virtual void serializar(ofstream& archivo) const =0;
 };
 #endif // PERSONAJES_H

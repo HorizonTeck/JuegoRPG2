@@ -22,8 +22,7 @@ void Arquero::setAtributos(int atrib, int posicion) {
 
 void Arquero::Display() const {
     cout<< "Arquero: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
-    cout <<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
+    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
 }
 
 int Arquero::Ataque() {
@@ -43,4 +42,9 @@ int Arquero::Defensa() {
     int defensa=0;
     defensa = getAtributos(4)*getAtributos(0)+2*getAtributos(5);
     return defensa;
+}
+
+void Arquero::serializar(ofstream& archivo) const
+{
+    archivo<< "Arquero "<<_name<<" Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
 }

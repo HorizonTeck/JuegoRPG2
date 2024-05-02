@@ -4,18 +4,6 @@ Funciones::Funciones(){
     tecla=0;
 }
 
-void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo);
-    if (archivo.is_open()) {
-        for (int i = 0; i < static_cast<int>(objetos.size()); ++i) {
-            objetos[i]->serializar(archivo);
-        }
-        archivo.close();
-    } else {
-        cerr << "Error al abrir el archivo para escritura." << endl;
-    }
-}
-
 int Funciones::contarLineas(const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) {
@@ -56,17 +44,137 @@ void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
         cerr << "Error al abrir el archivo para lectura." << std::endl;
     }
 }
-
-void Funciones::cargar(){
-    cout<<"La version del juego corresponde con la entrega 2 del trabajo"<<endl;
-    cout<<"por lo que esta parte no esta aun disponible"<<endl;
-    cout<<"puedes usar las pequeñas 'demos' que estan abajo del main, descomentando las que quieras"<<endl;
-    cout<<"Se te enviara al menu anterior en 5 segundos"<<endl;
-    this_thread::sleep_for(chrono::seconds(4));
+void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArchivo){
+    ifstream archivo(nombreArchivo);
+    vector <Objetos*> tmp;
+    vector <int> atributos;
+    string  name, tipo,linea;
+    if (archivo.is_open()) {
+        while (getline(archivo, linea)) {
+            archivo>>tipo>>name;
+            if(tipo=="guerrero"||tipo=="Guerrero")
+            {
+                asignacionGuerrero(linea,atributos);
+                personajes.push_back(new Guerrero(name,atributos,tmp));
+            }else  if(tipo=="Arquero"||tipo=="arquero")
+            {
+                asignacionArquero(linea,atributos);
+                personajes.push_back(new Arquero(name,atributos,tmp));
+            }else if(tipo=="Mago"||tipo=="mago")
+            {
+                asignacionMago(linea,atributos);
+                personajes.push_back(new Mago(name,atributos,tmp));
+            }else
+            {
+                cout<< "Tipo erroneo (archivo corrupto)"<<endl;
+            }
+        }
+        archivo.close();
+    } else {
+        cerr << "Error al abrir el archivo para lectura." << std::endl;
+    }
 }
 
-void Funciones::guardar(){
 
+void Funciones::asignacionGuerrero(string linea,vector <int> atributos)
+{
+    size_t pos = linea.find(":"); // Busca el separador ":"
+    if (pos != string::npos) { // Si se encuentra el separador
+        string clave = linea.substr(0, pos); // Extrae la clave
+        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
+        if (clave == "Nivel") {
+            atributos[0] = stoi(valor);
+        } else if (clave == "Salud") {
+            atributos[1] = stoi(valor);
+        } else if (clave == "Poder") {
+            atributos[2] = stoi(valor);
+        }else if (clave == "Precision") {
+            atributos[3] = stoi(valor);
+        } else if (clave == "Proteccion") {
+            atributos[4] = stoi(valor);
+        } else if (clave == "Escudo") {
+            atributos[5] = stoi(valor);
+        }else if (clave == "Fuerza")
+        {
+            atributos[6] = stoi(valor);
+        }else
+            cout<< "Error en el archivo" <<endl;
+    }
+}
+
+void Funciones::asignacionArquero(string linea,vector <int> atributos)
+{
+    size_t pos = linea.find(":"); // Busca el separador ":"
+    if (pos != string::npos) { // Si se encuentra el separador
+        string clave = linea.substr(0, pos); // Extrae la clave
+        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
+        if (clave == "Nivel") {
+            atributos[0] = stoi(valor);
+        } else if (clave == "Salud") {
+            atributos[1] = stoi(valor);
+        } else if (clave == "Poder") {
+            atributos[2] = stoi(valor);
+        }else if (clave == "Precision") {
+            atributos[3] = stoi(valor);
+        } else if (clave == "Proteccion") {
+            atributos[4] = stoi(valor);
+        } else if (clave == "Escudo") {
+            atributos[5] = stoi(valor);
+        }else if (clave == "Fuerza")
+        {
+            atributos[6] = stoi(valor);
+        }else
+            cout<< "Error en el archivo" <<endl;
+    }
+}
+
+void Funciones::asignacionMago(string linea,vector <int> atributos)
+{
+    size_t pos = linea.find(":"); // Busca el separador ":"
+    if (pos != string::npos) { // Si se encuentra el separador
+        string clave = linea.substr(0, pos); // Extrae la clave
+        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
+        if (clave == "Nivel") {
+            atributos[0] = stoi(valor);
+        } else if (clave == "Salud") {
+            atributos[1] = stoi(valor);
+        } else if (clave == "Poder") {
+            atributos[2] = stoi(valor);
+        }else if (clave == "Precision") {
+            atributos[3] = stoi(valor);
+        } else if (clave == "Proteccion") {
+            atributos[4] = stoi(valor);
+        } else if (clave == "Escudo") {
+            atributos[5] = stoi(valor);
+        }else if (clave == "Fuerza")
+        {
+            atributos[6] = stoi(valor);
+        }else
+            cout<< "Error en el archivo" <<endl;
+    }
+}
+
+void Funciones::guardar(vector<Personajes*>& personajes, const string& nombreArchivo){
+    ofstream archivo(nombreArchivo);
+    if (archivo.is_open()) {
+        for (int i = 0; i < static_cast<int>(personajes.size()); ++i) {
+            personajes[i]->serializar(archivo);
+        }
+        archivo.close();
+    } else {
+        cerr << "Error al abrir el archivo para escritura." << endl;
+    }
+}
+void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo);
+    if (archivo.is_open()) {
+        for (int i = 0; i < static_cast<int>(objetos.size()); ++i) {
+            objetos[i]->serializar(archivo);
+        }
+        archivo.close();
+    } else {
+        cerr << "Error al abrir el archivo para escritura." << endl;
+    }
 }
 
 void Funciones::setAtributos(bool random, Arquero* A)
@@ -225,6 +333,7 @@ void Funciones::crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes *
         cout<<"Le recuerdo que para usar el Equipo en un combate debera añadirle personajes"<<endl;
     }
 }
+
 void Funciones::eliminar_equipo(vector<Equipo *> &Lista_Equipos){
     if(static_cast<int>(Lista_Equipos.size())<=0){
         cout<<"No hay ningun equipo disponible actualmente"<<endl;
@@ -243,6 +352,7 @@ void Funciones::eliminar_equipo(vector<Equipo *> &Lista_Equipos){
         cout << "El equipo ha sido eliminado correctamente." << endl;
     }
 }
+
 Objetos* Funciones::crear_objeto(){
     string name;
     Objetos *objeto;
@@ -278,6 +388,7 @@ Objetos* Funciones::crear_objeto(){
     setAtributos(objeto);
     return objeto;
 }
+
 void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equipo*>& Lista_Equipos, Objetos* objeto){
     cout<<"Quieres añadir el objeto a un personaje con o sin equipo?"<<endl<<"1. CON"<<endl<<"2. SIN"<<endl;
     tecla=seleccion_invalida(1,2);
@@ -318,7 +429,6 @@ Personajes* Funciones::seleccionar_Personaje(vector<Equipo*>& Lista_Equipos){
     tecla=seleccion_invalida(1,Lista_Equipos[tmp]->gettamaño());
     return Lista_Equipos[tmp]->getLista_Personajes()[tecla-1];
 }
-
 Personajes* Funciones::seleccionar_Personaje(vector<Personajes*>& Lista_Personajes){
     cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes"<<endl;
     for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){

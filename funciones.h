@@ -1,7 +1,6 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-#pragma once
 
 #include <equipo.h>
 #include <guerrero.h>
@@ -21,9 +20,12 @@ public:
     //Gestion de Archivos
     Funciones();
     void cargar(vector<Objetos*>& objetos, const string& nombreArchivo);
-    void cargar();
+    void cargar(vector<Personajes*>& personajes, const string& nombreArchivo);
+    void asignacionGuerrero(string linea,vector <int> atributos);
+    void asignacionArquero(string linea,vector <int> atributos);
+    void asignacionMago(string linea,vector <int> atributos);
     void guardar(vector<Objetos*>& objetos, const string& nombreArchivo);
-    void guardar();
+    void guardar(vector<Personajes*>& personajes, const string& nombreArchivo);
     int contarLineas(const string& nombreArchivo);
 
     //Gestion Atributos

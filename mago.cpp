@@ -19,8 +19,7 @@ void Mago::setAtributos(int atrib, int posicion) {
 
 void Mago::Display() const {
     cout<< "Mago: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
-    cout <<" Mana: "<<_atributos[5]<<endl;
+    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
 }
 
 int Mago::Ataque() {
@@ -42,3 +41,22 @@ int Mago::Defensa() {
     return defensa;
 }
 
+void Mago::LanzarPocion(Pociones& P)
+{
+    if(P.getTipo()=="Salud"||P.getTipo()=="salud")
+    {
+        cout<< "El mago " << _name << " se ha curado " << P.getPower()<<" puntos de salud"<<endl;
+        _atributos[1]+=P.getPower();
+    }else if (P.getTipo()=="Mana"||P.getTipo()=="mana"||P.getTipo()=="Maná"||P.getTipo()=="maná")
+    {
+        cout<< "El mago " << _name << " ha restaurado  " << P.getPower()<<" puntos de maná"<<endl;
+        _atributos[5]+=P.getPower();
+    }else
+        cout<< "Pocion no valida"<<endl;
+
+}
+
+void Mago::serializar(ofstream &archivo) const
+{
+    archivo<< "Mago "<<_name<<" Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+}

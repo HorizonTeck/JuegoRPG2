@@ -20,15 +20,6 @@ void Pociones::setTipo(const string& TipoPocion) {
     _TipoPocion = TipoPocion;
 }
 
-/*void Pociones::LanzarPocion(Personajes& Defensor)
-{
-    if(_TipoPocion=="Mana"||_TipoPocion=="mana")
-    {
-        Defensor.setAtributos(15,5);
-    }else
-        Defensor.setAtributos(100,1);
-}*/
-
 void Pociones::serializar(ofstream& archivo) const {
     archivo << "Pocion" << " " << _name << " " << _TipoPocion <<endl;
 }

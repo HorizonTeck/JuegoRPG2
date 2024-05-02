@@ -22,8 +22,7 @@ void Guerrero::setAtributos(int atrib, int posicion) {
 
 void Guerrero::Display() const {
     cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4];
-    cout <<" Fuerza: "<<_atributos[5]<<" Escudo: "<<_atributos[6]<<endl;
+    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
 }
 
 int Guerrero::Ataque() {
@@ -45,3 +44,7 @@ int Guerrero::Defensa() {
     return defensa;
 }
 
+void Guerrero::serializar(ofstream &archivo) const
+{
+    archivo<< "Guerrero "<<_name<<" Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+}

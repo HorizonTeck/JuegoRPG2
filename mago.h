@@ -1,7 +1,6 @@
 #ifndef MAGO_H
 #define MAGO_H
 
-#pragma once
 #include "personajes.h"
 
 class Mago : public Personajes{
@@ -14,7 +13,9 @@ public:
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
+    void LanzarPocion(Pociones& P);
     //virtual string identificador();
+    virtual void serializar(ofstream& archivo) const;
 };
 
 #endif // MAGO_H
