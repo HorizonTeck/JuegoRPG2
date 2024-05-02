@@ -88,48 +88,7 @@ int main() {
                             break;
                         }
                         case 3: {
-                            string *name=new string;
-                            cout << "Como quieres llamar al personaje?" <<endl;
-                            cin >> *name;
-                            cout << "De que tipo quieres que sea el personaje? "<<endl<< "1. Mago" <<endl<<"2. Guerrero"<<endl<<"3. Arquero"<<endl;
-                            tecla=funcion.seleccion_invalida(1,3);
-                            if(tecla == 1){
-                                Lista_Personajes.push_back(new Mago(*name));
-                            }
-                            else if(tecla ==2){
-                                Lista_Personajes.push_back(new Guerrero(*name));
-                            }
-                            else{
-                                Lista_Personajes.push_back(new Arquero(*name));
-                            }
-                            delete name;
-                            funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
-                            cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
-                            tecla=funcion.seleccion_invalida(1,2);
-                            if(tecla==1){
-                                if(static_cast<int>(Lista_Equipos.size())<=0){
-                                    cout << "Actualmente no hay ningun equipo disponible"<<endl;
-                                    cout << "Le recuerdo que para usar el personaje debera añadirlo a un equipo"<<endl;
-                                }
-                                else{
-                                    cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
-                                    for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
-                                        cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
-                                    }
-                                    cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
-                                    tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
-                                    cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
-                                    Lista_Equipos[tecla-1]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
-                                    cout << "El nuevo personaje ha sido añadido, asi queda el equipo: " << endl;
-                                    Lista_Equipos[tecla-1]->Display();
-                                    auto it = Lista_Personajes.begin() + tecla - 1;
-                                    //delete *it;
-                                    Lista_Personajes.erase(it);
-                                }
-                            }
-                            else{
-                                cout << "Le recuerdo que para usar el personaje debera añadirlo a un equipo"<<endl;
-                            }
+                            funcion.crear_personaje(Lista_Equipos,Lista_Personajes);
                             this_thread::sleep_for(chrono::seconds(3));
                             break;
                         }

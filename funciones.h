@@ -42,6 +42,7 @@ public:
     void crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes); //Crea un Equipo preguntando al usuario
     void eliminar_equipo(vector<Equipo*>& Lista_Equipos);
     int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
+    Equipo* seleccionar_Equipo(vector<Equipo*>& Lista_Equipos);
 
     //Gestion Objetos
     Objetos* crear_objeto();
@@ -49,7 +50,8 @@ public:
 
 
     //Gestion Personajes
-    void añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
+    void añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
+    void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 

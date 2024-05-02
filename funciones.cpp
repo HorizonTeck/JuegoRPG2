@@ -209,6 +209,7 @@ void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) 
     }
 }
 
+//Gestion Atributos
 void Funciones::setAtributos(bool random, Arquero* A)
 {
     A->setAtributos(1,0); //nivel
@@ -351,6 +352,7 @@ void Funciones::setAtributos(Objetos* Objeto){
     }
 }
 
+//Gestion Equipos
 void Funciones::crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes *> &Lista_Personajes){
     string *nombre=new string;
     cout<<"Como quieres nombrar el equipo: "<<endl;
@@ -360,12 +362,11 @@ void Funciones::crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes *
     cout<<"Quieres añadir algun personaje al Equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
     tecla=seleccion_invalida(1,2);
     if(tecla==1){
-        añadir_personaje(Lista_Equipos, Lista_Personajes);
+        añadir_personaje(Lista_Equipos[Lista_Equipos.size()-1], Lista_Personajes);
     }else{
         cout<<"Le recuerdo que para usar el Equipo en un combate debera añadirle personajes"<<endl;
     }
 }
-
 void Funciones::eliminar_equipo(vector<Equipo *> &Lista_Equipos){
     if(static_cast<int>(Lista_Equipos.size())<=0){
         cout<<"No hay ningun equipo disponible actualmente"<<endl;
@@ -384,7 +385,26 @@ void Funciones::eliminar_equipo(vector<Equipo *> &Lista_Equipos){
         cout << "El equipo ha sido eliminado correctamente." << endl;
     }
 }
-
+int Funciones::tamaño_equipos(vector<Equipo*>& Lista_Equipos){
+    int tmp=0;
+    for(auto objeto : Lista_Equipos){
+        if(objeto->getLista_Personajes().size()>0){
+            tmp++;
+        }
+    }
+    return tmp;
+}
+Equipo* Funciones::seleccionar_Equipo(vector<Equipo*>& Lista_Equipos){
+    cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
+    for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
+        cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
+    }
+    cout<<"A cual de ellos quieres meter el nuevo personaje? "<<endl;
+    tecla=seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
+    cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
+    return Lista_Equipos[tecla-1];
+}
+//Gestion Objetos
 Objetos* Funciones::crear_objeto(){
     string name;
     Objetos *objeto;
@@ -420,7 +440,6 @@ Objetos* Funciones::crear_objeto(){
     setAtributos(objeto);
     return objeto;
 }
-
 void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equipo*>& Lista_Equipos, Objetos* objeto){
     cout<<"Quieres añadir el objeto a un personaje con o sin equipo?"<<endl<<"1. CON"<<endl<<"2. SIN"<<endl;
     tecla=seleccion_invalida(1,2);
@@ -444,6 +463,7 @@ void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equi
     }
 }
 
+//Gestion Personajes
 Personajes* Funciones::seleccionar_Personaje(vector<Equipo*>& Lista_Equipos){
     int tmp=tamaño_equipos(Lista_Equipos);
     cout<<"Elige un equipo con personajes: "<<endl;
@@ -471,18 +491,7 @@ Personajes* Funciones::seleccionar_Personaje(vector<Personajes*>& Lista_Personaj
     cout<<"Personaje seleccionado con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
     return Lista_Personajes[tecla-1];
 }
-
-int Funciones::tamaño_equipos(vector<Equipo*>& Lista_Equipos){
-    int tmp=0;
-    for(auto objeto : Lista_Equipos){
-        if(objeto->getLista_Personajes().size()>0){
-            tmp++;
-        }
-    }
-    return tmp;
-}
-
-void Funciones::añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes){
+void Funciones::añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes){
     int tecla=0;
     while(tecla!=2){
         if(Lista_Personajes.size()<=0){
@@ -496,7 +505,7 @@ void Funciones::añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Persona
             cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
             tecla=seleccion_invalida(0,static_cast<int>(Lista_Personajes.size()));
             cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
-            Lista_Equipos[Lista_Equipos.size()-1]->setLista_Personajes(Lista_Personajes[tecla-1]);
+            Equipo->setLista_Personajes(Lista_Personajes[tecla-1]);
             auto it = Lista_Personajes.begin() + tecla - 1;
             //delete *it;
             Lista_Personajes.erase(it);
@@ -504,6 +513,35 @@ void Funciones::añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Persona
             cout<<"1. SI"<<endl<<"2. NO"<<endl;
             tecla=seleccion_invalida(1,2);
         }
+    }
+}
+void Funciones::crear_personaje(vector<Equipo *>& Lista_Equipos, vector<Personajes *>& Lista_Personajes){
+    string *name=new string;
+    cout << "Como quieres llamar al personaje?" <<endl;
+    cin >> *name;
+    cout << "De que tipo quieres que sea el personaje? "<<endl<< "1. Mago" <<endl<<"2. Guerrero"<<endl<<"3. Arquero"<<endl;
+    tecla=seleccion_invalida(1,3);
+    if(tecla == 1){
+        Lista_Personajes.push_back(new Mago(*name));
+    }
+    else if(tecla ==2){
+        Lista_Personajes.push_back(new Guerrero(*name));
+    }
+    else{
+        Lista_Personajes.push_back(new Arquero(*name));
+    }
+    delete name;
+    setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
+    cout << "Quieres añadir el nuevo personaje a un equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
+    tecla=seleccion_invalida(1,2);
+    if(tecla==1){
+        if(Lista_Equipos.size()>0){
+            seleccionar_Equipo(Lista_Equipos)->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
+        }else{
+            cout<<"Actualmente no hay ningun Equipo creado"<<endl;
+        }
+    }else{
+        cout<<"Le recuerdo que debera añadir el personaje a un equipo si quiere usarlo"<<endl;
     }
 }
 
