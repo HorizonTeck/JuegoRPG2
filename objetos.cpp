@@ -6,6 +6,10 @@ Objetos::Objetos(){
 }
 Objetos::Objetos(const string& name) : _name(name) {}
 Objetos::Objetos(const string& name, const int& power) : _name(name), _power(power){}
+Objetos::Objetos(Objetos& objeto){
+    this->_name=objeto._name;
+    this->_power=objeto._power;
+}
 Objetos::~Objetos(){
 
 }

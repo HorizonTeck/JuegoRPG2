@@ -7,6 +7,9 @@ Pociones::Pociones(const string& name, const string& TipoPocion) : Objetos(name)
 Pociones::Pociones(const string& name,const string& TipoPocion, const int& power) : Objetos(name,power){
     _TipoPocion=TipoPocion;
 }
+Pociones::Pociones(Pociones& Pocion) : Objetos(Pocion){
+    this->_TipoPocion=Pocion._TipoPocion;
+}
 Pociones::~Pociones() {}
 
 string Pociones::getTipo() const {

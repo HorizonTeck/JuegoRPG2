@@ -15,6 +15,8 @@
 
 
 class Funciones{
+private:
+    int tecla;
 public:
     Funciones();
     void cargar(vector<Objetos*>& objetos, const string& nombreArchivo);
@@ -31,6 +33,11 @@ public:
     void setAtributos(Objetos* Objeto);
     int setAtributos(bool random,int LI,int LS);
     Objetos* crear_objeto();
+    void añadir_objeto(vector<Personajes*>& Lista_Personajes, vector<Equipo*>& Lista_Equipos, Objetos* objeto);
+    void añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
+    int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
+    Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
+    Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
     int seleccion_invalida(int LI, int LS);
 };
 

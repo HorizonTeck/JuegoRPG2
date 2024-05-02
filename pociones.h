@@ -11,6 +11,7 @@ public:
     Pociones();
     Pociones(const string& name, const string& TipoPocion);
     Pociones(const string& name, const string& TipoPocion, const int& power);
+    Pociones(Pociones& Pocion);
     virtual string getTipo() const;
     virtual void setTipo(const string& TipoPocion);
     //void LanzarPocion(Personajes& Personaje);

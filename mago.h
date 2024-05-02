@@ -15,7 +15,6 @@ public:
     virtual int Ataque();
     virtual int Defensa();
     //virtual string identificador();
-    virtual~Mago();
 };
 
 #endif // MAGO_H

@@ -7,6 +7,9 @@ Armas::Armas(const string& name, const string& TipoArma) : Objetos(name){
 Armas::Armas(const string& name,const string& TipoArma, const int& power) : Objetos(name,power){
     _TipoArma=TipoArma;
 }
+Armas::Armas(Armas& Arma) : Objetos(Arma){
+    this->_TipoArma=Arma._TipoArma;
+}
 Armas::~Armas() {
 
 }

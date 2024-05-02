@@ -12,21 +12,30 @@ Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos
     for(int i=0;i<6;i++){
         _atributos[i] = atributos[i];
     }
-    for(int i=0;i<4;i++){
-        *_inventario[i] = *inventario[i];
+    for(auto objeto : inventario){
+        setInventario(objeto);
     }
 }
 
 Personajes::~Personajes(){
+    for(auto objeto : _inventario){
+        delete objeto;
+    }
 }
 
 void Personajes::setInventario(const vector<Objetos *> inventario){
     for(auto objeto : inventario){
-        _inventario.push_back(objeto);
+        setInventario(objeto);
     }
 }
 void Personajes::setInventario(Objetos* objeto){
-    _inventario.push_back(objeto);
+    Objetos *copia;
+    if(dynamic_cast<Armas*>(objeto)){
+        copia= new Armas(dynamic_cast<Armas&>(*objeto));
+    }else{
+        copia=new Pociones(dynamic_cast<Pociones&>(*objeto));
+    }
+    _inventario.push_back(copia);
 }
 
 string Personajes::getName() const{

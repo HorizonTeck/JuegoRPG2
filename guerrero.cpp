@@ -45,6 +45,3 @@ int Guerrero::Defensa() {
     return defensa;
 }
 
-Guerrero::~Guerrero() {
-
-}

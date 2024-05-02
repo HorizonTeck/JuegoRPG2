@@ -44,7 +44,3 @@ int Arquero::Defensa() {
     defensa = getAtributos(4)*getAtributos(0)+2*getAtributos(5);
     return defensa;
 }
-
-Arquero::~Arquero() {
-
-}

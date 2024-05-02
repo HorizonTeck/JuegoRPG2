@@ -17,6 +17,7 @@ public:
     Objetos();
     Objetos(const string& name);
     Objetos(const string& name, const int& power);
+    Objetos(Objetos& Objeto);
     virtual string getName() const;
     virtual string getTipo() const=0;
     virtual void setName(const string& name);

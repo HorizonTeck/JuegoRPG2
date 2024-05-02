@@ -42,7 +42,3 @@ int Mago::Defensa() {
     return defensa;
 }
 
-
-Mago::~Mago() {
-
-}

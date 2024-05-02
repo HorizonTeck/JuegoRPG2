@@ -47,6 +47,9 @@ void Equipo::Display() const {
     }
 }
 
-Equipo::~Equipo() {
+Equipo::~Equipo(){
+    for(auto objeto : _Lista_Personajes){
+        delete objeto;
+    }
 }
 

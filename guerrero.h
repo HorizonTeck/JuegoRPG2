@@ -15,6 +15,5 @@ public:
     virtual int Ataque();
     virtual int Defensa();
     //virtual string identificador();
-    virtual~Guerrero();
 };
 #endif // GUERRERO_H
