@@ -48,8 +48,9 @@ void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArch
     ifstream archivo(nombreArchivo);
     vector <Objetos*> tmp;
     vector <int> atributos;
-    string  name, tipo,linea;
+    string  name, tipo, linea;
     if (archivo.is_open()) {
+        archivo>>tipo>>name;
         while (getline(archivo, linea)) {
             archivo>>tipo>>name;
             if(tipo=="guerrero"||tipo=="Guerrero")
@@ -62,6 +63,8 @@ void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArch
                 personajes.push_back(new Arquero(name,atributos,tmp));
             }else if(tipo=="Mago"||tipo=="mago")
             {
+                Prueba(linea);
+
                 asignacionMago(linea,atributos);
                 personajes.push_back(new Mago(name,atributos,tmp));
             }else
@@ -128,7 +131,36 @@ void Funciones::asignacionArquero(string linea,vector <int> atributos)
     }
 }
 
-void Funciones::asignacionMago(string linea,vector <int> atributos)
+void Funciones::Prueba(string linea){
+    std::vector<std::string> valores;
+
+    // Variables para almacenar las posiciones
+    size_t pos_actual = 0;
+    size_t pos_dos_puntos;
+
+    while ((pos_dos_puntos = linea.find(':', pos_actual)) != std::string::npos) {
+        // Avanzar pos_dos_puntos al carácter después de ':'
+        ++pos_dos_puntos;
+
+        // Encontrar la siguiente palabra (desde pos_dos_puntos hasta el próximo espacio o el final de la línea)
+        size_t pos_inicio_palabra = linea.find_first_not_of(' ', pos_dos_puntos);
+        size_t pos_fin_palabra = linea.find(' ', pos_inicio_palabra);
+        if (pos_fin_palabra == std::string::npos) {
+            // Si no hay espacio, la palabra es la parte restante de la línea
+            pos_fin_palabra = linea.length();
+        }
+
+        // Extraer la palabra y agregarla al vector
+        std::string valor = linea.substr(pos_inicio_palabra, pos_fin_palabra - pos_inicio_palabra);
+        valores.push_back(valor);
+
+        // Actualizar pos_actual para continuar buscando desde el siguiente carácter después de la palabra encontrada
+        pos_actual = pos_fin_palabra;
+    }
+
+    //valores (strings),
+}
+void Funciones::asignacionMago(string linea,vector <int>& atributos)
 {
     size_t pos = linea.find(":"); // Busca el separador ":"
     if (pos != string::npos) { // Si se encuentra el separador
@@ -488,3 +520,4 @@ int Funciones::seleccion_invalida(int LI,int LS){
     }
     return tmp;
 }
+

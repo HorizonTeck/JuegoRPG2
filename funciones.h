@@ -23,7 +23,7 @@ public:
     void cargar(vector<Personajes*>& personajes, const string& nombreArchivo);
     void asignacionGuerrero(string linea,vector <int> atributos);
     void asignacionArquero(string linea,vector <int> atributos);
-    void asignacionMago(string linea,vector <int> atributos);
+    void asignacionMago(string linea,vector <int>& atributos);
     void guardar(vector<Objetos*>& objetos, const string& nombreArchivo);
     void guardar(vector<Personajes*>& personajes, const string& nombreArchivo);
     int contarLineas(const string& nombreArchivo);
@@ -55,6 +55,7 @@ public:
 
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
+    void Prueba(string linea);
 };
 
 #endif // FUNCIONES_H

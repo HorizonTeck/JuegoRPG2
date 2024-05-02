@@ -10,7 +10,7 @@ Personajes::Personajes(const string& name){
 Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos*>  inventario){
     _name=name;
     for(int i=0;i<6;i++){
-        _atributos[i] = atributos[i];
+        _atributos.push_back(atributos[i]);
     }
     for(auto objeto : inventario){
         setInventario(objeto);
