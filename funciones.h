@@ -18,26 +18,40 @@ class Funciones{
 private:
     int tecla;
 public:
+    //Gestion de Archivos
     Funciones();
     void cargar(vector<Objetos*>& objetos, const string& nombreArchivo);
     void cargar();
     void guardar(vector<Objetos*>& objetos, const string& nombreArchivo);
     void guardar();
     int contarLineas(const string& nombreArchivo);
+
+    //Gestion Atributos
+    void setAtributos(Personajes* Lista_Personajes); //Pregunta al usuario y llama a las otras funciones de asignacion
     void setAtributos(bool random, Arquero* P);
     void setAtributos(bool random, Guerrero* P);
     void setAtributos(bool random, Mago* P);
-    void setAtributos(Personajes* Lista_Personajes);
+    void setAtributos(Objetos* Objeto); //Pregunta al usuario y llama a las otras funciones de asignacion
     void setAtributos(bool random, Armas* Arma);
     void setAtributos(bool random, Pociones* Pocion);
-    void setAtributos(Objetos* Objeto);
     int setAtributos(bool random,int LI,int LS);
+
+    //Gestion Equipos//
+    void crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes); //Crea un Equipo preguntando al usuario
+    void eliminar_equipo(vector<Equipo*>& Lista_Equipos);
+    int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
+
+    //Gestion Objetos
     Objetos* crear_objeto();
     void añadir_objeto(vector<Personajes*>& Lista_Personajes, vector<Equipo*>& Lista_Equipos, Objetos* objeto);
+
+
+    //Gestion Personajes
     void añadir_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
-    int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
+
+    //Funciones varias
     int seleccion_invalida(int LI, int LS);
 };
 

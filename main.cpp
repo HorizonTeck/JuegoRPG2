@@ -80,37 +80,11 @@ int main() {
                     cin >> tecla;
                     switch (tecla) {
                         case 1: {
-                            string *nombre=new string;
-                            cout<<"Como quieres nombrar el equipo: "<<endl;
-                            cin>>*nombre;
-                            Lista_Equipos.push_back(new Equipo(*nombre));
-                            delete nombre;
-                            cout<<"Quieres añadir algun personaje al Equipo?"<<endl<<"1. Si"<<endl<<"2. No"<<endl;
-                            tecla=funcion.seleccion_invalida(1,2);
-                            if(tecla==1){
-                                funcion.añadir_personaje(Lista_Equipos, Lista_Personajes);
-                            }else{
-                                cout<<"Le recuerdo que para usar el Equipo en un combate debera añadirle personajes"<<endl;
-                            }
+                            funcion.crear_equipo(Lista_Equipos, Lista_Personajes);
                             break;
                         }
                         case 2: {
-                            if(static_cast<int>(Lista_Equipos.size())<=0){
-                                cout<<"No hay ningun equipo disponible actualmente"<<endl;
-                            }
-                            else{
-                                cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
-                                for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
-                                    cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
-                                }
-                                cout<<"Cual de ellos quieres borrar? "<<endl;
-                                tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
-                                cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
-                                auto it = Lista_Equipos.begin() + tecla - 1;
-                                delete *it;
-                                Lista_Equipos.erase(it);
-                                cout << "El equipo ha sido eliminado correctamente." << endl;
-                            }
+                            funcion.eliminar_equipo(Lista_Equipos);
                             break;
                         }
                         case 3: {
