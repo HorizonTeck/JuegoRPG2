@@ -191,10 +191,12 @@ void Funciones::guardar(vector<Personajes*>& personajes, const string& nombreArc
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(personajes.size()); ++i) {
+            archivo<<"                                     ->";
             personajes[i]->serializar(archivo);
             tmp=personajes[i]->getInventario();
-            archivo<<endl;
-            guardar(tmp,nombreArchivo);
+            for (int i = 0; i < static_cast<int>(tmp.size()); ++i) {
+                tmp[i]->serializar(archivo);
+            }
         }
         archivo.close();
     } else {
@@ -215,12 +217,20 @@ void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) 
 void Funciones::guardar(vector<Equipo *> &equipos, const string &nombreArchivo)
 {
     vector <Personajes*> tmp;
+    vector <Objetos*> tmp2;
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(equipos.size()); ++i) {
-            archivo<< equipos[i]->getName()<<endl;
+            archivo<< "EQUIPO: \n  -->"<<equipos[i]->getName()<<":\n";
             tmp=equipos[i]->getLista_Personajes();
-            guardar(tmp,nombreArchivo);
+            for (int i = 0; i < static_cast<int>(tmp.size()); ++i) {
+                archivo<<" ->";
+                tmp[i]->serializar(archivo);
+                tmp2=tmp[i]->getInventario();
+                for (int i = 0; i < static_cast<int>(tmp2.size()); ++i) {
+                    tmp2[i]->serializar(archivo);
+                }
+            }
         }
         archivo.close();
     } else {

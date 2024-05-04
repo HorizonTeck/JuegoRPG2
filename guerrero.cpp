@@ -46,7 +46,7 @@ int Guerrero::Defensa() {
 
 void Guerrero::serializar(ofstream &archivo) const
 {
-    archivo<< "Guerrero: "<< endl <<_name<<" Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+    archivo<< "Guerrero: "<<_name<<"\nNivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
 }
 
 void Guerrero::LanzarPocion(Pociones &P)
