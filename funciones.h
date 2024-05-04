@@ -52,6 +52,7 @@ public:
     //Gestion Personajes
     void añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
     void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
+    void eliminar_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
     //Funciones varias

@@ -13,6 +13,7 @@ public:
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
+    void LanzarPocion(Pociones& P);
     //virtual string identificador();
     virtual void serializar(ofstream& archivo) const;
 };
