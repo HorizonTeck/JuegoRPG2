@@ -211,12 +211,7 @@ int main() {
                         if(Lista_Personajes.size()<=0){
                             cout<<"Actualmente no hay ningun Personaje sin Equipo"<<endl;
                         }else{
-                            cout<<"Seleccione uno de estos Personajes: "<<endl;
-                            for(int i=0;i<static_cast<int>(Lista_Personajes.size());i++){
-                                cout<<i+1<<". "<<Lista_Personajes[i]->getName()<<endl;
-                            }
-                            tecla=funcion.seleccion_invalida(1,static_cast<int>(Lista_Personajes.size()));
-                            Lista_Personajes[tecla-1]->Display();
+                            funcion.seleccionar_Personaje(Lista_Personajes)->Display();
                             this_thread::sleep_for(chrono::seconds(2));
                         }
                     }

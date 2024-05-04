@@ -544,7 +544,6 @@ void Funciones::crear_personaje(vector<Equipo *>& Lista_Equipos, vector<Personaj
         cout<<"Le recuerdo que debera añadir el personaje a un equipo si quiere usarlo"<<endl;
     }
 }
-
 int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;
     cin.clear();

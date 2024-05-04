@@ -54,7 +54,6 @@ public:
     void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
-
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
     void Prueba(string linea);
