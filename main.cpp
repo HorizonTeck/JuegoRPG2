@@ -40,7 +40,7 @@ int main() {
                             break;
                         }
                         case 2: {
-                            //funcion.guardar(Lista_Equipos,"GuardadoEquipos");
+                            funcion.guardar(Lista_Equipos,"GuardadoEquipos");
                             break;
                         }
                         case 3: {
@@ -117,6 +117,7 @@ int main() {
                         }
                     }
                 }
+        }
                 break;
 
             case 3: {
@@ -231,5 +232,4 @@ int main() {
     } */
 
     return 0;
-}
 }

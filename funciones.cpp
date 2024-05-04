@@ -187,10 +187,14 @@ void Funciones::asignacionMago(string linea,vector <int>& atributos)
 }
 
 void Funciones::guardar(vector<Personajes*>& personajes, const string& nombreArchivo){
+    vector <Objetos*> tmp;
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(personajes.size()); ++i) {
             personajes[i]->serializar(archivo);
+            tmp=personajes[i]->getInventario();
+            archivo<<endl;
+            guardar(tmp,nombreArchivo);
         }
         archivo.close();
     } else {
@@ -202,6 +206,21 @@ void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) 
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(objetos.size()); ++i) {
             objetos[i]->serializar(archivo);
+        }
+        archivo.close();
+    } else {
+        cerr << "Error al abrir el archivo para escritura." << endl;
+    }
+}
+void Funciones::guardar(vector<Equipo *> &equipos, const string &nombreArchivo)
+{
+    vector <Personajes*> tmp;
+    ofstream archivo(nombreArchivo);
+    if (archivo.is_open()) {
+        for (int i = 0; i < static_cast<int>(equipos.size()); ++i) {
+            archivo<< equipos[i]->getName()<<endl;
+            tmp=equipos[i]->getLista_Personajes();
+            guardar(tmp,nombreArchivo);
         }
         archivo.close();
     } else {
