@@ -59,6 +59,9 @@ public:
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 
+    //Gestion del Display
+
+    /*template <typename T> void RecorrerVectores(vector<T>& vec);*/
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
     void espera();

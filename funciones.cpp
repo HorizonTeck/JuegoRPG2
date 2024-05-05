@@ -1,5 +1,4 @@
 #include "funciones.h"
-
 Funciones::Funciones(){
     tecla=0;
 }
@@ -634,6 +633,14 @@ string Funciones::to_uppercase(string& linea){
     }
     return result;
 }
+
+/*template <typename T> void Funciones::RecorrerVectores(vector<T>& vec){
+    for(int i=0;i<static_cast<int>(vec.size());i++){
+        cout<<i+1<<". ";
+        vec[i]->Display();
+        cout<<endl;
+    }
+}*/
 int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;
     cin.clear();

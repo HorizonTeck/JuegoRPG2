@@ -142,7 +142,7 @@ int main() {
                                 break;
                             }
                             cout<<"Selecciona un Equipo: "<<endl;
-                            for(int i =0;i<static_cast<int>(Lista_Equipos.size());i++){
+                            for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++){
                                 cout<<i+1<<". ";
                                 Lista_Equipos[i]->Display();
                                 cout<<endl;
@@ -166,7 +166,7 @@ int main() {
                             }
                             for(int i=0;i<static_cast<int>(Lista_Personajes.size());i++){
                                 cout<<i+1<<". ";
-                                Lista_Equipos[tecla-1]->getLista_Personajes()[i]->Display();
+                                Lista_Personajes[i]->Display();
                                 cout<<endl;
                             }
                             break;
