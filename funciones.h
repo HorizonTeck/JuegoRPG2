@@ -26,9 +26,9 @@ public:
     void asignacionGuerrero(string linea,vector <int> atributos);
     void asignacionArquero(string linea,vector <int> atributos);
     void asignacionMago(string linea,vector <int>& atributos);
-    void guardar(vector<Objetos*>& objetos, const string& nombreArchivo);
-    void guardar(vector<Personajes*>& personajes, const string& nombreArchivo);
-    void guardar(vector<Equipo*>& equipos, const string& nombreArchivo);
+    void guardar(vector<Objetos*> objetos, ofstream &archivo);
+    void guardar(vector<Personajes*> personajes, const string& nombreArchivo);
+    void guardar(vector<Equipo*> equipos, const string& nombreArchivo);
     int contarLineas(const string& nombreArchivo);
 
     //Gestion Atributos

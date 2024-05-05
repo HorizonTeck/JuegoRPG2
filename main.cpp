@@ -47,7 +47,7 @@ int main() {
                             break;
                         }
                         case 4: {
-                            funcion.guardar(Lista_Objetos,"GuardadoObjetos");
+                            //funcion.guardar(Lista_Objetos,"GuardadoObjetos");
                             break;
                         }
                         case 5: {

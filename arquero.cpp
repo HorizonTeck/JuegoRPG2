@@ -73,8 +73,8 @@ int Arquero::Defensa() {
 
 void Arquero::serializar(ofstream& archivo) const
 {
-    archivo<< "Arquero: "<<_name<<" \nNivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
-    cout << "Arquero: \n" << _name << " Nivel: " << _atributos[0] << " Salud: " << _atributos[1] << " Poder: " << _atributos[2] << " Precisión: " << _atributos[3] << " Protección: " << _atributos[4] << " Agilidad: " << _atributos[5] << " Carcaj: " << _atributos[6] << std::endl;
+    archivo<< "Arquero: "<<_name<<" \n -->Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
+
 
  }
 

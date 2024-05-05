@@ -187,50 +187,39 @@ void Funciones::asignacionMago(string linea,vector <int>& atributos)
     }
 }
 
-void Funciones::guardar(vector<Personajes*>& personajes, const string& nombreArchivo){
-    vector <Objetos*> tmp;
+void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
-        for (int i = 0; i < static_cast<int>(personajes.size()); ++i) {
+        for (auto objeto : personajes) {
             archivo<<"                                     ->";
-            personajes[i]->serializar(archivo);
-            tmp=personajes[i]->getInventario();
-            for (int i = 0; i < static_cast<int>(tmp.size()); ++i) {
-                tmp[i]->serializar(archivo);
-            }
+            objeto->serializar(archivo);
+            guardar(objeto->getInventario(),archivo);
         }
         archivo.close();
     } else {
         cerr << "Error al abrir el archivo para escritura." << endl;
     }
 }
-void Funciones::guardar(vector<Objetos*>& objetos, const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo);
+void Funciones::guardar(vector<Objetos*> objetos, ofstream &archivo) {
     if (archivo.is_open()) {
-        for (int i = 0; i < static_cast<int>(objetos.size()); ++i) {
-            objetos[i]->serializar(archivo);
+        for (auto objeto : objetos) {
+            objeto->serializar(archivo);
         }
-        archivo.close();
     } else {
         cerr << "Error al abrir el archivo para escritura." << endl;
     }
 }
-void Funciones::guardar(vector<Equipo *> &equipos, const string &nombreArchivo)
+void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
 {
-    vector <Personajes*> tmp;
-    vector <Objetos*> tmp2;
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
-        for (int i = 0; i < static_cast<int>(equipos.size()); ++i) {
-            archivo<< "EQUIPO: \n  -->"<<equipos[i]->getName()<<":\n";
-            tmp=equipos[i]->getLista_Personajes();
-            for (int i = 0; i < static_cast<int>(tmp.size()); ++i) {
-                archivo<<" ->";
-                tmp[i]->serializar(archivo);
-                tmp2=tmp[i]->getInventario();
-                for (int i = 0; i < static_cast<int>(tmp2.size()); ++i) {
-                    tmp2[i]->serializar(archivo);
-                }
+        for (int i = 0; i < static_cast<int>(equipos.size()); i++) {
+            archivo<< "EQUIPO: \n ->"<<equipos[i]->getName()<<":\n";
+            for (auto objeto : equipos[i]->getLista_Personajes()) {
+                archivo<<" -->";
+                objeto->serializar(archivo);
+                archivo<<" --->";
+                guardar(objeto->getInventario(),archivo);
             }
         }
         archivo.close();
