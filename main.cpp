@@ -43,19 +43,22 @@ int main() {
                             break;
                         }
                         case 3: {
-                            funcion.cargar(Lista_Objetos,"GuardadoObjetos");
+                           // funcion.cargar(Lista_Objetos,"GuardadoObjetos");
                             break;
                         }
                         case 4: {
-                            //funcion.guardar(Lista_Objetos,"GuardadoObjetos");
+                            ofstream archivo("GuardadoObjetos");
+                            funcion.guardar(Lista_Objetos,archivo);
+                            archivo.close();
                             break;
                         }
                         case 5: {
-                            funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
+                            //funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
                             break;
                         }
                         case 6: {
                             funcion.guardar(Lista_Personajes,"GuardadoPersonajes");
+
                             break;
                         }
                         case 7: {

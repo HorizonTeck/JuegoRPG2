@@ -21,172 +21,25 @@ int Funciones::contarLineas(const string& nombreArchivo) {
 }
 
 void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
-    string TipoObjeto, name, Tipo;
-    int power;
-    int lineas = contarLineas(nombreArchivo);
-    if (archivo.is_open()) {
-        for (int i = 0; i < lineas; ++i) {
-            archivo >> TipoObjeto >> name >> Tipo >> power;
-            TipoObjeto=to_uppercase(TipoObjeto);
-            if(TipoObjeto=="ARMA"){
-                objetos.push_back( new Armas(name, Tipo, power));
+    ifstream archivo("archivo.txt"); // Nombre de tu archivo .txt
+        vector<string> texto_despues_de_gt;
+
+        if (archivo.is_open()) {
+            string linea;
+            while (getline(archivo, linea)) {
+                size_t pos_gt = linea.find('>');
+                if (pos_gt != string::npos && pos_gt + 1 < linea.size()) {
+                    string texto_despues = linea.substr(pos_gt + 1);
+                    texto_despues_de_gt.push_back(texto_despues);
+                }
             }
-            else if(TipoObjeto=="POCION"||TipoObjeto=="POCIÓN"){
-                objetos.push_back( new Pociones(name, Tipo, power));
-            }
-            else{
-                cout<<"El tipo de objeto introducido en la fila "<< i+1 << " no es valido"<<endl;
-            }
+            archivo.close();
         }
-        archivo.close();
-    } else {
-        cerr << "Error al abrir el archivo para lectura." << std::endl;
-    }
 }
-void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArchivo){
-    ifstream archivo(nombreArchivo);
-    vector <Objetos*> tmp;
-    vector <int> atributos;
-    string  name, tipo, linea;
-    if (archivo.is_open()) {
-        archivo>>tipo>>name;
-        while (getline(archivo, linea)) {
-            archivo>>tipo>>name;
-            tipo=to_uppercase(tipo);
-            if(tipo=="GUERRERO")
-            {
-                asignacionGuerrero(linea,atributos);
-                personajes.push_back(new Guerrero(name,atributos,tmp));
-            }else  if(tipo=="ARQUERO")
-            {
-                asignacionArquero(linea,atributos);
-                personajes.push_back(new Arquero(name,atributos,tmp));
-            }else if(tipo=="MAGO")
-            {
-                Prueba(linea);
+/*void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArchivo){
 
-                asignacionMago(linea,atributos);
-                personajes.push_back(new Mago(name,atributos,tmp));
-            }else
-            {
-                cout<< "Tipo erroneo (archivo corrupto)"<<endl;
-            }
-        }
-        archivo.close();
-    } else {
-        cerr << "Error al abrir el archivo para lectura." << std::endl;
-    }
 }
-
-
-void Funciones::asignacionGuerrero(string linea,vector <int> atributos)
-{
-    size_t pos = linea.find(":"); // Busca el separador ":"
-    if (pos != string::npos) { // Si se encuentra el separador
-        string clave = linea.substr(0, pos); // Extrae la clave
-        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
-        if (clave == "Nivel") {
-            atributos[0] = stoi(valor);
-        } else if (clave == "Salud") {
-            atributos[1] = stoi(valor);
-        } else if (clave == "Poder") {
-            atributos[2] = stoi(valor);
-        }else if (clave == "Precision") {
-            atributos[3] = stoi(valor);
-        } else if (clave == "Proteccion") {
-            atributos[4] = stoi(valor);
-        } else if (clave == "Escudo") {
-            atributos[5] = stoi(valor);
-        }else if (clave == "Fuerza")
-        {
-            atributos[6] = stoi(valor);
-        }else
-            cout<< "Error en el archivo" <<endl;
-    }
-}
-
-void Funciones::asignacionArquero(string linea,vector <int> atributos)
-{
-    size_t pos = linea.find(":"); // Busca el separador ":"
-    if (pos != string::npos) { // Si se encuentra el separador
-        string clave = linea.substr(0, pos); // Extrae la clave
-        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
-        if (clave == "Nivel") {
-            atributos[0] = stoi(valor);
-        } else if (clave == "Salud") {
-            atributos[1] = stoi(valor);
-        } else if (clave == "Poder") {
-            atributos[2] = stoi(valor);
-        }else if (clave == "Precision") {
-            atributos[3] = stoi(valor);
-        } else if (clave == "Proteccion") {
-            atributos[4] = stoi(valor);
-        } else if (clave == "Escudo") {
-            atributos[5] = stoi(valor);
-        }else if (clave == "Fuerza")
-        {
-            atributos[6] = stoi(valor);
-        }else
-            cout<< "Error en el archivo" <<endl;
-    }
-}
-
-void Funciones::Prueba(string linea){
-    std::vector<std::string> valores;
-
-    // Variables para almacenar las posiciones
-    size_t pos_actual = 0;
-    size_t pos_dos_puntos;
-
-    while ((pos_dos_puntos = linea.find(':', pos_actual)) != std::string::npos) {
-        // Avanzar pos_dos_puntos al carácter después de ':'
-        ++pos_dos_puntos;
-
-        // Encontrar la siguiente palabra (desde pos_dos_puntos hasta el próximo espacio o el final de la línea)
-        size_t pos_inicio_palabra = linea.find_first_not_of(' ', pos_dos_puntos);
-        size_t pos_fin_palabra = linea.find(' ', pos_inicio_palabra);
-        if (pos_fin_palabra == std::string::npos) {
-            // Si no hay espacio, la palabra es la parte restante de la línea
-            pos_fin_palabra = linea.length();
-        }
-
-        // Extraer la palabra y agregarla al vector
-        std::string valor = linea.substr(pos_inicio_palabra, pos_fin_palabra - pos_inicio_palabra);
-        valores.push_back(valor);
-
-        // Actualizar pos_actual para continuar buscando desde el siguiente carácter después de la palabra encontrada
-        pos_actual = pos_fin_palabra;
-    }
-
-    //valores (strings),
-}
-void Funciones::asignacionMago(string linea,vector <int>& atributos)
-{
-    size_t pos = linea.find(":"); // Busca el separador ":"
-    if (pos != string::npos) { // Si se encuentra el separador
-        string clave = linea.substr(0, pos); // Extrae la clave
-        string valor = linea.substr(pos + 2); // Extrae el valor después del ":"
-        if (clave == "Nivel") {
-            atributos[0] = stoi(valor);
-        } else if (clave == "Salud") {
-            atributos[1] = stoi(valor);
-        } else if (clave == "Poder") {
-            atributos[2] = stoi(valor);
-        }else if (clave == "Precision") {
-            atributos[3] = stoi(valor);
-        } else if (clave == "Proteccion") {
-            atributos[4] = stoi(valor);
-        } else if (clave == "Escudo") {
-            atributos[5] = stoi(valor);
-        }else if (clave == "Fuerza")
-        {
-            atributos[6] = stoi(valor);
-        }else
-            cout<< "Error en el archivo" <<endl;
-    }
-}
-
+*/
 void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
@@ -218,8 +71,11 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
             for (auto objeto : equipos[i]->getLista_Personajes()) {
                 archivo<<" -->";
                 objeto->serializar(archivo);
-                archivo<<" --->";
-                guardar(objeto->getInventario(),archivo);
+                if(objeto->getInventario().size()>0)
+                {
+                    archivo<<" --->";
+                    guardar(objeto->getInventario(),archivo);
+                }
             }
         }
         archivo.close();

@@ -23,9 +23,6 @@ public:
     void cargar(vector<Objetos*>& objetos, const string& nombreArchivo);
     void cargar(vector<Personajes*>& personajes, const string& nombreArchivo);
     void cargar(vector<Equipo*>& equipos, const string& nombreArchivo);
-    void asignacionGuerrero(string linea,vector <int> atributos);
-    void asignacionArquero(string linea,vector <int> atributos);
-    void asignacionMago(string linea,vector <int>& atributos);
     void guardar(vector<Objetos*> objetos, ofstream &archivo);
     void guardar(vector<Personajes*> personajes, const string& nombreArchivo);
     void guardar(vector<Equipo*> equipos, const string& nombreArchivo);
@@ -66,7 +63,6 @@ public:
     int seleccion_invalida(int LI, int LS);
     void espera();
     string to_uppercase(string& linea);
-    void Prueba(string linea);
 };
 
 #endif // FUNCIONES_H
