@@ -534,16 +534,8 @@ void Funciones::añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Per
             cout<<"Actualmente no hay ningun Personaje sin Equipo o has asignado ya todos a un Equipo"<<endl;
             tecla=2;
         }else{
-            cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes sin Equipo"<<endl;
-            for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
-                cout<<"Personaje numero: "<< i+1 <<" Nombre del Personaje: "<<Lista_Personajes[i]->getName()<<endl;
-            }
-            cout<<"Cual de ellos quieres añadir al equipo? "<<endl;
-            tecla=seleccion_invalida(0,static_cast<int>(Lista_Personajes.size()));
-            cout<<"Personaje seleccionado para añadir con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
-            Equipo->setLista_Personajes(Lista_Personajes[tecla-1]);
+            Equipo->setLista_Personajes(seleccionar_Personaje(Lista_Personajes));
             auto it = Lista_Personajes.begin() + tecla - 1;
-            //delete *it;
             Lista_Personajes.erase(it);
             cout << "El Personaje ha sido añadido correctamente. Desea añadir otro mas?" << endl;
             cout<<"1. SI"<<endl<<"2. NO"<<endl;
@@ -590,32 +582,28 @@ void Funciones::eliminar_personaje(vector<Equipo *> &Lista_Equipos, vector<Perso
                 cout<<"No hay ningun equipo disponible actualmente"<<endl;
             }
             else{
-                cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
-                for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
-                    cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
-                }
-                cout<<"De cual de ellos quieres coger el personaje? "<<endl;
-                tecla=seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
-                if(Lista_Equipos[tecla-1]->gettamaño()<=0){
-                    cout << "Has elegido el equipo: "<<Lista_Equipos[tecla-1]->getName()<<endl;
+                Equipo *E;
+                E=seleccionar_Equipo(Lista_Equipos);
+                if(E->gettamaño()<=0){
+                    cout << "Has elegido el equipo: "<<E->getName()<<endl;
                     cout << "Pero este equipo no tiene ningun personaje miembro"<<endl;
                     cout << "Se te devolvera al menu anterior" <<endl;
                 }
                 else{
                     cout << "Has elegido el equipo: "<<endl;
-                    Lista_Equipos[tecla-1]->Display();
+                    E->Display();
                     cout << "Cual personaje quieres eliminar?" <<endl;
-                    for(int i=0;i < Lista_Equipos[tecla-1]->gettamaño();i++){
-                        cout <<i+1<<". "<<Lista_Equipos[tecla-1]->getLista_Personajes()[i]->getName()<<endl;
+                    for(int i=0;i < E->gettamaño();i++){
+                        cout <<i+1<<". "<<E->getLista_Personajes()[i]->getName()<<endl;
                     }
                     int *temp = new int;
-                    *temp=seleccion_invalida(1,Lista_Equipos[tecla-1]->gettamaño());
+                    *temp=seleccion_invalida(1,E->gettamaño());
                     cout << "Has seleccionado:"<<endl;
-                    cout << "Personaje con nombre: " << Lista_Equipos[tecla-1]->getLista_Personajes()[*temp-1]->getName();
-                    cout << " del Equipo: "<< Lista_Equipos[tecla-1]->getName()<<endl;
-                    Lista_Equipos[tecla-1]->borrarPersonaje(*temp);
+                    cout << "Personaje con nombre: " << E->getLista_Personajes()[*temp-1]->getName();
+                    cout << " del Equipo: "<< E->getName()<<endl;
+                    E->borrarPersonaje(*temp);
                     cout <<endl<< "Ahora el equipo pasa a ser:"<<endl;
-                    Lista_Equipos[tecla-1]->Display();
+                    E->Display();
                     delete temp;
                 }
             }
@@ -625,12 +613,7 @@ void Funciones::eliminar_personaje(vector<Equipo *> &Lista_Equipos, vector<Perso
                 cout<<"No hay ningun personaje sin equipo disponible actualmente"<<endl;
             }
             else{
-                cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes"<<endl;
-                for(int i=0; i< static_cast<int>(Lista_Personajes.size());i++){
-                    cout<<"Personaje numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Personajes[i]->getName()<<endl;
-                }
-                cout<<"Cual de ellos quieres borrar? "<<endl;
-                tecla=seleccion_invalida(1,static_cast<int>(Lista_Personajes.size()));
+                seleccionar_Personaje(Lista_Personajes);
                 cout<<"Personaje seleccionado para borrar con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
                 auto it = Lista_Personajes.begin() + tecla - 1;
                 delete *it;
