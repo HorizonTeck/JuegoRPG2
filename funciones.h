@@ -11,6 +11,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <cctype>
 
 
 class Funciones{
@@ -57,8 +58,11 @@ public:
     void eliminar_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
+
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
+    void espera();
+    string to_uppercase(string& linea);
     void Prueba(string linea);
 };
 

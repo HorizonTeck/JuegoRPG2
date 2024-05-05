@@ -22,12 +22,6 @@ Personajes::~Personajes(){
         delete objeto;
     }
 }
-
-void Personajes::setInventario(const vector<Objetos *> inventario){
-    for(auto objeto : inventario){
-        setInventario(objeto);
-    }
-}
 void Personajes::setInventario(Objetos* objeto){
     Objetos *copia;
     if(dynamic_cast<Armas*>(objeto)){

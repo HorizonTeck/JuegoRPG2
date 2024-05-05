@@ -18,8 +18,7 @@ int main() {
     while (tecla != 5) {
         this_thread::sleep_for(chrono::seconds(1));
         if(tecla!=0){
-            cout<<"Presione 1 para continuar"<<endl;
-            tecla=funcion.seleccion_invalida(1,1);
+            funcion.espera();
         }
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
@@ -28,11 +27,11 @@ int main() {
         switch (tecla) {
             case 1: {
                 while (tecla != 7) {
-                    this_thread::sleep_for(chrono::seconds(1));
+                    funcion.espera();
                     system("clear");
                     cout << "---MENU DE CARGA---"<<endl;
-                    cout << "1. Cargar los equipos"<<endl<<"2. Guardar los equipos"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<< endl;
-                    cout << "5. Cargar personajes"<<endl<<"6. Guardar Personaje"<<endl<<"7. Atrás" << endl;
+                    cout << "1. Cargar arbol"<<endl<<"2. Guardar arbol"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<< endl;
+                    cout << "5. Cargar personajes Sin Equipo"<<endl<<"6. Guardar Personaje Sin Equipo"<<endl<<"7. Atrás" << endl;
                     cin >> tecla;
                     switch (tecla){
                         case 1: {
@@ -72,7 +71,7 @@ int main() {
             }
             case 2: {
                 while (tecla != 7) {
-                    this_thread::sleep_for(chrono::seconds(1));
+                    funcion.espera();
                     system("clear");
                     cout << "---MENU DE CREACION---"<<endl;
                     cout << "1. Crear un equipo"<<endl<<"2. Eliminar un equipo"<<endl<<"3. Crear un personaje"<<endl<<"4. Eliminar un personaje" << endl;
@@ -89,12 +88,10 @@ int main() {
                         }
                         case 3: {
                             funcion.crear_personaje(Lista_Equipos,Lista_Personajes);
-                            this_thread::sleep_for(chrono::seconds(3));
                             break;
                         }
                     case 4: {
                             funcion.eliminar_personaje(Lista_Equipos,Lista_Personajes);
-                            this_thread::sleep_for(chrono::seconds(3));
                             break;
 
                         }
@@ -126,40 +123,66 @@ int main() {
                 break;
             }
             case 4: {
-                cout<<"---MENU DE DISPLAY---"<<endl;
-                cout<<"1. Display de los Equipos"<<endl<<"2. Display de los Personajes con Equipo"<<endl<<"3. Display de los Personajes sin Equipo"<<endl;
-                tecla=funcion.seleccion_invalida(1,3);
-                switch(tecla){
-                    case 1:{
-                        if(Lista_Equipos.size()<=0){
-                            cout<<"Actualmente no hay ningun Equipo creado"<<endl;
-                        }else{
-                            cout<<"Actualmente hay estos Equipos: "<<endl;
-                            for(auto objeto : Lista_Equipos){
-                                cout<<objeto->getName()<<endl;
+                if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
+                    cout<<"No hay nada creado todavia"<<endl;
+                    break;
+                }
+                tecla=0;
+                while(tecla!=4){
+                    funcion.espera();
+                    system("clear");
+                    cout<<"---MENU DE DISPLAY---"<<endl;
+                    cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Salir"<<endl;
+                    tecla=funcion.seleccion_invalida(1,4);
+                    switch(tecla){
+                        case 1:{
+                            system("clear");
+                            if(Lista_Equipos.size()<=0){
+                                cout<<"No hay equipos todavia"<<endl;
+                                break;
+                            }
+                            cout<<"Selecciona un Equipo: "<<endl;
+                            for(int i =0;i<static_cast<int>(Lista_Equipos.size());i++){
+                                cout<<i+1<<". ";
+                                Lista_Equipos[i]->Display();
+                                cout<<endl;
+                            }
+                            tecla=funcion.seleccion_invalida(1,Lista_Equipos.size());
+                            if(Lista_Equipos[tecla-1]->getLista_Personajes().size()<=0){
+                                cout<<"Este equipo no tiene Personajes"<<endl;
+                                break;
+                            }
+                            for(int i=0;i<static_cast<int>(Lista_Equipos[tecla-1]->gettamaño());i++){
+                                cout<<i+1<<". ";
+                                Lista_Equipos[tecla-1]->getLista_Personajes()[i]->Display();
+                                cout<<endl;
+                            }
+                            break;
+                        }
+                        case 2:{
+                            if(Lista_Personajes.size()<=0){
+                                cout<<"No hay Personajes sin Equipo"<<endl;
+                                break;
+                            }
+                            for(int i=0;i<static_cast<int>(Lista_Personajes.size());i++){
+                                cout<<i+1<<". ";
+                                Lista_Equipos[tecla-1]->getLista_Personajes()[i]->Display();
+                                cout<<endl;
+                            }
+                            break;
+                        }
+                        case 3:{
+                            if(Lista_Objetos.size()<=0){
+                                cout<<"No hay Objetos creados"<<endl;
+                                break;
+                            }
+                            for(int i=0;i<static_cast<int>(Lista_Objetos.size());i++){
+                                cout<<i+1<<". ";
+                                Lista_Objetos[i]->display();
                             }
                         }
-                        break;
-                    }
-                    case 2:{
-                        if(Lista_Equipos.size()<=0){
-                            cout<<"Actualmente no hay ningun Equipo creado"<<endl;
-                        }else{
-                            if(funcion.tamaño_equipos(Lista_Equipos)>0){
-                                funcion.seleccionar_Personaje(Lista_Equipos)->Display();
-                                this_thread::sleep_for(chrono::seconds(2));
-                            }else{
-                               cout<<"Aunque hay equipos creados, ninguno de ellos tiene personajes"<<endl;
-                            }
-                        }
-                        break;
-                    }
-                    case 3:{
-                        if(Lista_Personajes.size()<=0){
-                            cout<<"Actualmente no hay ningun Personaje sin Equipo"<<endl;
-                        }else{
-                            funcion.seleccionar_Personaje(Lista_Personajes)->Display();
-                            this_thread::sleep_for(chrono::seconds(2));
+                        case 4:{
+                            break;
                         }
                     }
                 }

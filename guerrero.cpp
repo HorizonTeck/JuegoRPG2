@@ -19,10 +19,38 @@ void Guerrero::setAtributos(vector<int> atributos) {
 void Guerrero::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
+bool Guerrero::comprobarInventario(Objetos *objeto){
+    if(comprobarInventario()==1) return 0;
+    int armas=0,pociones=0;
+    if(dynamic_cast<Armas*>(objeto)){
+        for(auto objetos : _inventario){
+            if(dynamic_cast<Armas*>(objetos)) armas++;
+        }
+        if(armas<2&&(objeto->getTipo()=="CONTUNDENTE"||objeto->getTipo()=="CORTANTE")) return 1;
+        else return 0;
+    }else if(dynamic_cast<Pociones*>(objeto)){
+        for(auto objetos : _inventario){
+            if(dynamic_cast<Pociones*>(objetos)) pociones++;
+            if(pociones<1&&objeto->getTipo()=="SALUD") return 1;
+        }
+    }
+    return 0;
+}
+bool Guerrero::comprobarInventario(){
+    if(_inventario.size()==3) return 1;
+    else return 0;
+}
 
 void Guerrero::Display() const {
     cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+    if(_inventario.size()>0){
+        cout<<"     Inventario:"<<endl;
+        for(int i=0;i<static_cast<int>(_inventario.size());i++){
+            cout<<"     "<<i+1<<". ";
+            _inventario[i]->display();
+        }
+    }
 }
 
 int Guerrero::Ataque() {

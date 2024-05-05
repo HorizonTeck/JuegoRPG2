@@ -29,10 +29,11 @@ void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
     if (archivo.is_open()) {
         for (int i = 0; i < lineas; ++i) {
             archivo >> TipoObjeto >> name >> Tipo >> power;
-            if(TipoObjeto=="Arma"){
+            TipoObjeto=to_uppercase(TipoObjeto);
+            if(TipoObjeto=="ARMA"){
                 objetos.push_back( new Armas(name, Tipo, power));
             }
-            else if(TipoObjeto=="Poción"){
+            else if(TipoObjeto=="POCION"||TipoObjeto=="POCIÓN"){
                 objetos.push_back( new Pociones(name, Tipo, power));
             }
             else{
@@ -53,15 +54,16 @@ void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArch
         archivo>>tipo>>name;
         while (getline(archivo, linea)) {
             archivo>>tipo>>name;
-            if(tipo=="guerrero"||tipo=="Guerrero")
+            tipo=to_uppercase(tipo);
+            if(tipo=="GUERRERO")
             {
                 asignacionGuerrero(linea,atributos);
                 personajes.push_back(new Guerrero(name,atributos,tmp));
-            }else  if(tipo=="Arquero"||tipo=="arquero")
+            }else  if(tipo=="ARQUERO")
             {
                 asignacionArquero(linea,atributos);
                 personajes.push_back(new Arquero(name,atributos,tmp));
-            }else if(tipo=="Mago"||tipo=="mago")
+            }else if(tipo=="MAGO")
             {
                 Prueba(linea);
 
@@ -341,11 +343,11 @@ void Funciones::setAtributos(Personajes* Personaje){
 }
 void Funciones::setAtributos(bool random, Armas *Arma){
     srand(static_cast<unsigned int>(time(nullptr)));
-    if(Arma->getTipo()=="Cortante"){
+    if(Arma->getTipo()=="CORTANTE"){
         Arma->setPower(setAtributos(random,0,30));
-    }else if(Arma->getTipo()=="Contundente"){
+    }else if(Arma->getTipo()=="CONTUNDENTE"){
         Arma->setPower(setAtributos(random,0,50));
-    }else if(Arma->getTipo()=="Distancia"){
+    }else if(Arma->getTipo()=="DISTANCIA"){
         Arma->setPower(setAtributos(random,0,70));
     }else{
         Arma->setPower(setAtributos(random,0,40));
@@ -445,25 +447,25 @@ Objetos* Funciones::crear_objeto(){
         cout<<"De que tipo quieres que sea el Arma?:"<<endl<<"1. Cortante"<<endl<<"2. Contundente"<<endl<<"3. Distancia"<<endl<<"4. Báculos"<<endl;
         tecla=seleccion_invalida(1,4);
         if(tecla==1){
-            objeto=new Armas(name,"Cortante");
+            objeto=new Armas(name,"CORTANTE");
         }
         else if(tecla==2){
-            objeto=new Armas(name,"Contundente");
+            objeto=new Armas(name,"CONTUNDENTE");
         }
         else if(tecla==3){
-            objeto=new Armas(name,"Distancia");
+            objeto=new Armas(name,"DISTANCIA");
         }
         else{
-            objeto=new Armas(name,"Baculo");
+            objeto=new Armas(name,"BACULO");
         }
     } else{
         cout<<"De que tipo quieres que sea la pocion?: "<<endl<<"1. Salud"<<endl<<"2. Mana"<<endl;
        tecla=seleccion_invalida(1,2);
         if(tecla==1){
-            objeto=new Pociones(name,"Salud");
+            objeto=new Pociones(name,"SALUD");
         }
         else{
-            objeto=new Pociones(name,"Mana");
+            objeto=new Pociones(name,"MANA");
         }
     }
     setAtributos(objeto);
@@ -472,11 +474,14 @@ Objetos* Funciones::crear_objeto(){
 void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equipo*>& Lista_Equipos, Objetos* objeto){
     cout<<"Quieres añadir el objeto a un personaje con o sin equipo?"<<endl<<"1. CON"<<endl<<"2. SIN"<<endl;
     tecla=seleccion_invalida(1,2);
+    Personajes *P;
     if(tecla==1){
         if(Lista_Equipos.size()>0){
             int tmp=tamaño_equipos(Lista_Equipos);
             if(tmp>0){
-                seleccionar_Personaje(Lista_Equipos)->getInventario().push_back(objeto);
+                P=seleccionar_Personaje(Lista_Equipos);
+                if(P->comprobarInventario(objeto)==true) P->setInventario(objeto);
+                else cout<<"No se ha podido añadir el objeto"<<endl;
             }else{
                 cout<<"Actualmente no hay Equipos con Personajes"<<endl;
             }
@@ -485,7 +490,9 @@ void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equi
         }
     }else{
         if(Lista_Personajes.size()>0){
-            seleccionar_Personaje(Lista_Personajes)->setInventario(objeto);
+            P=seleccionar_Personaje(Lista_Personajes);
+            if(P->comprobarInventario(objeto)==true) P->setInventario(objeto);
+            else cout<<"No se ha podido añadir el objeto"<<endl;
         }else{
             cout<<"Actualmente no hay ningun Personaje sin equipo"<<endl;
         }
@@ -632,6 +639,17 @@ void Funciones::eliminar_personaje(vector<Equipo *> &Lista_Equipos, vector<Perso
             }
         }
     }
+}
+void Funciones::espera(){
+    cout<<"Presione 1 para continuar"<<endl;
+    tecla=seleccion_invalida(1,1);
+}
+string Funciones::to_uppercase(string& linea){
+    string result;
+    for (char c : linea) {
+        result += toupper(c);
+    }
+    return result;
 }
 int Funciones::seleccion_invalida(int LI,int LS){
     int tmp=0;

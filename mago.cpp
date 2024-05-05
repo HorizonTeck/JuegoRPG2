@@ -15,11 +15,43 @@ void Mago::setAtributos(vector<int> atributos) {
 void Mago::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
+bool Mago::comprobarInventario(Objetos *objeto){
+    if(comprobarInventario()==1) return 0;
+    int armas=0,salud=0,mana=0;
+    if(dynamic_cast<Armas*>(objeto)){
+        for(auto objetos : _inventario){
+            if(dynamic_cast<Armas*>(objetos)) armas++;
+        }
+        if(armas<1&&objeto->getTipo()=="BACULO") return 1;
+        else return 0;
+    }else if(dynamic_cast<Pociones*>(objeto)){
+        for(auto objetos : _inventario){
+            if(dynamic_cast<Pociones*>(objetos)){
+                if(objetos->getTipo()=="SALUD") salud++;
+                else if(objetos->getTipo()=="MANA") mana++;
+            }
+        }
+        if(mana<1&&objeto->getTipo()=="MANA") return 1;
+        else if(salud<2&&objeto->getTipo()=="SALUD") return 1;
+    }
+    return 0;
+}
+bool Mago::comprobarInventario(){
+    if(_inventario.size()==4) return 1;
+    else return 0;
+}
 
 
 void Mago::Display() const {
     cout<< "Mago: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+    if(_inventario.size()>0){
+        cout<<"     Inventario:"<<endl;
+        for(int i=0;i<static_cast<int>(_inventario.size());i++){
+            cout<<"     "<<i+1<<". ";
+            _inventario[i]->display();
+        }
+    }
 }
 
 int Mago::Ataque() {
