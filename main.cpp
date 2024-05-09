@@ -3,6 +3,8 @@
 
 using namespace std;
 
+
+
 int main() {
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
@@ -22,7 +24,7 @@ int main() {
         }
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
-        cout << "1. Menu de carga (no disponible)"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Menu de Display" <<endl<<"5. Salir"<<endl;
+        cout << "1. Menu de carga"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Menu de Display" <<endl<<"5. Salir"<<endl;
         cin >> tecla;
         switch (tecla) {
             case 1: {
@@ -145,21 +147,13 @@ int main() {
                                 break;
                             }
                             cout<<"Selecciona un Equipo: "<<endl;
-                            for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++){
-                                cout<<i+1<<". ";
-                                Lista_Equipos[i]->Display();
-                                cout<<endl;
-                            }
+                            funcion.Recorrer(Lista_Equipos);
                             tecla=funcion.seleccion_invalida(1,Lista_Equipos.size());
                             if(Lista_Equipos[tecla-1]->getLista_Personajes().size()<=0){
                                 cout<<"Este equipo no tiene Personajes"<<endl;
                                 break;
                             }
-                            for(int i=0;i<static_cast<int>(Lista_Equipos[tecla-1]->gettamaño());i++){
-                                cout<<i+1<<". ";
-                                Lista_Equipos[tecla-1]->getLista_Personajes()[i]->Display();
-                                cout<<endl;
-                            }
+                            funcion.Recorrer(Lista_Equipos[tecla-1]->getLista_Personajes());
                             break;
                         }
                         case 2:{
@@ -167,11 +161,7 @@ int main() {
                                 cout<<"No hay Personajes sin Equipo"<<endl;
                                 break;
                             }
-                            for(int i=0;i<static_cast<int>(Lista_Personajes.size());i++){
-                                cout<<i+1<<". ";
-                                Lista_Personajes[i]->Display();
-                                cout<<endl;
-                            }
+                            funcion.Recorrer(Lista_Personajes);
                             break;
                         }
                         case 3:{
@@ -179,10 +169,7 @@ int main() {
                                 cout<<"No hay Objetos creados"<<endl;
                                 break;
                             }
-                            for(int i=0;i<static_cast<int>(Lista_Objetos.size());i++){
-                                cout<<i+1<<". ";
-                                Lista_Objetos[i]->display();
-                            }
+                            funcion.Recorrer(Lista_Objetos);
                         }
                         case 4:{
                             break;

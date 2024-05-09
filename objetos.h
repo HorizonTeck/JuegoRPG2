@@ -23,7 +23,7 @@ public:
     virtual void setTipo(const string& tipo)=0;
     virtual int getPower() const;
     virtual void setPower(const int& power);
-    virtual void display() const =0;
+    virtual void Display() const =0;
     virtual void serializar(ofstream& archivo) const =0;
     virtual~Objetos();
 };

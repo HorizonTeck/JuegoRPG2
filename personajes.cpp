@@ -39,7 +39,7 @@ void Personajes::setName(const string &name){
     _name=name;
 }
 
-vector<Objetos*> Personajes::getInventario() const{
+vector<Objetos*>& Personajes::getInventario(){
     return _inventario;
 }
 

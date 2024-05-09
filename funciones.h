@@ -58,7 +58,12 @@ public:
 
     //Gestion del Display
 
-    /*template <typename T> void RecorrerVectores(vector<T>& vec);*/
+    template <typename T> void Recorrer(vector<T*> vec){ //ME LO DIJO EL PROFE QUE LO PUSIERA ASI (Jose Carlos)
+        for(auto objeto:vec){
+            objeto->Display();
+            cout<<endl;
+        }
+    }
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
     void espera();

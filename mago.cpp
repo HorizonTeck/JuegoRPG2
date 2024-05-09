@@ -49,7 +49,7 @@ void Mago::Display() const {
         cout<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
             cout<<"     "<<i+1<<". ";
-            _inventario[i]->display();
+            _inventario[i]->Display();
         }
     }
 }

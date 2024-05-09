@@ -20,7 +20,7 @@ public:
     string getName() const;
     vector<int> getAtributos() const;
     int getAtributos(int atrib);
-    vector<Objetos*> getInventario() const;
+    vector<Objetos*>& getInventario();
     void setName(const string& name);
     virtual void setAtributos(const vector<int> atributos)=0;
     virtual void setAtributos(int atrib, int posicion) =0;

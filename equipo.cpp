@@ -9,7 +9,7 @@ string Equipo::getName() const {
     return _name;
 }
 
-vector<Personajes*> Equipo::getLista_Personajes() const {
+vector<Personajes*>& Equipo::getLista_Personajes(){
     return _Lista_Personajes;
 }
 Personajes* Equipo::getLista_Personajes(int n) const{

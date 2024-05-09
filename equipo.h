@@ -11,7 +11,7 @@ public:
     Equipo();
     Equipo(const string& name);
     string getName() const;
-    vector<Personajes*> getLista_Personajes() const;
+    vector<Personajes*>& getLista_Personajes();
     Personajes* getLista_Personajes(int n) const;
     void setName(const string& name);
     void setLista_Personajes(vector<Personajes*> lista);
