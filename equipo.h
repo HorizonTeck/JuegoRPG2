@@ -18,6 +18,7 @@ public:
     void setLista_Personajes(Personajes*);
     int gettamaño();
     void borrarPersonaje(int n);
+    friend ostream& operator<<(ostream& os, Equipo& E);
     void Display() const;
     ~Equipo();
 };

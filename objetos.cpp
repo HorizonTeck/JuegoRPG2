@@ -14,6 +14,10 @@ Objetos::~Objetos(){
 
 }
 
+ostream& operator<<(ostream& os, Objetos& O){
+    O.Display(os);
+    return os;
+}
 
 
 void Objetos::setPower(const int &power){

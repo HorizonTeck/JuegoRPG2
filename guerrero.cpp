@@ -41,6 +41,19 @@ bool Guerrero::comprobarInventario(){
     else return 0;
 }
 
+ostream& Guerrero::Display(ostream &os){
+    os<< "Guerrero: "<<_name<<" Atributos: "<<endl;
+    os <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+    if(_inventario.size()>0){
+        os<<"     Inventario:"<<endl;
+        for(int i=0;i<static_cast<int>(_inventario.size());i++){
+            os<<"     "<<i+1<<". ";
+            _inventario[i]->Display(os);
+        }
+    }
+    return os;
+}
+
 void Guerrero::Display() const {
     cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
     cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;

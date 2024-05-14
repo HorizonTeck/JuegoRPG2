@@ -2,7 +2,6 @@
 Funciones::Funciones(){
     tecla=0;
 }
-
 int Funciones::contarLineas(const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) {

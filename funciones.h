@@ -58,16 +58,11 @@ public:
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 
     //Gestion del Display
-    template <typename T>friend ostream& operator<<(ostream& os, T& P){
-        P.mostrar(os);
-        return os;
-    }
     template <typename T> void Recorrer(vector<T*> vec){ //ME LO DIJO EL PROFE QUE LO PUSIERA ASI (Jose Carlos)
         if(vec.size()<=0) cout<<"No hay nada declarado todavia de este tipo"<<endl;
         else{
             for(auto objeto:vec){
-                objeto->Display();
-                cout<<endl;
+                cout<<*objeto<<endl;
             }
         }
     }

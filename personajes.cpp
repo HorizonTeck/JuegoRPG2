@@ -55,4 +55,8 @@ int Personajes::tirar_dados() const{
      srand(static_cast<unsigned int>(time(nullptr)));
      return (1+rand()%(12-1+1));
 }
+ostream& operator<<(ostream& os, Personajes& P){
+    P.Display(os);
+    return os;
+}
 

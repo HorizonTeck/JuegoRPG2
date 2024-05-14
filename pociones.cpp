@@ -23,6 +23,10 @@ void Pociones::setTipo(const string& TipoPocion) {
 void Pociones::serializar(ofstream& archivo) const {
     archivo << "Pocion: " << _name << " " << _TipoPocion <<endl;
 }
+ostream& Pociones::Display(ostream& os){
+    os << "Pocion: " << getName() << " Tipo: " << getTipo() <<endl;
+    return os;
+}
 void Pociones::Display() const {
     cout << "Pocion: " << getName() << " Tipo: " << getTipo() <<endl;
 }

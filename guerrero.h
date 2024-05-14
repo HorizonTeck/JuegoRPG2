@@ -12,6 +12,7 @@ public:
     virtual void setAtributos(int atrib, int posicion);
     virtual bool comprobarInventario(Objetos* objeto);
     virtual bool comprobarInventario();
+    virtual ostream& Display(ostream& os);
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();

@@ -39,6 +39,14 @@ int Equipo::gettamaño(){
     return static_cast<int>(_Lista_Personajes.size());
 }
 
+ostream& operator<<(ostream& os, Equipo& E){
+    os << "Nombre del equipo: " << E._name << ", tamaño del equipo: " << static_cast<int>(E._Lista_Personajes.size()) << endl;
+    os << "Integrantes:" << endl;
+    for (int i = 0; i < static_cast<int>(E._Lista_Personajes.size()); i++) {
+        os << i+1<<". "<<E._Lista_Personajes[i]->getName() << endl;
+    }
+    return os;
+}
 void Equipo::Display() const {
     cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << endl;
     cout << "Integrantes:" << endl;

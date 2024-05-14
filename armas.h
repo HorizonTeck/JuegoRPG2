@@ -14,6 +14,7 @@ public:
     virtual string getTipo() const;
     virtual void setTipo(const string& TipoArma);
     virtual void serializar(ofstream& archivo) const;
+    virtual ostream& Display(ostream& os);
     virtual void Display() const;
     virtual~Armas();
 };

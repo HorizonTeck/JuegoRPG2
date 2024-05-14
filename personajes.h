@@ -28,6 +28,7 @@ public:
     virtual bool comprobarInventario(Objetos* objeto)=0;
     virtual bool comprobarInventario()=0;
     int tirar_dados() const;
+    virtual ostream& Display(ostream& os) =0;
     virtual void Display() const =0; //Display
     friend ostream& operator<<(ostream& os, Personajes& P);
     virtual int Ataque() =0;

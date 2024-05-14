@@ -3,8 +3,6 @@
 
 using namespace std;
 
-
-
 int main() {
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
@@ -242,3 +240,4 @@ int main() {
 
     return 0;
 }
+
