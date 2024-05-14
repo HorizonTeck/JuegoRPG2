@@ -15,16 +15,16 @@ int main() {
     funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Personajes.pop_back();
-    int tecla = 0;
+    int tecla=0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
-    while (tecla != 5) {
+    while (tecla != 6) {
         this_thread::sleep_for(chrono::seconds(1));
         if(tecla!=0){
             funcion.espera();
         }
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
-        cout << "1. Menu de carga"<<endl<<"2. Menu de creacion"<<endl<<"3. Menu de Juego"<<endl<<"4. Menu de Display" <<endl<<"5. Salir"<<endl;
+        cout << "1. Menu de carga \n2. Menu de creacion \n4. Menu de Juego \n5. Menu de Display \n6. Salir"<<endl;
         cin >> tecla;
         switch (tecla) {
             case 1: {
@@ -95,7 +95,7 @@ int main() {
                             funcion.crear_personaje(Lista_Equipos,Lista_Personajes);
                             break;
                         }
-                    case 4: {
+                        case 4: {
                             funcion.eliminar_personaje(Lista_Equipos,Lista_Personajes);
                             break;
 
@@ -119,15 +119,19 @@ int main() {
                         }
                     }
                 }
-        }
                 break;
-
-            case 3: {
+            }
+            case 3:{
+                cout<<"---MENU DE MODIFICACIONES---"<<endl;
+                cout<<Lista_Personajes[0]<<endl;
+                break;
+            }
+            case 4: {
                 cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
                 cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
                 break;
             }
-            case 4: {
+            case 5: {
                 if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
                     cout<<"No hay nada creado todavia"<<endl;
                     break;
@@ -157,18 +161,10 @@ int main() {
                             break;
                         }
                         case 2:{
-                            if(Lista_Personajes.size()<=0){
-                                cout<<"No hay Personajes sin Equipo"<<endl;
-                                break;
-                            }
                             funcion.Recorrer(Lista_Personajes);
                             break;
                         }
                         case 3:{
-                            if(Lista_Objetos.size()<=0){
-                                cout<<"No hay Objetos creados"<<endl;
-                                break;
-                            }
                             funcion.Recorrer(Lista_Objetos);
                         }
                         case 4:{
@@ -178,7 +174,7 @@ int main() {
                 }
                 break;
             }
-            case 5: {
+            case 6: {
                 break;
             }
             default: {
@@ -186,10 +182,10 @@ int main() {
                 break;
             }
         }
-        if(tecla ==5){
+        if(tecla ==6){
             cout<<"Esta seguro de que quiere salir?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
             tecla=funcion.seleccion_invalida(1,2);
-            (tecla==1) ? tecla=5 : tecla=0;
+            (tecla==1) ? tecla=6 : tecla=0;
         }
     }
     cout << "Hasta la próxima" << endl;

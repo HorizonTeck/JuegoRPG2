@@ -29,6 +29,7 @@ public:
     virtual bool comprobarInventario()=0;
     int tirar_dados() const;
     virtual void Display() const =0; //Display
+    friend ostream& operator<<(ostream& os, Personajes& P);
     virtual int Ataque() =0;
     virtual int Defensa() =0;
     //virtual string identificador() =0;

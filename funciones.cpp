@@ -480,15 +480,14 @@ string Funciones::to_uppercase(string& linea){
 }
 
 int Funciones::seleccion_invalida(int LI,int LS){
-    int tmp=0;
     cin.clear();
-    cin>>tmp;
-    while(tmp<LI||tmp>LS)
+    cin>>tecla;
+    while(tecla<LI||tecla>LS)
     {
         cout << "Seleccion invalida" <<endl;
         cin.clear();
         cin.ignore(100, '\n');
-        cin>>tmp;
+        cin>>tecla;
     }
-    return tmp;
+    return tecla;
 }
