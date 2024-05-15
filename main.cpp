@@ -19,7 +19,7 @@ int main() {
     Lista_Equipos.push_back(equipo);
     Lista_Personajes.push_back(personaje);
     Lista_Objetos.push_back(objeto);
-
+    Lista_Objetos.push_back(objeto2);
     Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Personajes.pop_back();
     int tecla=0;
@@ -31,7 +31,7 @@ int main() {
         }
         system("clear");
         cout << "---MENU PRINCIPAL---"<<endl;
-        cout << "1. Menu de carga \n2. Menu de creacion \n4. Menu de Juego \n5. Menu de Display \n6. Salir"<<endl;
+        cout << "1. Menu de carga \n2. Menu de creacion \n3. Menu de Modificaciones \n4. Menu de Juego \n5. Menu de Display \n6. Salir"<<endl;
         cin >> tecla;
         switch (tecla) {
             case 1: {
@@ -130,6 +130,48 @@ int main() {
             }
             case 3:{
                 cout<<"---MENU DE MODIFICACIONES---"<<endl;
+                cout<<"1. Modificar Arbol"<<endl<<"2. Modificar Personaje sin Equipo"<<endl<<"3. Modificar Objeto"<<endl<<"4. Modificar Hechizos"<<endl<<"5. Salir"<<endl;
+                tecla=funcion.seleccion_invalida(1,5);
+                switch(tecla) {
+                    case 1:{
+                        if(Lista_Equipos.size()<=0){
+                            cout<<"No hay Equipos"<<endl;
+                            break;
+                        }else{
+                            Equipo *Equipo_seleccionado;
+                            Equipo_seleccionado=funcion.seleccionar_Equipo(Lista_Equipos);
+                            cout<<"Que desea hacer ahora con este Equipo"<<endl<<"1. Añadir Personaje"<<endl<<"2. Eliminar Personaje"<<endl<<"3. Modificar Personaje"<<endl<<"4. Salir"<<endl;
+                            tecla=funcion.seleccion_invalida(1,4);
+                            if(tecla==1){
+                                funcion.añadir_personaje(Equipo_seleccionado, Lista_Personajes);
+                            }else if(tecla==2){
+                                funcion.quitar_personaje(Equipo_seleccionado, Lista_Personajes);
+                            }else if(tecla==3){
+                                Personajes* Personaje_seleccionado;
+                                Personaje_seleccionado=funcion.seleccionar_Personaje(Equipo_seleccionado->getLista_Personajes());
+                                if(dynamic_cast<Mago*>(Personaje_seleccionado)){
+                                    cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Modificar Hechizos \n4. Salir"<<endl;
+                                }else{
+                                    cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Salir"<<endl;
+                                    tecla=funcion.seleccion_invalida(1,4);
+                                    if(tecla==1) funcion.modificar_objetos(Personaje_seleccionado);
+                                    else if(tecla==2) funcion.modificar_objetos(Personaje_seleccionado);
+                                    else if(tecla==3&&dynamic_cast<Mago*>(Personaje_seleccionado));
+                                    else break;
+                                }
+                            }else break;
+                        }
+                    }
+                    case 2:{
+
+                    }
+                    case 3:{
+
+                    }
+                    default:{
+                        break;
+                    }
+                }
                 break;
             }
             case 4: {
