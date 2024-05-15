@@ -5,6 +5,11 @@ Equipo::Equipo(const string& name) : _name(name){
 
 Equipo::Equipo() : _name("NO_NAME_DEFINED"){}
 
+Equipo::Equipo(Equipo& Equipo) {
+    setLista_Personajes(Equipo._Lista_Personajes);
+    _name=Equipo._name;
+}
+
 string Equipo::getName() const {
     return _name;
 }
@@ -21,10 +26,17 @@ void Equipo::setName(const string& name) {
 }
 
 void Equipo::setLista_Personajes(vector<Personajes*> lista) {
-    for(int i = 0; i < static_cast<int>(_Lista_Personajes.size()); i++) {
-        _Lista_Personajes[i] = lista[i];
+    for (auto personaje : lista) {
+        if (dynamic_cast<Guerrero*>(personaje)) {
+            _Lista_Personajes.push_back(new Guerrero(*dynamic_cast<Guerrero*>(personaje)));
+        } else if (dynamic_cast<Mago*>(personaje)) {
+            _Lista_Personajes.push_back(new Mago(*dynamic_cast<Mago*>(personaje)));
+        } else if (dynamic_cast<Arquero*>(personaje)) {
+            _Lista_Personajes.push_back(new Arquero(*dynamic_cast<Arquero*>(personaje)));
+        }
     }
 }
+
 void Equipo::setLista_Personajes(Personajes* Personaje){
     _Lista_Personajes.push_back(Personaje);
 }

@@ -7,7 +7,7 @@ Mago::Mago(const string& name) : Personajes(name) {_atributos.resize(6);}
 Mago::Mago(const string& name,vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {_atributos.resize(6);}
 
 Mago::Mago(Mago& Mago) : Personajes(Mago){
-    for(auto hechizo : Mago.getHechizos()) setHechizos(hechizo);
+    for(auto hechizo : Mago._hechizos) setHechizos(hechizo);
 }
 void Mago::setAtributos(vector<int> atributos) {
     for(int i=0;i<static_cast<int>(_atributos.size());i++){
@@ -21,7 +21,7 @@ vector<Hechizos*> Mago::getHechizos(){
     return _hechizos;
 }
 void Mago::setHechizos(Hechizos* Hechizo){
-    _hechizos.push_back(Hechizo);
+    _hechizos.push_back(new Hechizos(*Hechizo));
 }
 bool Mago::comprobarInventario(Objetos *objeto){
     if(comprobarInventario()==1) return 0;

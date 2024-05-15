@@ -1,8 +1,9 @@
 #ifndef EQUIPO_H
 #define EQUIPO_H
 
-#include "personajes.h"
-
+#include "mago.h"
+#include "arquero.h"
+#include "guerrero.h"
 class Equipo{
 private:
     string _name;
@@ -10,6 +11,7 @@ private:
 public:
     Equipo();
     Equipo(const string& name);
+    Equipo(Equipo& Equipo);
     string getName() const;
     vector<Personajes*>& getLista_Personajes();
     Personajes* getLista_Personajes(int n) const;

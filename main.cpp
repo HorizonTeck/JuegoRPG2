@@ -12,7 +12,6 @@ int main() {
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
-
     //objeto>>personaje;
     funcion.setAtributos(personaje);
     Lista_Equipos.push_back(equipo);

@@ -17,8 +17,8 @@ Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos
     }
 }
 Personajes::Personajes(Personajes* P){
-    for(auto objeto : P->getInventario()) this->setInventario(objeto);
-    for(auto atributo : P->getAtributos()) _atributos.push_back(atributo);
+    for(auto objeto : P->_inventario) this->setInventario(objeto);
+    for(auto atributo : P->_atributos) this->_atributos.push_back(atributo);
 }
 
 Personajes::~Personajes(){
