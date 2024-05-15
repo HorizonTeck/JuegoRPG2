@@ -7,7 +7,7 @@ Guerrero::Guerrero(const string& name) : Personajes(name) {_atributos.resize(7);
 
 Guerrero::Guerrero(const string& name, vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {_atributos.resize(7);}
 
-
+Guerrero::Guerrero(Guerrero& Guerrero) : Personajes(Guerrero){}
 
 
 void Guerrero::setAtributos(vector<int> atributos) {

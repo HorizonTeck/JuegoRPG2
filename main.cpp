@@ -4,13 +4,21 @@
 using namespace std;
 
 int main() {
+    Objetos *objeto=new Armas("ElPalo","BACULO",100);
+    Personajes *personaje=new Mago("Julian");
+    Equipo *equipo=new Equipo("Losduros");
+
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
-    Lista_Equipos.push_back(new Equipo("Losduros"));
-    Lista_Personajes.push_back(new Mago("Julian"));
-    funcion.setAtributos(Lista_Personajes[Lista_Personajes.size()-1]);
+
+    //objeto>>personaje;
+    funcion.setAtributos(personaje);
+    Lista_Equipos.push_back(equipo);
+    Lista_Personajes.push_back(personaje);
+    Lista_Objetos.push_back(objeto);
+
     Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Personajes.pop_back();
     int tecla=0;
@@ -121,7 +129,6 @@ int main() {
             }
             case 3:{
                 cout<<"---MENU DE MODIFICACIONES---"<<endl;
-                cout<<Lista_Personajes[0]<<endl;
                 break;
             }
             case 4: {

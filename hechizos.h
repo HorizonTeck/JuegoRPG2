@@ -1,8 +1,7 @@
 #ifndef HECHIZOS_H
 #define HECHIZOS_H
 
-#pragma once
-#include "mago.h"
+#include "personajes.h"
 
 class Hechizos
 {
@@ -18,7 +17,7 @@ public:
     void setCoste();
     void setCoste(const int& coste);
     void setTipoHechizo(const string& TipoHechizo);
-    void LanzarHechizo(Personajes& Defensor, Mago& Atacante);
+    //void LanzarHechizo(Personajes& Defensor, Mago& Atacante);
     void Display();
     void setName(const string& nombre);
     string getName();

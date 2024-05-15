@@ -16,9 +16,13 @@ Personajes::Personajes(const string& name, vector<int> atributos, vector<Objetos
         setInventario(objeto);
     }
 }
+Personajes::Personajes(Personajes* P){
+    for(auto objeto : P->getInventario()) this->setInventario(objeto);
+    for(auto atributo : P->getAtributos()) _atributos.push_back(atributo);
+}
 
 Personajes::~Personajes(){
-    for(auto objeto : _inventario){
+    for(auto& objeto : _inventario){
         delete objeto;
     }
 }
@@ -30,6 +34,11 @@ void Personajes::setInventario(Objetos* objeto){
         copia=new Pociones(dynamic_cast<Pociones&>(*objeto));
     }
     _inventario.push_back(copia);
+}
+
+Personajes& operator>>(Personajes& Personaje, Objetos* Objeto){
+    Personaje.setInventario(Objeto);
+    return Personaje;
 }
 
 string Personajes::getName() const{

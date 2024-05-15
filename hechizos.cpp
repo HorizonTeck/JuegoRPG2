@@ -32,7 +32,7 @@ void Hechizos::setTipoHechizo(const string& TipoHechizo)
     _TipoHechizo=TipoHechizo;
 }
 
-void Hechizos::LanzarHechizo(Personajes& Defensor, Mago& Atacante)
+/*void Hechizos::LanzarHechizo(Personajes& Defensor, Mago& Atacante)
 {
     //agua (restaura la salud de los compañeros), fuego (resta salud a los enemigos), tierra (debilita la protección de los enemigos) y aire (resta poder a los enemigos)
     if (_TipoHechizo == "Agua"||_TipoHechizo == "agua") {
@@ -51,7 +51,7 @@ void Hechizos::LanzarHechizo(Personajes& Defensor, Mago& Atacante)
     }else
         cout<< "Hechizo no encontrado"<<endl;
 
-}
+}*/
 string Hechizos::getName()
 {
     return _nombre;

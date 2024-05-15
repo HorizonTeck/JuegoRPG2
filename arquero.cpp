@@ -7,7 +7,7 @@ Arquero::Arquero(const string& name) : Personajes(name) {_atributos.resize(7);}
 
 Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {_atributos.resize(7);}
 
-
+Arquero::Arquero(Arquero& Arquero) : Personajes(Arquero){}
 
 void Arquero::setAtributos(vector<int> atributos) {
     for(int i=0;i<static_cast<int>(_atributos.size());i++){
