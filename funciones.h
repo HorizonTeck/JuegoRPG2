@@ -5,6 +5,7 @@
 #include <equipo.h>
 #include <guerrero.h>
 #include <arquero.h>
+#include <hechizos.h>
 #include <mago.h>
 #include <pociones.h>
 #include <armas.h>

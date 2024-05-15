@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <vector>
-#include <objetos.h>
 #include <armas.h>
 #include <pociones.h>
+#include <hechizos.h>
 using namespace std;
 
 class Personajes{
@@ -35,7 +35,7 @@ public:
     void setInventario(Objetos* Objeto);
     virtual bool comprobarInventario(Objetos* objeto)=0;
     virtual bool comprobarInventario()=0;
-    friend Personajes& operator>>(Personajes& P, Objetos& O);
+    Personajes& operator>>(Objetos* Hechizo);
 
     //Gestion Display
     virtual ostream& Display(ostream& os) =0;

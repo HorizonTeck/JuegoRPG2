@@ -5,14 +5,16 @@ using namespace std;
 
 int main() {
     Objetos *objeto=new Armas("ElPalo","BACULO",100);
+    Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
     Personajes *personaje=new Mago("Julian");
     Equipo *equipo=new Equipo("Losduros");
-
+    Hechizos *hechizo=new Hechizos(50, "TIERRA", "Placas");
+    *personaje>>objeto>>objeto2;
+    if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
     Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
-    //objeto>>personaje;
     funcion.setAtributos(personaje);
     Lista_Equipos.push_back(equipo);
     Lista_Personajes.push_back(personaje);

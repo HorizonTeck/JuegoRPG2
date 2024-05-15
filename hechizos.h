@@ -1,7 +1,8 @@
 #ifndef HECHIZOS_H
 #define HECHIZOS_H
 
-#include "personajes.h"
+#include <iostream>
+using namespace std;
 
 class Hechizos
 {

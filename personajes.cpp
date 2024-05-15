@@ -1,4 +1,5 @@
 #include "personajes.h"
+#include "mago.h"
 
 Personajes::Personajes(){
     _name="NO_NAME_DEFINED";
@@ -22,7 +23,7 @@ Personajes::Personajes(Personajes* P){
 }
 
 Personajes::~Personajes(){
-    for(auto& objeto : _inventario){
+    for(Objetos* objeto : _inventario){
         delete objeto;
     }
 }
@@ -36,11 +37,10 @@ void Personajes::setInventario(Objetos* objeto){
     _inventario.push_back(copia);
 }
 
-Personajes& operator>>(Personajes& Personaje, Objetos* Objeto){
-    Personaje.setInventario(Objeto);
-    return Personaje;
+Personajes& Personajes::operator>>(Objetos *Objeto){
+    if(comprobarInventario(Objeto)==1) this->setInventario(Objeto);
+    return *this;
 }
-
 string Personajes::getName() const{
     return _name;
 }

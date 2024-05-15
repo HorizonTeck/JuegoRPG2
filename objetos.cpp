@@ -19,7 +19,6 @@ ostream& operator<<(ostream& os, Objetos& O){
     return os;
 }
 
-
 void Objetos::setPower(const int &power){
     _power=power;
 }

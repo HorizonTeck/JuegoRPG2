@@ -172,16 +172,10 @@ void Funciones::setAtributos(Personajes* Personaje){
     (tecla==1) ? random=1 : random=0;
     if(Arquero *tmp=dynamic_cast<Arquero*>(Personaje)){
         setAtributos(random,tmp);
-        tmp=new Arquero;
-        delete tmp;
     } else if(Mago *tmp=dynamic_cast<Mago*>(Personaje)){
         setAtributos(random,tmp);
-        tmp=new Mago;
-        delete tmp;
     }else if(Guerrero *tmp=dynamic_cast<Guerrero*>(Personaje)){
         setAtributos(random,tmp);
-        tmp=new Guerrero;
-        delete tmp;
     }
 }
 void Funciones::setAtributos(bool random, Armas *Arma){

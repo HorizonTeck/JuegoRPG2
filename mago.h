@@ -2,7 +2,6 @@
 #define MAGO_H
 
 #include "personajes.h"
-#include "hechizos.h"
 
 class Mago : public Personajes{
 private:
@@ -16,14 +15,16 @@ public:
     virtual void setAtributos(const vector<int> atributos);
     virtual bool comprobarInventario(Objetos* objeto);
     virtual bool comprobarInventario();
-    vector<Hechizos*> getHechizos();
+    vector<Hechizos*>& getHechizos();
     void setHechizos(Hechizos* Hechizo);
+    bool comprobarHechizos();
     virtual ostream& Display(ostream& os);
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
     void LanzarPocion(Pociones& P);
     virtual void serializar(ofstream& archivo) const;
+    Mago& operator>>(Hechizos* Hechizo);
 };
 
 #endif // MAGO_H

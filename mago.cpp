@@ -17,11 +17,19 @@ void Mago::setAtributos(vector<int> atributos) {
 void Mago::setAtributos(int atrib, int posicion) {
         _atributos[posicion]=atrib;
 }
-vector<Hechizos*> Mago::getHechizos(){
+vector<Hechizos*>& Mago::getHechizos(){
     return _hechizos;
 }
 void Mago::setHechizos(Hechizos* Hechizo){
     _hechizos.push_back(new Hechizos(*Hechizo));
+}
+Mago& Mago::operator>>(Hechizos* Hechizo){
+    setHechizos(Hechizo);
+    return *this;
+}
+bool Mago::comprobarHechizos(){
+    if(_hechizos.size()<2) return 0;
+    else return 1;
 }
 bool Mago::comprobarInventario(Objetos *objeto){
     if(comprobarInventario()==1) return 0;
