@@ -17,8 +17,9 @@ public:
     virtual void Display() const;
     virtual int Ataque();
     virtual int Defensa();
-    void LanzarPocion(Pociones& P);
+    virtual void LanzarPocion(Pociones& P);
     virtual void serializar(ofstream& archivo) const;
+    virtual~Arquero();
 };
 
 #endif // ARQUERO_H

@@ -47,7 +47,7 @@ ostream& Arquero::Display(ostream &os){
         os<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
             os<<"     "<<i+1<<". ";
-            _inventario[i]->Display(os);
+            os<<*_inventario[i];
         }
     }
     return os;
@@ -103,3 +103,4 @@ void Arquero::LanzarPocion(Pociones &P)
     }else
         cout<< "Pocion no valida"<<endl;
 }
+Arquero::~Arquero(){}

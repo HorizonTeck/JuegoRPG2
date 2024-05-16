@@ -19,9 +19,12 @@ public:
     void setCoste(const int& coste);
     void setTipoHechizo(const string& TipoHechizo);
     //void LanzarHechizo(Personajes& Defensor, Mago& Atacante);
+    friend ostream& operator<<(ostream& os, Hechizos& O);
+    //void Display(ostream& os);
     void Display();
     void setName(const string& nombre);
     string getName();
+    ~Hechizos();
 
 };
 

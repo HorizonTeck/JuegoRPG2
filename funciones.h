@@ -39,6 +39,7 @@ public:
     void setAtributos(bool random, Armas* Arma);
     void setAtributos(bool random, Pociones* Pocion);
     int setAtributos(bool random,int LI,int LS);
+    void modificar_atributos(Personajes* Personaje);
 
     //Gestion Equipos//
     void crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes); //Crea un Equipo preguntando al usuario
@@ -48,7 +49,17 @@ public:
 
     //Gestion Objetos
     Objetos* crear_objeto();
-    void añadir_objeto(vector<Personajes*>& Lista_Personajes, vector<Equipo*>& Lista_Equipos, Objetos* objeto);
+    void añadir_objeto(Personajes* Personaje, vector<Objetos*>& Lista_Objetos);
+    void modificar_objetos(Personajes* Personaje, vector<Objetos*>& Lista_Objetos);
+    void modificar_objetos(vector<Objetos*>& Lista_Objetos);
+    void eliminar_objeto(vector<Objetos*>& Lista_Objetos);
+
+    //Gestion Hechizos
+    Hechizos* crear_hechizo();
+    void añadir_hechizos(Mago* Mago, vector<Hechizos*>& Lista_Hechizos);
+    void modificar_hechizos(Mago* Mago, vector<Hechizos*>& Lista_Hechizos);
+    void modificar_hechizos(vector<Hechizos*>& Lista_Hechizos);
+    void eliminar_hechizo(vector<Hechizos*>& Lista_Hechizos);
 
 
     //Gestion Personajes
@@ -56,8 +67,6 @@ public:
     void quitar_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
     void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     void eliminar_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
-    void modificar_objetos(Personajes* Personaje);
-    void modificar_atributos(Personajes* Personaje);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 
@@ -70,10 +79,18 @@ public:
             }
         }
     }
+    template<typename T> T* seleccionar(vector<T*>& vec){
+        Recorrer(vec);
+        tecla=seleccion_invalida(1,vec.size());
+        return vec[tecla-1];
+    }
+
     //Funciones varias
     int seleccion_invalida(int LI, int LS);
     void espera();
     string to_uppercase(string& linea);
+    template<typename T> void liberar_memoria(vector<T*>& vec){ for(auto objeto : vec) delete objeto; }
+    ~Funciones();
 };
 
 #endif // FUNCIONES_H

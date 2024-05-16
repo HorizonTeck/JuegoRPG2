@@ -64,7 +64,14 @@ ostream& Mago::Display(ostream &os){
         os<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
             os<<"     "<<i+1<<". ";
-            _inventario[i]->Display(os);
+            os<<*_inventario[i];
+        }
+    }
+    if(_hechizos.size()>0){
+        os<<"     Hechizos:"<<endl;
+        for(unsigned int i=0;i<_hechizos.size();i++){
+            os<<"     "<<i+1<<". ";
+            os<<*_hechizos[i];
         }
     }
     return os;
@@ -77,6 +84,13 @@ void Mago::Display() const {
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
             cout<<"     "<<i+1<<". ";
             _inventario[i]->Display();
+        }
+    }
+    if(_hechizos.size()>0){
+        cout<<"     Hechizos:"<<endl;
+        for(unsigned int i=0;i<_hechizos.size();i++){
+            cout<<"     "<<i+1<<". ";
+            _hechizos[i]->Display();
         }
     }
 }
@@ -118,4 +132,9 @@ void Mago::LanzarPocion(Pociones& P)
 void Mago::serializar(ofstream &archivo) const
 {
     archivo<< "Mago: "<<_name<<"\n -->Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+}
+Mago::~Mago(){
+    for(auto objeto : _hechizos){
+        delete objeto;
+    }
 }

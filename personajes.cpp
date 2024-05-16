@@ -22,11 +22,7 @@ Personajes::Personajes(Personajes* P){
     for(auto atributo : P->_atributos) this->_atributos.push_back(atributo);
 }
 
-Personajes::~Personajes(){
-    for(Objetos* objeto : _inventario){
-        delete objeto;
-    }
-}
+
 void Personajes::setInventario(Objetos* objeto){
     Objetos *copia;
     if(dynamic_cast<Armas*>(objeto)){
@@ -67,5 +63,10 @@ int Personajes::tirar_dados() const{
 ostream& operator<<(ostream& os, Personajes& P){
     P.Display(os);
     return os;
+}
+Personajes::~Personajes(){
+    for(Objetos* objeto : _inventario){
+        delete objeto;
+    }
 }
 

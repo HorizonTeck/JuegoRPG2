@@ -2,6 +2,8 @@
 Funciones::Funciones(){
     tecla=0;
 }
+
+//-----------------------------Archivos------------------------------------
 int Funciones::contarLineas(const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) {
@@ -83,7 +85,9 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
     }
 }
 
-//Gestion Atributos
+
+
+//----------------------------Gestion Atributos-------------------------------------------
 void Funciones::setAtributos(bool random, Arquero* A)
 {
     A->setAtributos(1,0); //nivel
@@ -215,8 +219,25 @@ void Funciones::setAtributos(Objetos* Objeto){
         setAtributos(random,tmp);
     }
 }
-
-//Gestion Equipos
+void Funciones::modificar_atributos(Personajes *Personaje){
+    cout<<*Personaje<<endl;
+    cout<<"Que quieres hacer con el Personaje?"<<endl<<"1. Cambiar un atributo"<<endl<<"2. Cambiar todos"<<endl;
+    tecla=seleccion_invalida(1,2);
+    if(tecla==1){
+        int atrib,pos;
+        cout<<"Cual de ellos quieres cambiar?"<<endl<<*Personaje;
+        for(unsigned int i=0;i<Personaje->getAtributos().size();i++){
+            cout<<i+1<<". "<<Personaje->getAtributos()[i];
+        }
+        pos=seleccion_invalida(1,Personaje->getAtributos().size());
+        cout<<"Introduce el nuevo atributo"<<endl;
+        atrib=seleccion_invalida(1,100);
+        Personaje->setAtributos(atrib,pos-1);
+    }else{
+        setAtributos(Personaje);
+    }
+}
+//----------------------------Gestion Equipos---------------------------------------------
 void Funciones::crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes *> &Lista_Personajes){
     string *nombre=new string;
     cout<<"Como quieres nombrar el equipo: "<<endl;
@@ -237,11 +258,8 @@ void Funciones::eliminar_equipo(vector<Equipo *> &Lista_Equipos){
     }
     else{
         cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl;
-        for(int i=0; i< static_cast<int>(Lista_Equipos.size());i++){
-            cout<<"Equipo numero: "<< i+1 <<" Nombre del equipo: "<<Lista_Equipos[i]->getName()<<endl;
-        }
-        cout<<"Cual de ellos quieres borrar? "<<endl;
-        tecla=seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
+        cout<<"Cual quieres borrar?"<<endl;
+        seleccionar(Lista_Equipos);
         cout<<"Equipo seleccionado para borrar con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
         auto it = Lista_Equipos.begin() + tecla - 1;
         delete *it;
@@ -260,12 +278,13 @@ int Funciones::tamaño_equipos(vector<Equipo*>& Lista_Equipos){
 }
 Equipo* Funciones::seleccionar_Equipo(vector<Equipo*>& Lista_Equipos){
     cout<<"Actualmente hay: "<<Lista_Equipos.size()<<" Equipos"<<endl<<"Seleccione uno"<<endl;
-    Recorrer(Lista_Equipos);
-    tecla=seleccion_invalida(1,static_cast<int>(Lista_Equipos.size()));
-    cout<<"Equipo seleccionado con nombre: "<<Lista_Equipos[tecla-1]->getName()<<endl;
-    return Lista_Equipos[tecla-1];
+    Equipo* tmp=seleccionar(Lista_Equipos);
+    cout<<"Equipo seleccionado con nombre: "<<tmp->getName()<<endl;
+    return tmp;
 }
-//Gestion Objetos
+
+
+//----------------------------Gestion Objetos---------------------------------------------
 Objetos* Funciones::crear_objeto(){
     string name;
     Objetos *objeto;
@@ -301,35 +320,70 @@ Objetos* Funciones::crear_objeto(){
     setAtributos(objeto);
     return objeto;
 }
-void Funciones::añadir_objeto(vector<Personajes*>& Lista_Personajes,vector<Equipo*>& Lista_Equipos, Objetos* objeto){
-    cout<<"Quieres añadir el objeto a un personaje con o sin equipo?"<<endl<<"1. CON"<<endl<<"2. SIN"<<endl;
-    tecla=seleccion_invalida(1,2);
-    Personajes *P;
-    if(tecla==1){
-        if(Lista_Equipos.size()>0){
-            int tmp=tamaño_equipos(Lista_Equipos);
-            if(tmp>0){
-                P=seleccionar_Personaje(Lista_Equipos);
-                if(P->comprobarInventario(objeto)==true) P->setInventario(objeto);
-                else cout<<"No se ha podido añadir el objeto"<<endl;
-            }else{
-                cout<<"Actualmente no hay Equipos con Personajes"<<endl;
-            }
-        }else{
-            cout<<"Actualmente no hay ningun Equipo creado"<<endl;
+void Funciones::modificar_objetos(Personajes *Personaje, vector<Objetos*>& Lista_Objetos){
+    if(Personaje->getInventario().size()>0){
+        cout<<"Los objetos del Personaje actualmente son: "<<endl;
+        Recorrer(Personaje->getInventario());
+        cout<<"Que desea hacer con ellos"<<endl<<"1. Añadir Objeto"<<endl<<"2. Eliminar Objeto"<<endl<<"3. Modificar un Objeto"<<endl<<"4. Atras"<<endl;
+        tecla=seleccion_invalida(1,4);
+        switch(tecla){
+            case 1: añadir_objeto(Personaje, Lista_Objetos); tecla=1; break;
+            case 2: eliminar_objeto(Personaje->getInventario()); tecla=2; break;
+            case 3: modificar_objetos(Personaje->getInventario()); tecla=3; break;
+            default: break;
         }
     }else{
-        if(Lista_Personajes.size()>0){
-            P=seleccionar_Personaje(Lista_Personajes);
-            if(P->comprobarInventario(objeto)==true) P->setInventario(objeto);
-            else cout<<"No se ha podido añadir el objeto"<<endl;
+        cout<<"Este Personaje no tiene objetos"<<endl;
+    }
+}
+void Funciones::eliminar_objeto(vector<Objetos *> &Lista_Objetos){
+    if(Lista_Objetos.size()>0){
+        cout<<"Que objeto quieres eliminar?"<<endl;
+        Objetos *objeto=seleccionar(Lista_Objetos);
+        cout<<"Has seleccionado el objeto con nombre: "<<objeto->getName()<<endl;
+        delete objeto;
+        Lista_Objetos.erase(Lista_Objetos.begin()+tecla-1);
+    }else{
+        cout<<"No hay objetos"<<endl;
+    }
+}
+void Funciones::añadir_objeto(Personajes *Personaje, vector<Objetos *> &Lista_Objetos){
+    if(Lista_Objetos.size()>0){
+        cout<<"Que Objeto quieres añadirle al Personaje? ten en cuenta el tipo de personaje ya que sino no te dejara añadirle el objeto"<<endl;
+        Objetos* objeto=seleccionar(Lista_Objetos);
+        cout<<"Has seleccionado el objeto: "<<endl<<*objeto<<endl;
+        if(Personaje->comprobarInventario(objeto)==1){
+            Personaje->setInventario(objeto);
+            cout<<"Personaje añadido con exito"<<endl<<*Personaje<<endl;
         }else{
-            cout<<"Actualmente no hay ningun Personaje sin equipo"<<endl;
+            cout<<"No se ha podido añadir el objeto, o bien el personaje ya tiene el maximo de objetos o no es compatible el tipo"<<endl;
         }
+    }else{
+        cout<<"No hay objetos"<<endl;
+    }
+}
+void Funciones::modificar_objetos(vector<Objetos *> &Lista_Objetos){
+    if(Lista_Objetos.size()>0){
+        cout<<"Seleccione un objeto"<<endl;
+        Objetos* tmp=seleccionar(Lista_Objetos);
+        cout<<"Que desea hacer con el objeto: "<<tmp->getName()<<endl<<"1. Cambiar Nombre"<<endl<<"2. Cambiar Poder"<<endl;
+        tecla=seleccion_invalida(1,2);
+        if(tecla==1){
+            cout<<"Introduce un nuevo nombre"<<endl;
+            string name;
+            getline(cin,name);
+            tmp->setName(name);
+        }else{
+            setAtributos(tmp);
+        }
+        cout<<"Asi ha quedado el Objeto: "<<endl<<*tmp<<endl;
+
+    }else{
+        cout<<"No hay objetos"<<endl;
     }
 }
 
-//Gestion Personajes
+//------------------------------Gestion Personajes-------------------------------------
 Personajes* Funciones::seleccionar_Personaje(vector<Equipo*>& Lista_Equipos){
     int tmp=tamaño_equipos(Lista_Equipos);
     cout<<"Elige un equipo con personajes: "<<endl;
@@ -349,11 +403,10 @@ Personajes* Funciones::seleccionar_Personaje(vector<Equipo*>& Lista_Equipos){
 }
 Personajes* Funciones::seleccionar_Personaje(vector<Personajes*>& Lista_Personajes){
     cout<<"Actualmente hay: "<<Lista_Personajes.size()<<" Personajes"<<endl;
-    Recorrer(Lista_Personajes);
     cout<<"Cual de ellos quieres seleccionar? "<<endl;
-    tecla=seleccion_invalida(1,Lista_Personajes.size());
-    cout<<"Personaje seleccionado con nombre: "<<Lista_Personajes[tecla-1]->getName()<<endl;
-    return Lista_Personajes[tecla-1];
+    Personajes *tmp=seleccionar(Lista_Personajes);
+    cout<<"Personaje seleccionado con nombre: "<<tmp->getName()<<endl;
+    return tmp;
 }
 
 void Funciones::añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes){
@@ -402,16 +455,21 @@ void Funciones::crear_personaje(vector<Equipo *>& Lista_Equipos, vector<Personaj
     }
 }
 void Funciones::quitar_personaje(Equipo *Equipo, vector<Personajes *> &Lista_Personajes){
-    cout<<"Selecciona un personaje para quitarlo"<<endl;
-    Recorrer(Equipo->getLista_Personajes());
-    tecla=seleccion_invalida(1, Equipo->getLista_Personajes().size());
-    cout<<"Quieres borrar el personaje permanentemente o dejarlo en la lista de personajes sin equipo?"<<"1. Borrarlo"<<endl<<"2. Guardarlo"<<endl;
-    if(tecla==1){
-        delete Equipo->getLista_Personajes()[tecla-1];
-        Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tecla-1);
+    if(Equipo->gettamaño()>0){
+        cout<<"Selecciona un personaje para quitarlo"<<endl;
+        seleccionar(Equipo->getLista_Personajes());
+        int tmp=tecla;
+        cout<<"Quieres borrar el personaje permanentemente o dejarlo en la lista de personajes sin equipo?"<<endl<<"1. Borrarlo"<<endl<<"2. Guardarlo"<<endl;
+        tecla=seleccion_invalida(1,2);
+        if(tecla==1){
+            delete Equipo->getLista_Personajes()[tmp-1];
+            Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tmp-1);
+        }else{
+            Lista_Personajes.push_back(Equipo->getLista_Personajes()[tmp-1]);
+            Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tmp-1);
+        }
     }else{
-        Lista_Personajes.push_back(Equipo->getLista_Personajes()[tecla-1]);
-        Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tecla-1);
+        cout<<"Este equipo no tiene personajes"<<endl;
     }
 }
 void Funciones::eliminar_personaje(vector<Equipo *> &Lista_Equipos, vector<Personajes *> &Lista_Personajes){
@@ -462,12 +520,99 @@ void Funciones::eliminar_personaje(vector<Equipo *> &Lista_Equipos, vector<Perso
         }
     }
 }
-void Funciones::modificar_atributos(Personajes *Personaje){
 
+//------------------------------Gestion de Hechizos-----------------------------------
+void Funciones::modificar_hechizos(Mago *Mago, vector<Hechizos*>& Lista_Hechizos){
+    tecla=0;
+    cout<<"Actualmente este Mago: "<<endl;
+    cout<<Mago;
+    while(tecla!=4){
+        cout<<"Que quieres hacer?"<<endl<<"1. Añadir Hechizo"<<endl<<"2. Eliminar Hechizo"<<endl<<"3. Modificar Hechizo"<<endl<<"4. Atras"<<endl;
+        tecla=seleccion_invalida(1,4);
+        if(tecla==1) añadir_hechizos(Mago, Lista_Hechizos);
+        else if(tecla==2) eliminar_hechizo(Mago->getHechizos());
+        else if(tecla==3) modificar_hechizos(Mago->getHechizos());
+    }
 }
-void Funciones::modificar_objetos(Personajes *Personaje){
+void Funciones::modificar_hechizos(vector<Hechizos *>& Lista_Hechizos){
+    if(Lista_Hechizos.size()>0){
+        Hechizos *tmp;
+        Recorrer(Lista_Hechizos);
+        tecla=seleccion_invalida(1,Lista_Hechizos.size());
+        tmp=Lista_Hechizos[tecla-1];
+        cout<<"Has seleccionado el Hechizo: "<<*tmp<<endl;
+        cout<<"Que quieres hacer con el? \n1. Cambiar Nombre \n2. Cambiar Coste \n3. Cambiar Tipo"<<endl;
+        if(tecla==1){
+            string name;
+            cout<<"Introduce el nuevo nombre"<<endl;
+            getline(cin, name);
+            tmp->setName(name);
+        }else if(tecla==2){
+            int coste;
+            cout<<"Introduce el nuevo coste (min 1, max 100)"<<endl;
+            coste=seleccion_invalida(1,100);
+            tmp->setCoste(coste);
+        }else if(tecla==3){
+            cout<<"De que tipo quieres que sea el Hechizo?"<<endl<<"1. Tierra"<<endl<<"2. Agua"<<endl<<"3. Fuego"<<endl<<"4. Aire"<<endl;
+            tecla=seleccion_invalida(1,4);
+            switch(tecla){
+                case 1: tmp->setTipoHechizo("TIERRA"); break;
+                case 2: tmp->setTipoHechizo("AGUA"); break;
+                case 3: tmp->setTipoHechizo("FUEGO"); break;
+                case 4: tmp->setTipoHechizo("AIRE"); break;
+                default: break;
+            }
+        }
+        cout<<*tmp;
+    }else{
+        cout<<"Esta lista no tiene ningun Hechizo"<<endl;
+    }
+}
+Hechizos* Funciones::crear_hechizo(){
+    string name, tipo;
+    int coste;
+    cout<<"Como quieres llamar al hechizo? "<<endl;
+    getline(cin,name);
+    cout<<"De que tipo quieres que sea el Hechizo?"<<endl<<"1. Tierra"<<endl<<"2. Agua"<<endl<<"3. Fuego"<<endl<<"4. Aire"<<endl;
+    tecla=seleccion_invalida(1,4);
+    switch(tecla){
+        case 1: tipo="TIERRA"; break;
+        case 2: tipo="AGUA"; break;
+        case 3: tipo="FUEGO"; break;
+        case 4: tipo="AIRE"; break;
+        default: break;
+    }
+    cout<<"Cuanto quieres que cueste de Mana? (min 1, max 100)"<<endl;
+    coste=seleccion_invalida(1,100);
+    Hechizos *tmp=new Hechizos(coste,tipo,name);
+    return tmp;
+}
+void Funciones::añadir_hechizos(Mago *Mago, vector<Hechizos *>& Lista_Hechizos){
+    if(Lista_Hechizos.size()>0){
+        Hechizos *hechizo=seleccionar(Lista_Hechizos);
+        cout<<"Has seleccionado el hechizo: "<<endl;
+        hechizo->Display();
+        Mago->setHechizos(hechizo);
+    }else{
+        cout<<"Esta lista no tiene ningun hechizo"<<endl;
+    }
+    cout<<*Mago<<endl;
+}
+void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
+    if(Lista_Hechizos.size()>0){
+        Recorrer(Lista_Hechizos);
+        tecla=seleccion_invalida(1,Lista_Hechizos.size());
+        cout<<"Has borrado el hechizo: "<<endl;
+        Lista_Hechizos[tecla-1]->Display();
+        delete Lista_Hechizos[tecla-1];
+        Lista_Hechizos.erase(Lista_Hechizos.begin()+tecla-1);
+    }else{
+        cout<<"Esta lista no tiene ningun hechizo"<<endl;
+    }
+}
 
-}
+
+//-------------------------------------------Funciones-----------------------------------------
 void Funciones::espera(){
     cout<<"Presione 1 para continuar"<<endl;
     tecla=seleccion_invalida(1,1);
@@ -492,3 +637,4 @@ int Funciones::seleccion_invalida(int LI,int LS){
     }
     return tecla;
 }
+Funciones::~Funciones(){}

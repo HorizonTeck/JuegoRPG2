@@ -4,6 +4,7 @@
 using namespace std;
 
 int main() {
+    Funciones funcion;
     Objetos *objeto=new Armas("ElPalo","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
     Personajes *personaje=new Mago("Julian");
@@ -11,15 +12,16 @@ int main() {
     Hechizos *hechizo=new Hechizos(50, "TIERRA", "Placas");
     *personaje>>objeto>>objeto2;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
-    Funciones funcion;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
+    vector<Hechizos*> Lista_Hechizos;
     funcion.setAtributos(personaje);
     Lista_Equipos.push_back(equipo);
     Lista_Personajes.push_back(personaje);
     Lista_Objetos.push_back(objeto);
     Lista_Objetos.push_back(objeto2);
+    Lista_Hechizos.push_back(hechizo);
     Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
     Lista_Personajes.pop_back();
     int tecla=0;
@@ -82,12 +84,12 @@ int main() {
                 break;
             }
             case 2: {
-                while (tecla != 7) {
+                while (tecla != 9) {
                     funcion.espera();
                     system("clear");
                     cout << "---MENU DE CREACION---"<<endl;
                     cout << "1. Crear un equipo"<<endl<<"2. Eliminar un equipo"<<endl<<"3. Crear un personaje"<<endl<<"4. Eliminar un personaje" << endl;
-                    cout << "5. Crear un objeto"<<endl<<"6. Eliminar un objeto"<<endl<<"7. Atrás" << endl;
+                    cout << "5. Crear un objeto"<<endl<<"6. Eliminar un objeto"<<endl<<"7. Crear Hechizo"<<endl<<"8. Eliminar Hechizo"<<endl<<"9. Atrás" << endl;
                     cin >> tecla;
                     switch (tecla) {
                         case 1: {
@@ -109,15 +111,18 @@ int main() {
                         }
                         case 5: {
                             Lista_Objetos.push_back(funcion.crear_objeto());
-                            funcion.añadir_objeto(Lista_Personajes, Lista_Equipos, Lista_Objetos[Lista_Objetos.size()-1]);
                             break;
                         }
                         case 6: {
-                            cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
-                            cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
+                            cout<<"Elige el Objeto que quieras eliminar"<<endl;
                             break;
                         }
                         case 7: {
+                            Lista_Hechizos.push_back(funcion.crear_hechizo());
+                            break;
+                        }
+                        case 8:{
+                            funcion.eliminar_hechizo(Lista_Hechizos);
                             break;
                         }
                         default: {
@@ -129,10 +134,12 @@ int main() {
                 break;
             }
             case 3:{
+                funcion.espera();
+                system("clear");
                 cout<<"---MENU DE MODIFICACIONES---"<<endl;
                 cout<<"1. Modificar Arbol"<<endl<<"2. Modificar Personaje sin Equipo"<<endl<<"3. Modificar Objeto"<<endl<<"4. Modificar Hechizos"<<endl<<"5. Salir"<<endl;
                 tecla=funcion.seleccion_invalida(1,5);
-                switch(tecla) {
+                switch(tecla){
                     case 1:{
                         if(Lista_Equipos.size()<=0){
                             cout<<"No hay Equipos"<<endl;
@@ -140,26 +147,44 @@ int main() {
                         }else{
                             Equipo *Equipo_seleccionado;
                             Equipo_seleccionado=funcion.seleccionar_Equipo(Lista_Equipos);
-                            cout<<"Que desea hacer ahora con este Equipo"<<endl<<"1. Añadir Personaje"<<endl<<"2. Eliminar Personaje"<<endl<<"3. Modificar Personaje"<<endl<<"4. Salir"<<endl;
-                            tecla=funcion.seleccion_invalida(1,4);
-                            if(tecla==1){
-                                funcion.añadir_personaje(Equipo_seleccionado, Lista_Personajes);
-                            }else if(tecla==2){
-                                funcion.quitar_personaje(Equipo_seleccionado, Lista_Personajes);
-                            }else if(tecla==3){
-                                Personajes* Personaje_seleccionado;
-                                Personaje_seleccionado=funcion.seleccionar_Personaje(Equipo_seleccionado->getLista_Personajes());
-                                if(dynamic_cast<Mago*>(Personaje_seleccionado)){
-                                    cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Modificar Hechizos \n4. Salir"<<endl;
-                                }else{
-                                    cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Salir"<<endl;
-                                    tecla=funcion.seleccion_invalida(1,4);
-                                    if(tecla==1) funcion.modificar_objetos(Personaje_seleccionado);
-                                    else if(tecla==2) funcion.modificar_objetos(Personaje_seleccionado);
-                                    else if(tecla==3&&dynamic_cast<Mago*>(Personaje_seleccionado));
-                                    else break;
-                                }
-                            }else break;
+                            while(tecla!=5){
+                                funcion.espera();
+                                system("clear");
+                                cout<<"Equipo: "<<*Equipo_seleccionado<<endl;
+                                cout<<"Que desea hacer ahora con este Equipo \n1. Cambiar nombre \n2. Añadir Personaje \n3. Eliminar Personaje \n4. Modificar Personaje \n5. Salir"<<endl;
+                                tecla=funcion.seleccion_invalida(1,5);
+                                /*switch(tecla){
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                    case 4:
+                                    default: break;
+                                }*/
+                                if(tecla==2){
+                                    funcion.añadir_personaje(Equipo_seleccionado, Lista_Personajes);
+                                }else if(tecla==3){
+                                    funcion.quitar_personaje(Equipo_seleccionado, Lista_Personajes);
+                                }else if(tecla==4){
+                                    if(Equipo_seleccionado->gettamaño()>0){
+                                        Personajes* Personaje_seleccionado;
+                                        Personaje_seleccionado=funcion.seleccionar_Personaje(Equipo_seleccionado->getLista_Personajes());
+                                        if(Mago *temp=dynamic_cast<Mago*>(Personaje_seleccionado)){
+                                            cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Modificar Hechizos \n4. Salir"<<endl;
+                                        }else{
+                                            cout<<"Que desea hacer con el Personaje? \n1. Modificar Objetos \n2.Modificar Atributos \n3. Salir"<<endl;
+                                            tecla=funcion.seleccion_invalida(1,4);
+                                            if(tecla==1) funcion.modificar_objetos(Personaje_seleccionado, Lista_Objetos);
+                                            else if(tecla==2) funcion.modificar_atributos(Personaje_seleccionado);
+                                            else if(tecla==3&&dynamic_cast<Mago*>(temp)) funcion.modificar_hechizos(temp, Lista_Hechizos);
+                                            else break;
+                                        }
+                                    }else{
+                                        cout<<"Este equipo no tiene personajes"<<endl;
+                                    }
+
+                                }else break;
+                            }
+
                         }
                     }
                     case 2:{
@@ -189,8 +214,8 @@ int main() {
                     funcion.espera();
                     system("clear");
                     cout<<"---MENU DE DISPLAY---"<<endl;
-                    cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Salir"<<endl;
-                    tecla=funcion.seleccion_invalida(1,4);
+                    cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Hechizos"<<endl<<"5. Salir"<<endl;
+                    tecla=funcion.seleccion_invalida(1,5);
                     switch(tecla){
                         case 1:{
                             system("clear");
@@ -201,7 +226,7 @@ int main() {
                             cout<<"Selecciona un Equipo: "<<endl;
                             funcion.Recorrer(Lista_Equipos);
                             tecla=funcion.seleccion_invalida(1,Lista_Equipos.size());
-                            if(Lista_Equipos[tecla-1]->getLista_Personajes().size()<=0){
+                            if(Lista_Equipos[tecla-1]->gettamaño()<=0){
                                 cout<<"Este equipo no tiene Personajes"<<endl;
                                 break;
                             }
@@ -214,10 +239,13 @@ int main() {
                         }
                         case 3:{
                             funcion.Recorrer(Lista_Objetos);
-                        }
-                        case 4:{
                             break;
                         }
+                        case 4:{
+                            funcion.Recorrer(Lista_Hechizos);
+                            break;
+                        }
+                        default: break;
                     }
                 }
                 break;
@@ -237,7 +265,10 @@ int main() {
         }
     }
     cout << "Hasta la próxima" << endl;
-
+    funcion.liberar_memoria(Lista_Equipos);
+    funcion.liberar_memoria(Lista_Objetos);
+    funcion.liberar_memoria(Lista_Hechizos);
+    funcion.liberar_memoria(Lista_Personajes);
 
 
 
