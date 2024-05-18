@@ -45,6 +45,8 @@ public:
     void crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes); //Crea un Equipo preguntando al usuario
     void eliminar_equipo(vector<Equipo*>& Lista_Equipos);
     int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
+    void modificar_personaje(Equipo* Equipo, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos);
+    void modificar_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos);
     Equipo* seleccionar_Equipo(vector<Equipo*>& Lista_Equipos);
 
     //Gestion Objetos
@@ -67,6 +69,7 @@ public:
     void quitar_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
     void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     void eliminar_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
+    void modificar_personaje(Personajes* Personaje, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos);
     Personajes* seleccionar_Personaje(vector<Equipo*>& Lista_Equipos);
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 
