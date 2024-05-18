@@ -92,7 +92,7 @@ public:
     int seleccion_invalida(int LI, int LS);
     void espera();
     string to_uppercase(string& linea);
-    template<typename T> void liberar_memoria(vector<T*>& vec){ for(auto objeto : vec) delete objeto; }
+    template<typename T> void liberar_memoria(vector<T*>& vec){ for(auto objeto : vec) delete objeto; vec.clear(); }
     ~Funciones();
 };
 

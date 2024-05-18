@@ -91,6 +91,7 @@ int main() {
                         case 6: funcion.eliminar_objeto(Lista_Objetos); break;
                         case 7: Lista_Hechizos.push_back(funcion.crear_hechizo()); break;
                         case 8: funcion.eliminar_hechizo(Lista_Hechizos); break;
+                        case 9: break;
                         default: {
                             cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                             break;
@@ -122,11 +123,7 @@ int main() {
                 }
                 break;
             }
-            case 4: {
-                cout << "Actualmente, como esto es la entrega 2, esta parte del codigo solo esta disponible con las pequeñas demos que hay abajo del main"<<endl;
-                cout << "Puedes descomentar y probar el funcionamiento de las mismas descomentando las lineas"<<endl;
-                break;
-            }
+            case 4: funcion.modificar_hechizos(Lista_Hechizos); break;
             case 5: {
                 if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
                     cout<<"No hay nada creado todavia"<<endl;

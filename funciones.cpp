@@ -505,6 +505,7 @@ void Funciones::quitar_personaje(Equipo *Equipo, vector<Personajes *> &Lista_Per
         cout<<"Selecciona un personaje para quitarlo"<<endl;
         seleccionar(Equipo->getLista_Personajes());
         int tmp=tecla;
+        cout<<"Has seleccionado el Personaje con nombre: "<<Equipo->getLista_Personajes()[tecla-1]->getName()<<endl;
         cout<<"Quieres borrar el personaje permanentemente o dejarlo en la lista de personajes sin equipo?"<<endl<<"1. Borrarlo"<<endl<<"2. Guardarlo"<<endl;
         tecla=seleccion_invalida(1,2);
         if(tecla==1){
@@ -598,37 +599,42 @@ void Funciones::modificar_hechizos(Mago *Mago, vector<Hechizos*>& Lista_Hechizos
     }
 }
 void Funciones::modificar_hechizos(vector<Hechizos *>& Lista_Hechizos){
+    int tecla_pulsada=0;
     if(Lista_Hechizos.size()>0){
         Hechizos *tmp;
         Recorrer(Lista_Hechizos);
         tecla=seleccion_invalida(1,Lista_Hechizos.size());
         tmp=Lista_Hechizos[tecla-1];
-        cout<<"Has seleccionado el Hechizo: "<<*tmp<<endl;
-        cout<<"Que quieres hacer con el? \n1. Cambiar Nombre \n2. Cambiar Coste \n3. Cambiar Tipo"<<endl;
-        if(tecla==1){
-            string name;
-            cout<<"Introduce el nuevo nombre"<<endl;
-            cin.clear();
-            cin.ignore();
-            getline(cin, name);
-            tmp->setName(name);
-        }else if(tecla==2){
-            int coste;
-            cout<<"Introduce el nuevo coste (min 1, max 100)"<<endl;
-            coste=seleccion_invalida(1,100);
-            tmp->setCoste(coste);
-        }else if(tecla==3){
-            cout<<"De que tipo quieres que sea el Hechizo?"<<endl<<"1. Tierra"<<endl<<"2. Agua"<<endl<<"3. Fuego"<<endl<<"4. Aire"<<endl;
-            tecla=seleccion_invalida(1,4);
-            switch(tecla){
-                case 1: tmp->setTipoHechizo("TIERRA"); break;
-                case 2: tmp->setTipoHechizo("AGUA"); break;
-                case 3: tmp->setTipoHechizo("FUEGO"); break;
-                case 4: tmp->setTipoHechizo("AIRE"); break;
-                default: break;
+        while(tecla_pulsada!=4){
+            espera();
+            cout<<"Has seleccionado el Hechizo: "<<*tmp<<endl;
+            cout<<"Que quieres hacer con el? \n1. Cambiar Nombre \n2. Cambiar Coste \n3. Cambiar Tipo \n4. Salir"<<endl;
+            tecla_pulsada=seleccion_invalida(1,4);
+            if(tecla_pulsada==1){
+                string name;
+                cout<<"Introduce el nuevo nombre"<<endl;
+                cin.clear();
+                cin.ignore();
+                getline(cin, name);
+                tmp->setName(name);
+            }else if(tecla_pulsada==2){
+                int coste;
+                cout<<"Introduce el nuevo coste (min 1, max 100)"<<endl;
+                coste=seleccion_invalida(1,100);
+                tmp->setCoste(coste);
+            }else if(tecla_pulsada==3){
+                cout<<"De que tipo quieres que sea el Hechizo?"<<endl<<"1. Tierra"<<endl<<"2. Agua"<<endl<<"3. Fuego"<<endl<<"4. Aire"<<endl;
+                tecla=seleccion_invalida(1,4);
+                switch(tecla){
+                    case 1: tmp->setTipoHechizo("TIERRA"); break;
+                    case 2: tmp->setTipoHechizo("AGUA"); break;
+                    case 3: tmp->setTipoHechizo("FUEGO"); break;
+                    case 4: tmp->setTipoHechizo("AIRE"); break;
+                    default: break;
+                }
             }
+            cout<<"El Hechizo ha quedado asi: "<<*tmp<<endl;
         }
-        cout<<*tmp;
     }else{
         cout<<"Esta lista no tiene ningun Hechizo"<<endl;
     }
@@ -683,6 +689,7 @@ void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
 void Funciones::espera(){
     cout<<"Presione 1 para continuar"<<endl;
     tecla=seleccion_invalida(1,1);
+    system("clear");
 }
 string Funciones::to_uppercase(string& linea){
     string result;
