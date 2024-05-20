@@ -4,6 +4,7 @@
 using namespace std;
 
 int main() {
+    //JEJJJE
     Funciones funcion;
     Objetos *objeto=new Armas("ElPalo","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
