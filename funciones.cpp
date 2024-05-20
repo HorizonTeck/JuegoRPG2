@@ -683,7 +683,72 @@ void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
 
 
 //-------------------------------------------Funciones-----------------------------------------
-void Funciones::Juego(Equipo *P1, Equipo *P2, bool turno, vector<Personajes *>& Muertos,string p1, string p2)
+void Funciones::InicioJuego(vector<Equipo*> Partida, vector<Personajes*>& Muertos, vector<string> Nombres){
+    bool turno=0+rand()%(1-0+1);
+    vector<Personajes*> Combatientes;
+    Combatientes.resize(2);
+    cout<<"Comienza el jugador: "<<Nombres[turno]<<endl;
+    cout<<"Que personaje quieres coger?"<<endl;
+    Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
+    menucombate();
+
+}
+void Funciones::menucombate(vector<Equipo*> Partida, vector<Personajes*>& Muertos, vector<string> Nombres, vector<Personajes*> Combatientes,bool turno){
+    tecla=0;
+    int dados;
+    bool turno_opuesto;
+    (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+    cout<<"Personaje seleccionado: "<<Combatientes[turno]<<endl;
+    while(tecla!=5){
+        if(dynamic_cast<Mago*>(Combatientes[turno])) cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo \5. atras"<<endl;
+        else cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. atras"<<endl;
+        tecla=seleccion_invalida(1,5);
+        switch(tecla){
+            case 1:{
+                dados=Combatientes[turno]->tirar_dados();
+                cout<<Combatientes[turno]->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
+                if(dados<Combatientes[turno]->getAtributos(3)){
+                    cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<Combatientes[turno]->getName()<<endl;
+                    /*-----turno=1;-----*/
+                }else if(Combatientes[turno]->Ataque()>=Combatientes[turno_opuesto]->Defensa()){ //esto debe llamar a una funcion poli que este definida en los personajes
+                    cout<<"Ataque efectivo, hará "<<Combatientes[turno]->getAtributos(2)<<" * "<<Combatientes[turno]->getAtributos(0)<<" + ";
+                    for(auto objeto : Combatientes[turno]->getInventario()){
+                        if(objeto->getTipo()=="BACULO"){
+                            cout<<objeto->getPower()<<" daño"<<endl;
+                        }
+                    }
+                Combatientes[turno_opuesto]->setAtributos(Combatientes[turno_opuesto]->getAtributos(1)-(Combatientes[turno]->Ataque()-Combatientes[turno_opuesto]->Defensa()),1);
+                comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
+                }else{
+                    cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
+                }
+            }
+            case 2:{//esto es literalmente igual para todos los personajes, con la unica pega que las pociones de mana solo se pueden echar en Magos
+
+            }
+            case 3: Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes()); break;
+            case 4:{
+                if(dynamic_cast<Mago*>(Combatientes[turno])){
+                    //lanzarhechizo();
+                }else{
+                    tecla=5;
+                    break;
+                }
+            }
+            case 5:{
+                if(dynamic_cast<Mago*>(Combatientes[turno])) break;
+                else{
+                    tecla=4;
+                }
+                break;
+            }
+            default: break;
+        }
+    }
+    (turno_opuesto==1) ? turno=0 : turno=1;
+    (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+}
+void Funciones::Juego(Equipo *P1, Equipo *P2, bool turno, vector<Personajes *>& Muertos, string p1, string p2)
 {
     int tecla=0,seleccion=0,dados=0;
 
@@ -696,6 +761,7 @@ void Funciones::Juego(Equipo *P1, Equipo *P2, bool turno, vector<Personajes *>& 
     do{
     if (turno==0)
     {
+        cout<<"Turno de "<<p1<<"\n¿Que quieres hacer?\n1. Atacar/Lanzar Hechizo(solo con mago)\n2. Usar Pocion\n3. Cambiar Personaje"<<endl;
         cout<<"Turno de "<< p1<< "\n¿Que quieres hacer?\n1. Atacar/Lanzar Hechizo(solo con mago)\n2. Usar Pocion\n3. Cambiar Personaje"<<endl;
         tecla=seleccion_invalida(1,3);
         switch(tecla)
