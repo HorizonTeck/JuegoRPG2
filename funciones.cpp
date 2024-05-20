@@ -462,9 +462,9 @@ void Funciones::añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Per
             cout<<"Actualmente no hay ningun Personaje sin Equipo o has asignado ya todos a un Equipo"<<endl;
             tecla=2;
         }else{
+            cout<<"Elije un personaje para añadirlo"<<endl;
             Equipo->setLista_Personajes(seleccionar_Personaje(Lista_Personajes));
-            auto it = Lista_Personajes.begin() + tecla - 1;
-            Lista_Personajes.erase(it);
+            Lista_Personajes.erase(Lista_Personajes.begin() + tecla - 1);
             cout << "El Personaje ha sido añadido correctamente. Desea añadir otro mas?" << endl;
             cout<<"1. SI"<<endl<<"2. NO"<<endl;
             tecla=seleccion_invalida(1,2);
@@ -601,10 +601,7 @@ void Funciones::modificar_hechizos(Mago *Mago, vector<Hechizos*>& Lista_Hechizos
 void Funciones::modificar_hechizos(vector<Hechizos *>& Lista_Hechizos){
     int tecla_pulsada=0;
     if(Lista_Hechizos.size()>0){
-        Hechizos *tmp;
-        Recorrer(Lista_Hechizos);
-        tecla=seleccion_invalida(1,Lista_Hechizos.size());
-        tmp=Lista_Hechizos[tecla-1];
+        Hechizos *tmp=seleccionar(Lista_Hechizos);
         while(tecla_pulsada!=4){
             espera();
             cout<<"Has seleccionado el Hechizo: "<<*tmp<<endl;

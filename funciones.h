@@ -77,8 +77,8 @@ public:
     template <typename T> void Recorrer(vector<T*> vec){ //ME LO DIJO EL PROFE QUE LO PUSIERA ASI (Jose Carlos)
         if(vec.size()<=0) cout<<"No hay nada declarado todavia de este tipo"<<endl;
         else{
-            for(auto objeto:vec){
-                cout<<*objeto<<endl;
+            for(int i=0; i<static_cast<int>(vec.size());i++){
+                cout<<i+1<<". ---> "<<*vec[i]<<endl;
             }
         }
     }
