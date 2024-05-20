@@ -123,76 +123,62 @@ int main() {
                 }
                 break;
             }
-            case 4: cout<<"MENU DE JUEGO:" <<endl <<"1.Empezar combate"<<endl<<"2. Cargar combate anterior"<<endl<<"3. Mostrar Log de combate anterior"<<endl<<"4. MODO PACIFICO"<<endl<<"5. Salir"<<endl;
+            case 4: funcion.espera();
+            cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Cargar combate anterior"<<endl<<"3. Mostrar Log de combate anterior"<<endl<<"4. MODO PACIFICO"<<endl<<"5. Salir"<<endl;
             tecla=funcion.seleccion_invalida(1,5);
             switch(tecla){
-            case 1: {cout<< "Numero de personajes para el combate (Ej: 2vs2, 3vs3, etc.) MAX 5"<<endl;
-                int tamaño =0;
-                tamaño=funcion.seleccion_invalida(1,5);
-                do{
-                    cout<<"PLAYER 1: Elige el equipo con el que quieras jugar:" << endl;
-                    for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
+            case 1: {
+                Equipo* P1;
+                Equipo* P2;
+                string player1, player2;
+                bool turno=0;
+                cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
+                cin>>player1;
+                cout<<"Jugador 2:"<<endl;
+                cin>>player2;
+                cout<<player1<<", Elige el equipo con el que quieras jugar:" << endl;
+                P1=funcion.seleccionar_Equipo(Lista_Equipos);
+                cout<<"\n"<<player2<<", Elige el equipo con el que quieras jugar:\n" << endl;
+                P2 = funcion.seleccionar_Equipo(Lista_Equipos);
+                cout<< "Equipo rival: "<<P1->getName()<< endl;
+                if(P2==P1)
+                {
+                    system("clear");
+                    cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
+                }
+                    while(P2==P1)
                     {
-                        cout<< i+1 <<"--->  ";
-                        Lista_Equipos[i]->Display();
-                    }
-                    cout<< Lista_Equipos.size()+1<< "--->  SALIR";
-                    tecla=funcion.seleccion_invalida(1,Lista_Equipos.size()+1);
-                    if(tecla==static_cast <int> (Lista_Equipos.size())+1)
-                    {
-                        break;
-                    }
-                    if(static_cast <int>(Lista_Equipos[tecla]->getLista_Personajes().size()) != tamaño)
-                    {
-                        cout<< "No es posible hacer un combate " << tamaño <<" vs " << tamaño <<" con ese equipo"<< endl;
-                    }
-                }while(static_cast<int>(Lista_Equipos[tecla]->getLista_Personajes().size()) != tamaño);
-
-                system("clear");
-                do{
-                    int repetido =0;
-                    cout<<"PLAYER 2: Elige el equipo con el que quieras jugar:" << endl;
-                    for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
-                    {
-                        cout<< i+1 <<"--->  ";
-                        Lista_Equipos[i]->Display();
-                    }
-                    cout<< Lista_Equipos.size()+1<< "--->  SALIR"<<endl;
-                    cout<< "Equipo rival: "<<Lista_Equipos[tecla]->getName()<< endl;
-                    repetido=funcion.seleccion_invalida(1,Lista_Equipos.size());
-                    if(repetido==tecla)
-                    {
+                        cout<<player2<<", Elige el equipo con el que quieras jugar:\n" << endl;
+                        P2 = funcion.seleccionar_Equipo(Lista_Equipos);
+                        cout<< "Equipo rival: "<<P1->getName()<< endl;
+                        if(P2==P1)
+                        {
+                            cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
+                            cout<<"¿Quiere seguir probando? 1.SI 2.NO"<<endl;
+                            tecla=funcion.seleccion_invalida(1,2);
+                            if(tecla==2)
+                            {
+                                break; //Para salir del while
+                            }
+                        }
                         system("clear");
-                        cout<<"Has escogido el mismo equipo que tu rival, cambia de equipo("<< repetido<<")"<<endl;
                     }
-                    while(repetido ==tecla){
-                        cout<<"PLAYER 2: Elige el equipo con el que quieras jugar:" << endl;
-                        for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
-                        {
-                            cout<< i+1 <<"--->  ";
-                            Lista_Equipos[i]->Display();
-                        }
-                        cout<< Lista_Equipos.size()+1<< "--->  SALIR"<<endl;
-                        cout<< "Equipo rival: "<<Lista_Equipos[tecla]->getName()<< endl;
-                        repetido=funcion.seleccion_invalida(1,Lista_Equipos.size());
-                        if(repetido==tecla)
-                        {
-                            system("clear");
-                            cout<<"Has escogido el mismo equipo que tu rival, cambia de equipo ("<< repetido<<")"<<endl;
-                        }
-                    }
-                    if(static_cast<int>(Lista_Equipos[repetido]->getLista_Personajes().size() ) != tamaño)
+                    system("clear");
+                    if(P2==P1)
                     {
-                        cout<< "No es posible hacer un combate" << tamaño <<" vs " << tamaño <<" con ese equipo";
+                        break;//Para salir del switch
                     }
-                }while(static_cast<int>(Lista_Equipos[tecla]->getLista_Personajes().size() ) != tamaño);
+                    if(turno==0)
+                    {
+                        cout<<"Empieza el combate, Turno de "<<player1<<endl;
+                    }
                 break;
             }
             case 2:
                 break;
             case 3:
                 break;
-            case 4: cout<< "En este juego no hay posibilidad de ser pacifico, disfrute de las otras experiencias";
+            case 4: cout<< "En este juego no hay posibilidad de ser pacifico, disfrute de las otras experiencias"<<endl;
                 break;
             default:
                 break;
