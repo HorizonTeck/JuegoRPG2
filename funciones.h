@@ -74,7 +74,7 @@ public:
     Personajes* seleccionar_Personaje(vector<Personajes*>& Lista_Personajes);
 
     //Gestion del Display
-    template <typename T> void Recorrer(vector<T*> vec){ //ME LO DIJO EL PROFE QUE LO PUSIERA ASI (Jose Carlos)
+    template <typename T> void Recorrer(vector<T*> vec){ //NOS DIJO EL PROFE QUE LO PUSIERAMOS ASI (Jose Carlos)
         if(vec.size()<=0) cout<<"No hay nada declarado todavia de este tipo"<<endl;
         else{
             for(int i=0; i<static_cast<int>(vec.size());i++){
@@ -89,6 +89,8 @@ public:
     }
 
     //Funciones varias
+    void Juego(Equipo* P1,Equipo* P2, bool turno,vector<Personajes*>& Muertos,string p1,string p2);
+    void comprobarSalud(Equipo* Defensor,Personajes* personaje ,vector<Personajes*>& Muertos);
     int seleccion_invalida(int LI, int LS);
     void espera();
     string to_uppercase(string& linea);

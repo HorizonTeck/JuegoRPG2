@@ -16,6 +16,7 @@ int main() {
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
     vector<Hechizos*> Lista_Hechizos;
+    vector<Personajes*> Cementerio;
     funcion.setAtributos(personaje);
     Lista_Equipos.push_back(equipo);
     Lista_Personajes.push_back(personaje);
@@ -168,10 +169,7 @@ int main() {
                     {
                         break;//Para salir del switch
                     }
-                    if(turno==0)
-                    {
-                        cout<<"Empieza el combate, Turno de "<<player1<<endl;
-                    }
+                        funcion.Juego(P1,P2,turno,Cementerio,player1,player2);
                 break;
             }
             case 2:

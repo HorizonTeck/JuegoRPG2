@@ -71,8 +71,11 @@ int Arquero::Ataque() {
     {
         if(dynamic_cast<Armas*>(objeto))
         {
-        ataque= ataque+ objeto->getPower()/getAtributos(6);
-    }
+            if(getAtributos(6)>=1)
+            {
+                ataque= ataque+ objeto->getPower()/getAtributos(6);
+            }
+        }
     }
     return ataque;
 }

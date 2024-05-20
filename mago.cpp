@@ -31,6 +31,16 @@ bool Mago::comprobarHechizos(){
     if(_hechizos.size()<2) return 0;
     else return 1;
 }
+bool Mago::comprobarBaculo(){
+    for(auto objeto: _inventario)
+    {
+        if(objeto->getTipo()=="BACULO")
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 bool Mago::comprobarInventario(Objetos *objeto){
     if(comprobarInventario()==1) return 0;
     int armas=0,salud=0,mana=0;

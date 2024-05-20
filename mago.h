@@ -18,6 +18,7 @@ public:
     vector<Hechizos*>& getHechizos();
     void setHechizos(Hechizos* Hechizo);
     bool comprobarHechizos();
+    bool comprobarBaculo();
     virtual ostream& Display(ostream& os);
     virtual void Display() const;
     virtual int Ataque();
