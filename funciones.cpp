@@ -57,6 +57,7 @@ void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArch
 void Funciones::guardar(vector<Objetos*> objetos, ofstream &archivo) {
     if (archivo.is_open()) {
         for (auto objeto : objetos) {
+            archivo<<" ---->";
             objeto->serializar(archivo);
         }
     } else {
@@ -74,7 +75,6 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
                 objeto->serializar(archivo);
                 if(objeto->getInventario().size()>0)
                 {
-                    archivo<<" --->";
                     guardar(objeto->getInventario(),archivo);
                 }
             }

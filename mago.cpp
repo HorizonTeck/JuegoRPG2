@@ -131,7 +131,11 @@ void Mago::LanzarPocion(Pociones& P)
 
 void Mago::serializar(ofstream &archivo) const
 {
-    archivo<< "Mago: "<<_name<<"\n -->Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+   archivo<< "Mago: "<<_name<<"\n -->Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+   for(auto hechizo : _hechizos)
+   {
+       archivo<< " --->Hechizo: " << hechizo->getName()<<" Tipo: "<<hechizo->getTipoHechizo()<<" Coste: "<<hechizo->getCoste()<<"\n";
+   }
 }
 Mago::~Mago(){
     for(auto objeto : _hechizos){

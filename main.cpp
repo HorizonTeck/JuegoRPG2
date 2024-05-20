@@ -4,7 +4,6 @@
 using namespace std;
 
 int main() {
-    //JEJJJE
     Funciones funcion;
     Objetos *objeto=new Armas("ElPalo","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
@@ -124,7 +123,82 @@ int main() {
                 }
                 break;
             }
-            case 4: funcion.modificar_hechizos(Lista_Hechizos); break;
+            case 4: cout<<"MENU DE JUEGO:" <<endl <<"1.Empezar combate"<<endl<<"2. Cargar combate anterior"<<endl<<"3. Mostrar Log de combate anterior"<<endl<<"4. MODO PACIFICO"<<endl<<"5. Salir"<<endl;
+            tecla=funcion.seleccion_invalida(1,5);
+            switch(tecla){
+            case 1: {cout<< "Numero de personajes para el combate (Ej: 2vs2, 3vs3, etc.) MAX 5"<<endl;
+                int tamaño =0;
+                tamaño=funcion.seleccion_invalida(1,5);
+                do{
+                    cout<<"PLAYER 1: Elige el equipo con el que quieras jugar:" << endl;
+                    for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
+                    {
+                        cout<< i+1 <<"--->  ";
+                        Lista_Equipos[i]->Display();
+                    }
+                    cout<< Lista_Equipos.size()+1<< "--->  SALIR";
+                    tecla=funcion.seleccion_invalida(1,Lista_Equipos.size()+1);
+                    if(tecla==static_cast <int> (Lista_Equipos.size())+1)
+                    {
+                        break;
+                    }
+                    if(static_cast <int>(Lista_Equipos[tecla]->getLista_Personajes().size()) != tamaño)
+                    {
+                        cout<< "No es posible hacer un combate " << tamaño <<" vs " << tamaño <<" con ese equipo"<< endl;
+                    }
+                }while(static_cast<int>(Lista_Equipos[tecla]->getLista_Personajes().size()) != tamaño);
+
+                system("clear");
+                do{
+                    int repetido =0;
+                    cout<<"PLAYER 2: Elige el equipo con el que quieras jugar:" << endl;
+                    for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
+                    {
+                        cout<< i+1 <<"--->  ";
+                        Lista_Equipos[i]->Display();
+                    }
+                    cout<< Lista_Equipos.size()+1<< "--->  SALIR"<<endl;
+                    cout<< "Equipo rival: "<<Lista_Equipos[tecla]->getName()<< endl;
+                    repetido=funcion.seleccion_invalida(1,Lista_Equipos.size());
+                    if(repetido==tecla)
+                    {
+                        system("clear");
+                        cout<<"Has escogido el mismo equipo que tu rival, cambia de equipo("<< repetido<<")"<<endl;
+                    }
+                    while(repetido ==tecla){
+                        cout<<"PLAYER 2: Elige el equipo con el que quieras jugar:" << endl;
+                        for(int i=0;i<static_cast<int>(Lista_Equipos.size());i++)
+                        {
+                            cout<< i+1 <<"--->  ";
+                            Lista_Equipos[i]->Display();
+                        }
+                        cout<< Lista_Equipos.size()+1<< "--->  SALIR"<<endl;
+                        cout<< "Equipo rival: "<<Lista_Equipos[tecla]->getName()<< endl;
+                        repetido=funcion.seleccion_invalida(1,Lista_Equipos.size());
+                        if(repetido==tecla)
+                        {
+                            system("clear");
+                            cout<<"Has escogido el mismo equipo que tu rival, cambia de equipo ("<< repetido<<")"<<endl;
+                        }
+                    }
+                    if(static_cast<int>(Lista_Equipos[repetido]->getLista_Personajes().size() ) != tamaño)
+                    {
+                        cout<< "No es posible hacer un combate" << tamaño <<" vs " << tamaño <<" con ese equipo";
+                    }
+                }while(static_cast<int>(Lista_Equipos[tecla]->getLista_Personajes().size() ) != tamaño);
+                break;
+            }
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4: cout<< "En este juego no hay posibilidad de ser pacifico, disfrute de las otras experiencias";
+                break;
+            default:
+                break;
+            }
+
+            break;
             case 5: {
                 if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
                     cout<<"No hay nada creado todavia"<<endl;
