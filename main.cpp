@@ -125,8 +125,8 @@ int main() {
                 break;
             }
             case 4: funcion.espera();
-            cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Cargar combate anterior"<<endl<<"3. Mostrar Log de combate anterior"<<endl<<"4. MODO PACIFICO"<<endl<<"5. Salir"<<endl;
-            tecla=funcion.seleccion_invalida(1,5);
+            cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Mostrar Log de combate anterior"<<endl<<"3. MODO PACIFICO "<<endl<<"4. Salir"<<endl;
+            tecla=funcion.seleccion_invalida(1,4);
             switch(tecla){
             case 1: {
                 vector<Equipo*> Partida;
@@ -173,9 +173,7 @@ int main() {
             }
             case 2:
                 break;
-            case 3:
-                break;
-            case 4: cout<< "En este juego no hay posibilidad de ser pacifico, disfrute de las otras experiencias"<<endl;
+            case 3: cout<< "En este juego no hay posibilidad de ser pacifico, disfrute de las otras experiencias"<<endl;
                 break;
             default:
                 break;

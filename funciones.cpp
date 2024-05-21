@@ -749,7 +749,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
                 Hechizos* H;
                 cout<<"¿Que hechizo lanzas"<<endl;
                 H=seleccionar(mago->getHechizos());
-                H->LanzarHechizo(Combatientes[turno_opuesto],Combatientes[turno]);
+                //H->LanzarHechizo(Combatientes[turno_opuesto],Combatientes[turno]);
                 delete H;
             }else
             {
