@@ -65,6 +65,19 @@ void Guerrero::Display() const {
         }
     }
 }
+void Guerrero::DisplayAtaque() const
+{
+    //Poder*nivel + fuerza + arma1+ arma2
+    cout<< _atributos[2] << " * "<< _atributos[0] << " + "<< _atributos[6] ;
+    for(auto objeto : _inventario)
+    {
+        if(objeto->getTipo()=="Arma")
+        {
+            cout<<" + "<<objeto->getPower();
+        }
+    }
+    cout<<endl;
+}
 
 int Guerrero::Ataque() {
     int ataque=0;
@@ -90,13 +103,13 @@ void Guerrero::serializar(ofstream &archivo) const
     archivo<< "Guerrero: "<<_name<<"\n -->Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
 }
 
-void Guerrero::LanzarPocion(Pociones &P)
+void Guerrero::LanzarPocion(Pociones* P)
 {
-    if(P.getTipo()=="Salud"||P.getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
     {
-        cout<< "El guerrero " << _name << " se ha curado " << P.getPower()<<" puntos de salud"<<endl;
-        _atributos[1]+=P.getPower();
-    }else if (P.getTipo()=="Mana"||P.getTipo()=="mana"||P.getTipo()=="Maná"||P.getTipo()=="maná")
+        cout<< "El guerrero " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
+        _atributos[1]+=P->getPower();
+    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
         cout<< "El guerrero " << _name << " no ha sido capaz de lanzar la pocion"<<endl;
     }else

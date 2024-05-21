@@ -104,6 +104,14 @@ void Mago::Display() const {
         }
     }
 }
+void Mago::DisplayAtaque() const{
+    cout<<"Ataque efectivo, hará "<<_atributos[2]<<" * "<<_atributos[0]<<" + ";
+    for(auto objeto : _inventario){
+        if(objeto->getTipo()=="BACULO"){
+            cout<<objeto->getPower()<<" daño"<<endl;
+        }
+    }
+}
 
 int Mago::Ataque() {
     int ataque=0;
@@ -124,16 +132,16 @@ int Mago::Defensa() {
     return defensa;
 }
 
-void Mago::LanzarPocion(Pociones& P)
+void Mago::LanzarPocion(Pociones* P)
 {
-    if(P.getTipo()=="Salud"||P.getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
     {
-        cout<< "El mago " << _name << " se ha curado " << P.getPower()<<" puntos de salud"<<endl;
-        _atributos[1]+=P.getPower();
-    }else if (P.getTipo()=="Mana"||P.getTipo()=="mana"||P.getTipo()=="Maná"||P.getTipo()=="maná")
+        cout<< "El mago " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
+        _atributos[1]+=P->getPower();
+    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
-        cout<< "El mago " << _name << " ha restaurado  " << P.getPower()<<" puntos de maná"<<endl;
-        _atributos[5]+=P.getPower();
+        cout<< "El mago " << _name << " ha restaurado  " << P->getPower()<<" puntos de maná"<<endl;
+        _atributos[5]+=P->getPower();
     }else
         cout<< "Pocion no valida"<<endl;
 

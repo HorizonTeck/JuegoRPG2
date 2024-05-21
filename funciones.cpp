@@ -682,178 +682,125 @@ void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
 }
 
 
-//-------------------------------------------Funciones-----------------------------------------
-void Funciones::InicioJuego(vector<Equipo*> Partida, vector<Personajes*>& Muertos, vector<string> Nombres){
-    bool turno=0+rand()%(1-0+1);
-    vector<Personajes*> Combatientes;
-    Combatientes.resize(2);
-    cout<<"Comienza el jugador: "<<Nombres[turno]<<endl;
-    cout<<"Que personaje quieres coger?"<<endl;
-    Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
-    menucombate();
-
-}
-void Funciones::menucombate(vector<Equipo*> Partida, vector<Personajes*>& Muertos, vector<string> Nombres, vector<Personajes*> Combatientes,bool turno){
+//-------------------------------------------Funciones----------------------------------------
+void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno){
     tecla=0;
-    int dados;
+    vector <Personajes*> Combatientes;
+    int dados=0,seleccion=0;
     bool turno_opuesto;
     (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
-    cout<<"Personaje seleccionado: "<<Combatientes[turno]<<endl;
+    cout<<"Turno de "<< Nombres[turno]<< "\n ¿Cual es tu combatiente?"<<endl;
+    Combatientes[turno]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
+    cout<<"Turno de "<< Nombres[turno_opuesto]<< "\n ¿Cual es tu combatiente?"<<endl;
+    Combatientes[turno_opuesto]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
     while(tecla!=5){
-        if(dynamic_cast<Mago*>(Combatientes[turno])) cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo \5. atras"<<endl;
-        else cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. atras"<<endl;
+        cout<<"Personaje en uso:  "<<Combatientes[turno]<<endl;
+        if(dynamic_cast<Mago*>(Combatientes[turno]))
+        {
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario "<<endl;
+        }
+        else
+        {
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Ver inventario"<<endl;
+        }
         tecla=seleccion_invalida(1,5);
         switch(tecla){
             case 1:{
-                dados=Combatientes[turno]->tirar_dados();
-                cout<<Combatientes[turno]->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
-                if(dados<Combatientes[turno]->getAtributos(3)){
-                    cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<Combatientes[turno]->getName()<<endl;
-                    /*-----turno=1;-----*/
-                }else if(Combatientes[turno]->Ataque()>=Combatientes[turno_opuesto]->Defensa()){ //esto debe llamar a una funcion poli que este definida en los personajes
-                    cout<<"Ataque efectivo, hará "<<Combatientes[turno]->getAtributos(2)<<" * "<<Combatientes[turno]->getAtributos(0)<<" + ";
-                    for(auto objeto : Combatientes[turno]->getInventario()){
-                        if(objeto->getTipo()=="BACULO"){
-                            cout<<objeto->getPower()<<" daño"<<endl;
-                        }
-                    }
+            dados=Combatientes[turno]->tirar_dados();
+            cout<<Combatientes[turno]->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
+            if(dados<Combatientes[turno]->getAtributos(3)){
+                cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<Combatientes[turno]->getName()<<endl;
+            }else if(Combatientes[turno]->Ataque()>=Combatientes[turno_opuesto]->Defensa()){
+                Combatientes[turno]->DisplayAtaque();
                 Combatientes[turno_opuesto]->setAtributos(Combatientes[turno_opuesto]->getAtributos(1)-(Combatientes[turno]->Ataque()-Combatientes[turno_opuesto]->Defensa()),1);
                 comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
-                }else{
-                    cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
-                }
+            }else{
+                cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
             }
-            case 2:{//esto es literalmente igual para todos los personajes, con la unica pega que las pociones de mana solo se pueden echar en Magos
+            turno=turno_opuesto;
+            (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            break;
 
-            }
-            case 3: Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes()); break;
-            case 4:{
-                if(dynamic_cast<Mago*>(Combatientes[turno])){
-                    //lanzarhechizo();
-                }else{
-                    tecla=5;
-                    break;
-                }
-            }
-            case 5:{
-                if(dynamic_cast<Mago*>(Combatientes[turno])) break;
-                else{
-                    tecla=4;
-                }
-                break;
-            }
-            default: break;
+
         }
-    }
-    (turno_opuesto==1) ? turno=0 : turno=1;
-    (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
-}
-void Funciones::Juego(Equipo *P1, Equipo *P2, bool turno, vector<Personajes *>& Muertos, string p1, string p2)
-{
-    int tecla=0,seleccion=0,dados=0;
-
-    cout<<"Turno de "<< p1<< "\n ¿Cual es tu combatiente?"<<endl;
-    Personajes* personaje1=seleccionar(P1->getLista_Personajes());
-    cout<<"Turno de "<< p2<< "\n ¿Cual es tu combatiente?"<<endl;
-    Personajes* personaje2=seleccionar(P1->getLista_Personajes());
-    srand(static_cast<unsigned int>(time(nullptr)));
-    turno=0 + rand() % (1-0+1);
-    do{
-    if (turno==0)
-    {
-        cout<<"Turno de "<<p1<<"\n¿Que quieres hacer?\n1. Atacar/Lanzar Hechizo(solo con mago)\n2. Usar Pocion\n3. Cambiar Personaje"<<endl;
-        cout<<"Turno de "<< p1<< "\n¿Que quieres hacer?\n1. Atacar/Lanzar Hechizo(solo con mago)\n2. Usar Pocion\n3. Cambiar Personaje"<<endl;
-        tecla=seleccion_invalida(1,3);
-        switch(tecla)
-        {
-        case 1:
-            if(dynamic_cast<Mago*>(personaje1))
+        case 2:{
+            cout<<"¿Que pocion quieres elegir?"<<endl;
+            for(int i=0;i<static_cast<int>(Combatientes[turno]->getInventario().size());i++ )
             {
-                cout<<"¿Quieres atacar con el baculo(1) o lanzar hechizo(2)?"<<endl;
-                seleccion=seleccion_invalida(1,2);
-                if(seleccion==1)
+                if(Combatientes[turno]->getInventario()[i]->getTipo()=="Pocion")
                 {
-                    dados=personaje1->tirar_dados();
-                    cout<<personaje1->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
-                    if(dados<personaje1->getAtributos(3))
-                    {
-                        cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<personaje1->getName()<<endl;
-                        turno=1;
-                    }else if(personaje1->Ataque()>=personaje2->Defensa())
-                    {
-                        cout<<"Ataque efectivo, hará "<<personaje1->getAtributos(2)<<" * "<<personaje1->getAtributos(0)<<" + ";
-                        for(auto objeto : personaje1->getInventario())
-                        {
-                            if(objeto->getTipo()=="BACULO")
-                            {
-                                cout<<objeto->getPower()<<" daño"<<endl;
-                            }
-                        }
-                        personaje2->setAtributos(personaje2->getAtributos(1)-(personaje1->Ataque()-personaje2->Defensa()),1);
-                        comprobarSalud(P2,personaje2,Muertos);
-                    }else
-                    {
-                        cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
-                    }
-                }else
-                {
-
+                    cout<< i <<Combatientes[turno]->getInventario()[i]->getName()<<endl;
                 }
+            }
+            seleccion=seleccion_invalida(0,static_cast<int>(Combatientes[turno]->getInventario().size()));
+            Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
+            turno=turno_opuesto;
+            (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            break;
+        }
+        case 3: Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
+            turno=turno_opuesto;
+            (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            break;
+        case 4:
+            if(dynamic_cast<Mago*>(Combatientes[turno]))
+            {
+                Mago* mago=dynamic_cast <Mago*> (Combatientes[turno]);
+                Hechizos* H;
+                cout<<"¿Que hechizo lanzas"<<endl;
+                H=seleccionar(mago->getHechizos());
+                H->LanzarHechizo(Combatientes[turno_opuesto],Combatientes[turno]);
+                delete H;
             }else
             {
-
+                Recorrer(Combatientes[turno]->getInventario());
             }
             break;
-        case 2:
-            break;
-        case 3:
-            break;
-        }
-    }else
-    {
+        case 5:
+            tecla=4;
 
+        }
     }
-    }while(P1->getLista_Personajes().size()!=0||P2->getLista_Personajes().size()!=0);
 }
 void Funciones::comprobarSalud(Equipo *Defensor, Personajes* personaje, vector<Personajes *> &Muertos)
 {
-    if(personaje->getAtributos(1)<=0)
+if(personaje->getAtributos(1)<=0)
+{
+    cout<<personaje->getName() << " Ha muerto. RIP"<<endl;
+    Muertos.push_back(personaje);
+    for(int i=0; i<static_cast<int>(Defensor->getLista_Personajes().size());i++)
     {
-        cout<<personaje->getName() << " Ha muerto. RIP"<<endl;
-        Muertos.push_back(personaje);
-        for(int i=0; i<static_cast<int>(Defensor->getLista_Personajes().size());i++)
+        if(Defensor->getLista_Personajes(i)==personaje)
         {
-            if(Defensor->getLista_Personajes(i)==personaje)
-            {
-                Defensor->getLista_Personajes().erase(Defensor->getLista_Personajes().begin()+i);
-            }
+            Defensor->getLista_Personajes().erase(Defensor->getLista_Personajes().begin()+i);
         }
-
     }
+
+}
 }
 void Funciones::espera(){
-    cout<<"Presione 1 para continuar"<<endl;
-    tecla=seleccion_invalida(1,1);
-    system("clear");
+cout<<"Presione 1 para continuar"<<endl;
+tecla=seleccion_invalida(1,1);
+system("clear");
 }
 string Funciones::to_uppercase(string& linea){
-    string result;
-    for (char c : linea) {
-        result += toupper(c);
-    }
-    return result;
+string result;
+for (char c : linea) {
+    result += toupper(c);
+}
+return result;
 }
 
 int Funciones::seleccion_invalida(int LI,int LS){
+cin.clear();
+cin>>tecla;
+while(tecla<LI||tecla>LS)
+{
+    cout << "Seleccion invalida" <<endl;
     cin.clear();
+    cin.ignore(100, '\n');
     cin>>tecla;
-    while(tecla<LI||tecla>LS)
-    {
-        cout << "Seleccion invalida" <<endl;
-        cin.clear();
-        cin.ignore(100, '\n');
-        cin>>tecla;
-    }
-    return tecla;
+}
+return tecla;
 }
 Funciones::~Funciones(){}

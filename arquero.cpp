@@ -63,6 +63,20 @@ void Arquero::Display() const {
         }
     }
 }
+void Arquero::DisplayAtaque() const
+{
+    cout<<"Ataque efectivo, hará "<<_atributos[2]<<" * "<<_atributos[0]<<" + ";
+    for(auto objeto : _inventario)
+    {
+        if(dynamic_cast<Armas*>(objeto))
+        {
+            if(_atributos[6]>=1)
+            {
+               cout<< objeto->getPower() <<" / "<<_atributos[6];
+            }
+        }
+    }
+}
 
 int Arquero::Ataque() {
     int ataque=0;
@@ -94,13 +108,13 @@ void Arquero::serializar(ofstream& archivo) const
  }
 
 
-void Arquero::LanzarPocion(Pociones &P)
+void Arquero::LanzarPocion(Pociones* P)
 {
-    if(P.getTipo()=="Salud"||P.getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
     {
-        cout<< "El arquero " << _name << " se ha curado " << P.getPower()<<" puntos de salud"<<endl;
-        _atributos[1]+=P.getPower();
-    }else if (P.getTipo()=="Mana"||P.getTipo()=="mana"||P.getTipo()=="Maná"||P.getTipo()=="maná")
+        cout<< "El arquero " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
+        _atributos[1]+=P->getPower();
+    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
         cout<< "El arquero " << _name << " no ha sido capaz de lanzar la pocion"<<endl;
     }else

@@ -90,6 +90,7 @@ public:
 
     //Funciones varias
     void Juego(Equipo* P1,Equipo* P2, bool turno,vector<Personajes*>& Muertos,string p1,string p2);
+    void menucombate (vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno);
     void comprobarSalud(Equipo* Defensor,Personajes* personaje ,vector<Personajes*>& Muertos);
     int seleccion_invalida(int LI, int LS);
     void espera();

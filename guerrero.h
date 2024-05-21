@@ -15,9 +15,10 @@ public:
     virtual bool comprobarInventario();
     virtual ostream& Display(ostream& os);
     virtual void Display() const;
+    virtual void DisplayAtaque() const;
     virtual int Ataque();
     virtual int Defensa();
-    virtual void LanzarPocion(Pociones& P);
+    virtual void LanzarPocion(Pociones* P);
     virtual void serializar(ofstream& archivo) const;
     virtual~Guerrero();
 };

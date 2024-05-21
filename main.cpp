@@ -129,30 +129,29 @@ int main() {
             tecla=funcion.seleccion_invalida(1,5);
             switch(tecla){
             case 1: {
-                Equipo* P1;
-                Equipo* P2;
-                string player1, player2;
+                vector<Equipo*> Partida;
+                vector <string*> Nombres;
                 bool turno=0;
                 cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
-                cin>>player1;
+                cin>>*Nombres[0];
                 cout<<"Jugador 2:"<<endl;
-                cin>>player2;
-                cout<<player1<<", Elige el equipo con el que quieras jugar:" << endl;
-                P1=funcion.seleccionar_Equipo(Lista_Equipos);
-                cout<<"\n"<<player2<<", Elige el equipo con el que quieras jugar:\n" << endl;
-                P2 = funcion.seleccionar_Equipo(Lista_Equipos);
-                cout<< "Equipo rival: "<<P1->getName()<< endl;
-                if(P2==P1)
+                cin>>*Nombres[1];
+                cout<<Nombres[0]<<", Elige el equipo con el que quieras jugar:" << endl;
+                Partida.push_back(funcion.seleccionar_Equipo(Lista_Equipos));
+                cout<<"\n"<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
+                 Partida.push_back(funcion.seleccionar_Equipo(Lista_Equipos));
+                cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
+                if(Partida[0]==Partida[1])
                 {
                     system("clear");
                     cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
                 }
-                    while(P2==P1)
+                    while(Partida[0]==Partida[1])
                     {
-                        cout<<player2<<", Elige el equipo con el que quieras jugar:\n" << endl;
-                        P2 = funcion.seleccionar_Equipo(Lista_Equipos);
-                        cout<< "Equipo rival: "<<P1->getName()<< endl;
-                        if(P2==P1)
+                        cout<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
+                        Partida[1] = funcion.seleccionar_Equipo(Lista_Equipos);
+                        cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
+                        if(Partida[1]==Partida[0])
                         {
                             cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
                             cout<<"¿Quiere seguir probando? 1.SI 2.NO"<<endl;
@@ -165,11 +164,11 @@ int main() {
                         system("clear");
                     }
                     system("clear");
-                    if(P2==P1)
+                    if(Partida[0]==Partida[1])
                     {
                         break;//Para salir del switch
                     }
-                        funcion.Juego(P1,P2,turno,Cementerio,player1,player2);
+                        funcion.menucombate(Partida,Cementerio,Nombres,turno);
                 break;
             }
             case 2:

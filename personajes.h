@@ -41,11 +41,13 @@ public:
     virtual ostream& Display(ostream& os) =0;
     virtual void Display() const =0; //Display
     friend ostream& operator<<(ostream& os, Personajes& P);
+    virtual void DisplayAtaque() const =0;
 
     //Funciones varias
     int tirar_dados() const;
     virtual int Ataque() =0;
     virtual int Defensa() =0;
+    virtual void LanzarPocion(Pociones* P)=0;
     virtual void serializar(ofstream& archivo) const =0;
     virtual~Personajes();
 };

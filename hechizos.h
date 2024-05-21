@@ -2,6 +2,7 @@
 #define HECHIZOS_H
 
 #include <iostream>
+#include <personajes.h>
 using namespace std;
 
 class Hechizos
@@ -18,7 +19,7 @@ public:
     void setCoste();
     void setCoste(const int& coste);
     void setTipoHechizo(const string& TipoHechizo);
-    //void LanzarHechizo(Personajes& Defensor, Mago& Atacante);
+    void LanzarHechizo(Personajes* Defensor, Personajes* Atacante);
     friend ostream& operator<<(ostream& os, Hechizos& O);
     //void Display(ostream& os);
     void Display();
