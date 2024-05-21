@@ -701,9 +701,9 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
     Combatientes[turno]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
     cout<<"Turno de "<< Nombres[turno_opuesto]<< "\n ¿Cual es tu combatiente?"<<endl;
     Combatientes[turno_opuesto]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
-    archivo<<"Se han inicializado los Combatientes: 1. "<< Combatientes[turno] <<  " 2. "<<Combatientes[turno_opuesto]<<endl;
+    archivo<<"Se han inicializado los Combatientes: 1. "<< Combatientes[turno]->getName() <<  " 2. "<<Combatientes[turno_opuesto]->getName()<<endl;
     while(tecla!=5){
-        cout<<"Personaje en uso:  "<<Combatientes[turno]<<endl;
+        cout<<"Personaje en uso:  "<<Combatientes[turno]->getName()<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
         {
             cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario "<<endl;
@@ -715,20 +715,26 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         tecla=seleccion_invalida(1,5);
         switch(tecla){
             case 1:{
-            archivo<< "Ataca: " <<Combatientes[turno] << " Defiende: "<<Combatientes[turno_opuesto]<<endl;
+            archivo<< "Ataca: " <<Combatientes[turno]->getName() << " Defiende: "<<Combatientes[turno_opuesto]->getName()<<endl;
             dados=Combatientes[turno]->tirar_dados();
             cout<<Combatientes[turno]->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
             if(dados<Combatientes[turno]->getAtributos(3)){
                 cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<Combatientes[turno]->getName()<<endl;
-                archivo<<Combatientes[turno] <<" Fallo"<<endl;
+                archivo<<Combatientes[turno]->getName() <<" Fallo"<<endl;
             }else if(Combatientes[turno]->Ataque()>=Combatientes[turno_opuesto]->Defensa()){
                 Combatientes[turno]->DisplayAtaque();
                 Combatientes[turno_opuesto]->setAtributos(Combatientes[turno_opuesto]->getAtributos(1)-(Combatientes[turno]->Ataque()-Combatientes[turno_opuesto]->Defensa()),1);
-                comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
-                archivo<< "Impacta el ataque a " <<  Combatientes[turno_opuesto] <<", quitandole" << Combatientes[turno]->Ataque() <<" de salud"<<endl;
+                if(Combatientes[turno_opuesto]->getAtributos(1)<=0)
+                {
+                    Combatientes[turno]->setAtributos(Combatientes[turno]->getAtributos(0)+1,0);//Subida de nivel
+                    archivo<< Combatientes[turno]->getName() <<" Ha subido de nivel"<<endl;
+                    comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
+                }
+
+                archivo<< "Impacta el ataque a " <<  Combatientes[turno_opuesto]->getName() <<", quitandole" << Combatientes[turno]->Ataque() <<" de salud"<<endl;
             }else{
                 cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
-                archivo<<Combatientes[turno] <<" Fallo"<<endl;
+                archivo<<Combatientes[turno]->getName() <<" Fallo"<<endl;
             }
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
@@ -748,16 +754,16 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             }
             seleccion=seleccion_invalida(0,static_cast<int>(Combatientes[turno]->getInventario().size()));
             Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
-            archivo<<Combatientes[turno] <<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
+            archivo<<Combatientes[turno]->getName()<<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
             archivo<< "Cambio de turno"<<endl;
             break;
         }
         case 3:
-            archivo<< "Cambio de personaje de: "<< Combatientes[turno];
+            archivo<< "Cambio de personaje de: "<< Combatientes[turno]->getName();
             Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
-            archivo<< " a: "<< Combatientes[turno]<<endl;
+            archivo<< " a: "<< Combatientes[turno]->getName()<<endl;
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
             archivo<< "Cambio de turno"<<endl;
@@ -777,7 +783,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             }else
             {
                 Recorrer(Combatientes[turno]->getInventario());
-                archivo<< "Impresion del inventario de: "<< Combatientes[turno]<<endl;
+                archivo<< "Impresion del inventario de: "<< Combatientes[turno]->getName()<<endl;
             }
             break;
         case 5:
@@ -801,6 +807,9 @@ if(personaje->getAtributos(1)<=0)
         }
     }
 
+}else
+{
+    cout<< "Estaba de parranda"<<endl;
 }
 }
 void Funciones::espera(){
