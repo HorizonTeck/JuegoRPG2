@@ -36,6 +36,7 @@ public:
     virtual bool comprobarInventario(Objetos* objeto)=0;
     virtual bool comprobarInventario()=0;
     Personajes& operator>>(Objetos* Hechizo);
+    int NumPociones();
 
     //Gestion Display
     virtual ostream& Display(ostream& os) =0;

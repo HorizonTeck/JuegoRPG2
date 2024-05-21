@@ -47,7 +47,13 @@ void Personajes::setName(const string &name){
 vector<Objetos*>& Personajes::getInventario(){
     return _inventario;
 }
-
+int Personajes::NumPociones(){
+    int pociones=0;
+    for(auto objeto : _inventario){
+        if(dynamic_cast<Pociones*>(objeto)) pociones++;
+    }
+    return pociones;
+}
 int Personajes::getAtributos(int atrib)
 {
     return _atributos[atrib];

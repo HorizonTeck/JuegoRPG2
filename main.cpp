@@ -128,54 +128,9 @@ int main() {
             cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Mostrar Log de combate anterior"<<endl<<"3. MODO PACIFICO "<<endl<<"4. Salir"<<endl;
             tecla=funcion.seleccion_invalida(1,4);
             switch(tecla){
-            case 1: {
-                vector<Equipo*> Partida;
-                vector <string*> Nombres;
-                bool turno=0;
-                cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
-                cin>>*Nombres[0];
-                cout<<"Jugador 2:"<<endl;
-                cin>>*Nombres[1];
-                cout<<Nombres[0]<<", Elige el equipo con el que quieras jugar:" << endl;
-                Partida.push_back(funcion.seleccionar_Equipo(Lista_Equipos));
-                cout<<"\n"<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
-                Partida.push_back(funcion.seleccionar_Equipo(Lista_Equipos));
-                cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
-                if(Partida[0]==Partida[1])
-                {
-                    system("clear");
-                    cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
-                }
-                while(Partida[0]==Partida[1])
-                {
-                    cout<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
-                    Partida[1] = funcion.seleccionar_Equipo(Lista_Equipos);
-                    cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
-                    if(Partida[1]==Partida[0])
-                    {
-                        cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
-                        cout<<"¿Quiere seguir probando? 1.SI 2.NO"<<endl;
-                        tecla=funcion.seleccion_invalida(1,2);
-                        if(tecla==2)
-                        {
-                            break; //Para salir del while
-                        }
-                    }
-                    system("clear");
-                }
-                system("clear");
-                if(Partida[0]==Partida[1])
-                {
-                    break;//Para salir del switch
-                }
-                do{
-                    funcion.menucombate(Partida,Cementerio,Nombres,turno);
-                }while(Partida[0]->getLista_Personajes().size()!=0||Partida[1]->getLista_Personajes().size()!=0);
-                break;
-            }
+            case 1: while(funcion.InicioCombate(Lista_Equipos, Cementerio)!=0); break;
             case 2:{
                 ifstream archivo("Log.txt");
-
                 if (!archivo.is_open()) {
                     cerr << "Error al abrir el archivo" <<endl;
                 }
