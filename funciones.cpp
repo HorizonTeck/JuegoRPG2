@@ -684,6 +684,14 @@ void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
 
 //-------------------------------------------Funciones----------------------------------------
 void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno){
+    ofstream archivo ("Log.txt");
+    if(archivo.is_open()){
+        cout<<"Log preparado"<<endl;
+        archivo<< "Inicio de Combate\n";
+    }else
+    {
+        cout<<"Log no preparado"<<endl;
+    }
     tecla=0;
     vector <Personajes*> Combatientes;
     int dados=0,seleccion=0;
@@ -693,6 +701,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
     Combatientes[turno]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
     cout<<"Turno de "<< Nombres[turno_opuesto]<< "\n ¿Cual es tu combatiente?"<<endl;
     Combatientes[turno_opuesto]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
+    archivo<<"Se han inicializado los Combatientes: 1. "<< Combatientes[turno] <<  " 2. "<<Combatientes[turno_opuesto]<<endl;
     while(tecla!=5){
         cout<<"Personaje en uso:  "<<Combatientes[turno]<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
@@ -706,19 +715,24 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         tecla=seleccion_invalida(1,5);
         switch(tecla){
             case 1:{
+            archivo<< "Ataca: " <<Combatientes[turno] << " Defiende: "<<Combatientes[turno_opuesto]<<endl;
             dados=Combatientes[turno]->tirar_dados();
             cout<<Combatientes[turno]->getName()<<" Ha sacado "<< dados<<" tirando los dados"<<endl;
             if(dados<Combatientes[turno]->getAtributos(3)){
                 cout<<"Y por ello el ataque ha fallado, ya que es menor que la precision de "<<Combatientes[turno]->getName()<<endl;
+                archivo<<Combatientes[turno] <<" Fallo"<<endl;
             }else if(Combatientes[turno]->Ataque()>=Combatientes[turno_opuesto]->Defensa()){
                 Combatientes[turno]->DisplayAtaque();
                 Combatientes[turno_opuesto]->setAtributos(Combatientes[turno_opuesto]->getAtributos(1)-(Combatientes[turno]->Ataque()-Combatientes[turno_opuesto]->Defensa()),1);
                 comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
+                archivo<< "Impacta el ataque a " <<  Combatientes[turno_opuesto] <<", quitandole" << Combatientes[turno]->Ataque() <<" de salud"<<endl;
             }else{
                 cout<<" El ataque ha fallado ya que no tiene suficiente poder"<<endl;
+                archivo<<Combatientes[turno] <<" Fallo"<<endl;
             }
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            archivo<< "Cambio de turno"<<endl;
             break;
 
 
@@ -734,13 +748,19 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             }
             seleccion=seleccion_invalida(0,static_cast<int>(Combatientes[turno]->getInventario().size()));
             Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
+            archivo<<Combatientes[turno] <<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            archivo<< "Cambio de turno"<<endl;
             break;
         }
-        case 3: Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
+        case 3:
+            archivo<< "Cambio de personaje de: "<< Combatientes[turno];
+            Combatientes[turno]=seleccionar(Partida[turno]->getLista_Personajes());
+            archivo<< " a: "<< Combatientes[turno]<<endl;
             turno=turno_opuesto;
             (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            archivo<< "Cambio de turno"<<endl;
             break;
         case 4:
             if(dynamic_cast<Mago*>(Combatientes[turno]))
@@ -750,16 +770,21 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
                 cout<<"¿Que hechizo lanzas"<<endl;
                 H=seleccionar(mago->getHechizos());
                 //H->LanzarHechizo(Combatientes[turno_opuesto],Combatientes[turno]);
+                turno=turno_opuesto;
+                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+                archivo<< "Cambio de turno"<<endl;
                 delete H;
             }else
             {
                 Recorrer(Combatientes[turno]->getInventario());
+                archivo<< "Impresion del inventario de: "<< Combatientes[turno]<<endl;
             }
             break;
         case 5:
             tecla=4;
 
         }
+        archivo.close();
     }
 }
 void Funciones::comprobarSalud(Equipo *Defensor, Personajes* personaje, vector<Personajes *> &Muertos)
