@@ -22,13 +22,14 @@ public:
 
     //Gestion de Archivos
     Funciones();
-    void cargar(vector<Objetos*>& objetos, const string& nombreArchivo);
+    void cargar(vector<Objetos*>& objetos,const string& nombreArchivo);
     void cargar(vector<Personajes*>& personajes, const string& nombreArchivo);
     void cargar(vector<Equipo*>& equipos, const string& nombreArchivo);
     void guardar(vector<Objetos*> objetos, ofstream &archivo);
     void guardar(vector<Personajes*> personajes, const string& nombreArchivo);
     void guardar(vector<Equipo*> equipos, const string& nombreArchivo);
     int contarLineas(const string& nombreArchivo);
+    void QuitarEspacios(string& palabra);
 
     //Gestion Atributos
     void setAtributos(Personajes* Lista_Personajes); //Pregunta al usuario y llama a las otras funciones de asignacion

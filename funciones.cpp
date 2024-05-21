@@ -22,30 +22,80 @@ int Funciones::contarLineas(const string& nombreArchivo) {
 }
 
 void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
-    ifstream archivo("archivo.txt"); // Nombre de tu archivo .txt
-        vector<string> texto_despues_de_gt;
 
+    ifstream archivo(nombreArchivo);
+bool nombre=false, tipo=false,poder=false,completo=false;
         if (archivo.is_open()) {
-            string linea;
+            string linea,name,tipe,power;
             while (getline(archivo, linea)) {
-                size_t pos_gt = linea.find('>');
-                if (pos_gt != string::npos && pos_gt + 1 < linea.size()) {
-                    string texto_despues = linea.substr(pos_gt + 1);
-                    texto_despues_de_gt.push_back(texto_despues);
+               int j=0;
+
+               j++;
+                int posicion=linea.find(':');
+                for(int i=0;i<static_cast <int> (linea.size());i++)
+                {
+                    if(linea[i]!=' ')
+                    {
+                        switch (i){
+                        case 6:{
+                            nombre=true;
+                            break;
+                        }
+                        case 7:{
+                            if(linea[6]==' ')
+                            {
+                                if(linea[7]=='P'||linea[7]=='p')
+                                {
+                                    poder=true;
+                                }else{
+                                    tipo=true;
+                                }
+                            }
+                            break;
+                        }
+                        default:
+                                break;
+                        }
+                        if(nombre==true)
+                        {
+                            name= linea.substr(posicion+1);
+                            QuitarEspacios(name);
+                            nombre=false;
+                        }else if(tipo==true)
+                        {
+                            tipe= linea.substr(posicion+1);
+                            QuitarEspacios(tipe);
+                            tipo=false;
+                        }else if(poder==true)
+                        {
+                            power= linea.substr(posicion+1);
+                            QuitarEspacios(power);
+                            poder=false;
+                            completo=true;
+                        }
+                        if(completo==true)
+                        {
+                            //objetos.push_back(new Objeto*(name,tipe,power)) QUIERO AÑADIR UN OBJETO AL VECTOR OBJETO
+                            cout<< name<< endl << tipe<<endl<< power<<endl;
+                            completo=false; //para q no entre en bucle
+                        }
+                    }
                 }
             }
-            archivo.close();
         }
+
+        archivo.close();
 }
 /*void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArchivo){
 
 }
 */
+
 void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (auto objeto : personajes) {
-            archivo<<"                                     ->";
+            //archivo<<"                                      ";
             objeto->serializar(archivo);
             guardar(objeto->getInventario(),archivo);
         }
@@ -57,7 +107,7 @@ void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArch
 void Funciones::guardar(vector<Objetos*> objetos, ofstream &archivo) {
     if (archivo.is_open()) {
         for (auto objeto : objetos) {
-            archivo<<" ---->";
+            archivo<<"      ";
             objeto->serializar(archivo);
         }
     } else {
@@ -69,9 +119,9 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(equipos.size()); i++) {
-            archivo<< "EQUIPO: \n ->"<<equipos[i]->getName()<<":\n";
+            archivo<< "EQUIPO: \n "<<equipos[i]->getName()<<":\n";
             for (auto objeto : equipos[i]->getLista_Personajes()) {
-                archivo<<" -->";
+                archivo<<"  ";
                 objeto->serializar(archivo);
                 if(objeto->getInventario().size()>0)
                 {
@@ -85,7 +135,13 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
     }
 }
 
-
+void Funciones::QuitarEspacios(string & palabra)
+{
+    int start = palabra.find_first_not_of(" \t\n\r\f\v");
+    palabra = palabra.substr(start); //coge desde la posicion donde no haya espacios
+    int end = palabra.find_last_not_of(" \t\n\r\f\v");
+    palabra = palabra.substr(0, end + 1); //coge desde el principio hasta no haya espacios
+}
 
 //----------------------------Gestion Atributos-------------------------------------------
 void Funciones::setAtributos(bool random, Arquero* A)

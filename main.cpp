@@ -52,7 +52,7 @@ int main() {
                 }
                 case 2: funcion.guardar(Lista_Equipos,"GuardadoEquipos"); break;
                 case 3: {
-                    // funcion.cargar(Lista_Objetos,"GuardadoObjetos");
+                     funcion.cargar(Lista_Objetos,"GuardadoObjetos");
                     break;
                 }
                 case 4: {

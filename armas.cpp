@@ -21,7 +21,7 @@ void Armas::setTipo(const string& TipoArma){
 }
 
 void Armas::serializar(ofstream& archivo) const {
-    archivo << "Arma: " << _name << " " << _TipoArma << " " <<_power << endl;
+    archivo << "Arma: " << _name << "\n       Tipo:" << _TipoArma << "\n       Poder:" <<_power << endl;
 }
 ostream& Armas::Display(ostream& os){
     os << "Arma: "<< getName() << " Tipo: " << getTipo() << " Poder: "<< getPower()<<endl;
