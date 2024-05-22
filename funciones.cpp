@@ -20,6 +20,48 @@ int Funciones::contarLineas(const string& nombreArchivo) {
     archivo.close();
     return contador;
 }
+void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
+    vector<string> parametros = {"Arma","Tipo","Poder","Pocion"};
+    string nombre, tipo, tipoObjeto;
+    int poder=0;
+    ifstream archivo(nombreArchivo);
+    string linea, lineaencontrada="";
+    size_t posicion=0;
+    size_t pos =string::npos;
+    while(getline(archivo,linea)){
+        QuitarEspacios(linea);
+        pos =string::npos;
+        for(string objeto : parametros){
+            posicion=linea.find(objeto);
+            if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
+                        pos = posicion;
+                        lineaencontrada = objeto;
+                        if(lineaencontrada=="Arma"){
+                            tipoObjeto="ARMA";
+                            nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                        }else if(lineaencontrada=="Pocion"){
+                            tipoObjeto="Pocion";
+                            nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                        }
+                        else if(lineaencontrada=="Tipo"){
+                            tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                            to_uppercase(tipo);
+                        }
+                        else if(lineaencontrada=="Poder"){
+                            string tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                            if(esNumero(tmp)==1) poder=stoi(tmp);
+                        }
+            }
+        }
+    }
+    cout<<"Objeto completo: "<<tipoObjeto<<": "<<nombre<<" Tipo: "<<tipo<<" Poder: "<<poder<<endl;
+}
+bool Funciones::esNumero(string &linea){
+    for(char c : linea){
+        if(!isdigit(c)) return 0;
+    }
+    return 1;
+}
 
 bool Funciones::cargar(string& linea, string& name,string& tipe,string&power, ifstream& archivo) {
 

@@ -22,6 +22,7 @@ public:
 
     //Gestion de Archivos
     Funciones();
+    void cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo);
     bool cargar(string& linea,string&name,string& tipe,string&power, ifstream& archivo);
     void cargar(ifstream& archivo,string& nombre,string& tipo, string& linea, vector<int> atributos, vector <Objetos*> objetos);
     void cargar(vector<Equipo*>& equipos, const string& nombreArchivo);
@@ -99,6 +100,7 @@ public:
     int seleccion_invalida(int LI, int LS);
     void espera();
     string to_uppercase(string& linea);
+    bool esNumero(string &linea);
     template<typename T> void liberar_memoria(vector<T*>& vec){ for(auto objeto : vec) delete objeto; vec.clear(); }
     ~Funciones();
 };
