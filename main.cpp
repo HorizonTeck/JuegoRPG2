@@ -77,7 +77,7 @@ int main() {
                     break;
                 }
                 case 5: {
-                    funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
+                    //funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
                     break;
                 }
                 case 6: funcion.guardar(Lista_Personajes,"GuardadoPersonajes"); break;

@@ -74,5 +74,6 @@ Personajes::~Personajes(){
     for(Objetos* objeto : _inventario){
         delete objeto;
     }
+
 }
 

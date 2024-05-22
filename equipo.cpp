@@ -68,8 +68,9 @@ void Equipo::Display() const {
 }
 
 Equipo::~Equipo(){
-    for(auto objeto : _Lista_Personajes){
+    for(Personajes* objeto : _Lista_Personajes){
         delete objeto;
     }
+    _Lista_Personajes.clear();
 }
 
