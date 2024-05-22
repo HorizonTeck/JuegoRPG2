@@ -21,16 +21,10 @@ int Funciones::contarLineas(const string& nombreArchivo) {
     return contador;
 }
 
-void Funciones::cargar(vector<Objetos*>& objetos, const string& nombreArchivo) {
+bool Funciones::cargar(string& linea, string& name,string& tipe,string&power, ifstream& archivo) {
 
-    ifstream archivo(nombreArchivo);
-bool nombre=false, tipo=false,poder=false,completo=false;
+bool completo=false;
         if (archivo.is_open()) {
-            string linea,name,tipe,power;
-            while (getline(archivo, linea)) {
-               int j=0;
-
-               j++;
                 int posicion=linea.find(':');
                 for(int i=0;i<static_cast <int> (linea.size());i++)
                 {
@@ -38,7 +32,11 @@ bool nombre=false, tipo=false,poder=false,completo=false;
                     {
                         switch (i){
                         case 6:{
-                            nombre=true;
+                            if(linea[5]==' ')
+                            {
+                                name= linea.substr(posicion+1);
+                                QuitarEspacios(name);
+                            }
                             break;
                         }
                         case 7:{
@@ -46,9 +44,12 @@ bool nombre=false, tipo=false,poder=false,completo=false;
                             {
                                 if(linea[7]=='P'||linea[7]=='p')
                                 {
-                                    poder=true;
+                                    tipe= linea.substr(posicion+1);
+                                    QuitarEspacios(tipe);
                                 }else{
-                                    tipo=true;
+                                    power= linea.substr(posicion+1);
+                                    QuitarEspacios(power);
+                                    completo=true;
                                 }
                             }
                             break;
@@ -56,46 +57,130 @@ bool nombre=false, tipo=false,poder=false,completo=false;
                         default:
                                 break;
                         }
-                        if(nombre==true)
+                }
+            }
+        }
+        return completo;
+}
+void Funciones::cargar(ifstream& archivo,string& nombre,string& tipo, string& linea, vector<int> atributos, vector <Objetos*> objetos){
+    bool completo=false;
+    vector <string> atrib;
+    if (archivo.is_open()) {
+        int posicion=linea.find(':');
+        for(int i=0;i<static_cast <int> (linea.size());i++)
+        {
+            if(linea[i]!=' ')
+            {
+                switch (i){
+                case 2:{
+                    if(linea[1]==' ')
+                    {
+                        switch(linea[2])
                         {
-                            name= linea.substr(posicion+1);
-                            QuitarEspacios(name);
-                            nombre=false;
-                        }else if(tipo==true)
-                        {
-                            tipe= linea.substr(posicion+1);
-                            QuitarEspacios(tipe);
-                            tipo=false;
-                        }else if(poder==true)
-                        {
-                            power= linea.substr(posicion+1);
-                            QuitarEspacios(power);
-                            poder=false;
-                            completo=true;
+                        case 'M':
+                            tipo="Mago";
+                            break;
+                         case 'G':
+                            tipo="Guerrero";
+                            break;
+                        case 'A':
+                            tipo="Arquero";
+                            break;
+                        default:
+                            cout<<"tipo no encontrado"<<endl;
+                            break;
+
                         }
-                        if(completo==true)
+
+                        nombre= linea.substr(posicion+1);
+                        QuitarEspacios(nombre);
+                    }
+                    break;
+                }
+                case 3:{
+                    if(linea[2]==' ')
+                    {
+                        switch(linea[3])
                         {
-                            //objetos.push_back(new Objeto*(name,tipe,power)) QUIERO AÑADIR UN OBJETO AL VECTOR OBJETO
-                            cout<< name<< endl << tipe<<endl<< power<<endl;
-                            completo=false; //para q no entre en bucle
+                        case 'N':
+                            atrib[0]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[0]);
+                            atributos[0]=stoi(atrib[0]);
+                            break;
+                        case 'S':
+                            atrib[1]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[1]);
+                            atributos[1]=stoi(atrib[1]);
+                            break;
+                        case 'P':
+                                if(linea[4]=='o')
+                                {
+                                    atrib[2]=linea.substr(posicion+1);
+                                    QuitarEspacios(atrib[2]);
+                                    atributos[2]=stoi(atrib[2]);
+                                   }else if(linea[6]=='e')
+                                {
+                                    atrib[3]=linea.substr(posicion+1);
+                                    QuitarEspacios(atrib[3]);
+                                    atributos[3]=stoi(atrib[3]);
+                                    }else if(linea[6]=='o')
+                                {
+                                    atrib[4]=linea.substr(posicion+1);
+                                    QuitarEspacios(atrib[4]);
+                                    atributos[4]=stoi(atrib[4]);
+                                }else
+                                {
+                                    cout<<"Error de cargado";
+                                }
+                            break;
+                        case 'F':
+                            atrib[5]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[5]);
+                            atributos[5]=stoi(atrib[5]);
+                            break;
+                        case 'E':
+                            atrib[6]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[6]);
+                            atributos[6]=stoi(atrib[6]);
+                            break;
+                        case 'A':
+                            atrib[5]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[5]);
+                            atributos[5]=stoi(atrib[5]);
+                            break;
+                        case 'C':
+                            atrib[6]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[6]);
+                            atributos[6]=stoi(atrib[6]);
+                            break;
+                        case 'M':
+                            atrib[5]=linea.substr(posicion+1);
+                            QuitarEspacios(atrib[5]);
+                            atributos[5]=stoi(atrib[5]);
+                            break;
+                        default:
+                            cout<<"atributo no encontrado"<<endl;
+
                         }
                     }
+
+                    break;
+                }
+                case 6:
+                    //cargar() METER EEL CARGGAR OBJETOS
+                     break;
+                default:
+                    break;
                 }
             }
         }
 
-        archivo.close();
+    }
 }
-/*void Funciones::cargar(vector<Personajes*>& personajes, const string& nombreArchivo){
-
-}
-*/
-
 void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (auto objeto : personajes) {
-            //archivo<<"                                      ";
             objeto->serializar(archivo);
             guardar(objeto->getInventario(),archivo);
         }

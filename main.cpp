@@ -52,7 +52,22 @@ int main() {
                 }
                 case 2: funcion.guardar(Lista_Equipos,"GuardadoEquipos"); break;
                 case 3: {
-                     funcion.cargar(Lista_Objetos,"GuardadoObjetos");
+                    ifstream archivo("GuardadoObjetos");
+                    string linea,name,tipo,power;
+                    if(archivo.is_open())
+                    {
+
+                        while(getline(archivo,linea))
+                        {
+                            if(funcion.cargar(linea,name,tipo,power,archivo))
+                            {
+                                cout<<"Objeto completo: "<< name<<" "<< tipo<<" "<< power<<endl;
+                            }
+                        }
+
+                    }
+                    archivo.close();
+
                     break;
                 }
                 case 4: {
@@ -62,7 +77,7 @@ int main() {
                     break;
                 }
                 case 5: {
-                    //funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
+                    funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
                     break;
                 }
                 case 6: funcion.guardar(Lista_Personajes,"GuardadoPersonajes"); break;

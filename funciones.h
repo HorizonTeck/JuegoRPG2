@@ -22,8 +22,8 @@ public:
 
     //Gestion de Archivos
     Funciones();
-    void cargar(vector<Objetos*>& objetos,const string& nombreArchivo);
-    void cargar(vector<Personajes*>& personajes, const string& nombreArchivo);
+    bool cargar(string& linea,string&name,string& tipe,string&power, ifstream& archivo);
+    void cargar(ifstream& archivo,string& nombre,string& tipo, string& linea, vector<int> atributos, vector <Objetos*> objetos);
     void cargar(vector<Equipo*>& equipos, const string& nombreArchivo);
     void guardar(vector<Objetos*> objetos, ofstream &archivo);
     void guardar(vector<Personajes*> personajes, const string& nombreArchivo);
