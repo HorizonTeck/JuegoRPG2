@@ -34,26 +34,28 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
         for(string objeto : parametros){
             posicion=linea.find(objeto);
             if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
-                        pos = posicion;
-                        lineaencontrada = objeto;
-                        if(lineaencontrada=="Arma"){
-                            tipoObjeto="ARMA";
-                            nombre=linea.substr(posicion+lineaencontrada.size()+1);
-                        }else if(lineaencontrada=="Pocion"){
-                            tipoObjeto="Pocion";
-                            nombre=linea.substr(posicion+lineaencontrada.size()+1);
-                        }
-                        else if(lineaencontrada=="Tipo"){
-                            tipo=linea.substr(posicion+lineaencontrada.size()+1);
-                            to_uppercase(tipo);
-                        }
-                        else if(lineaencontrada=="Poder"){
-                            string tmp=linea.substr(posicion+lineaencontrada.size()+1);
-                            if(esNumero(tmp)==1) poder=stoi(tmp);
-                        }
+                pos = posicion;
+                lineaencontrada = objeto;
+                if(lineaencontrada=="Arma"){
+                    tipoObjeto="ARMA";
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                }else if(lineaencontrada=="Pocion"){
+                    tipoObjeto="POCION";
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                }
+                else if(lineaencontrada=="Tipo"){
+                    tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                    to_uppercase(tipo);
+                }
+                else if(lineaencontrada=="Poder"){
+                    string tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                    if(esNumero(tmp)==1) poder=stoi(tmp);
+                }
             }
         }
     }
+    if(tipoObjeto=="ARMA") Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
+    else if(tipoObjeto=="POCION") Lista_Objetos.push_back(new Pociones(nombre,tipo,poder));
     cout<<"Objeto completo: "<<tipoObjeto<<": "<<nombre<<" Tipo: "<<tipo<<" Poder: "<<poder<<endl;
 }
 bool Funciones::esNumero(string &linea){

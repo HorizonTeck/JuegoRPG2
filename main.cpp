@@ -47,16 +47,17 @@ int main() {
                 cin >> tecla;
                 switch (tecla){
                 case 1: {
-                    //funcion.cargar(Lista_Objetos,"GuardadoObjetos");
+                    funcion.cargar(Lista_Objetos,"GuardadoObjetos");
                     ifstream archivo("GuardadoObjetos");
                     string linea, name, tipo, power;
-                    while(getline(archivo,linea)){
+                    /*while(getline(archivo,linea)){
                         funcion.QuitarEspacios(linea);
                         int posicion=linea.find_first_of(":");
                         string cadena=linea.substr(posicion+1);
                         cout<<cadena<<endl;
-                    }
+                    }*/
                     //funcion.cargar(Lista_Equipos,"GuardadoEquipos");
+                    cout<<endl<<endl<<endl<<*Lista_Objetos[Lista_Objetos.size()-1];
                     break;
                 }
                 case 2: funcion.guardar(Lista_Equipos,"GuardadoEquipos"); break;
