@@ -641,22 +641,21 @@ Personajes* Funciones::seleccionar_Personaje(vector<Personajes*>& Lista_Personaj
 }
 
 void Funciones::añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes){
-    int tecla=0;
-    while(tecla!=2){
+    int tecla_pulsada=0;
+    while(tecla_pulsada!=2){
         if(Lista_Personajes.size()<=0){
             cout<<"Actualmente no hay ningun Personaje sin Equipo o has asignado ya todos a un Equipo"<<endl;
-            tecla=2;
+            tecla_pulsada=2;
         }else{
             cout<<"Elije un personaje para añadirlo"<<endl;
             Equipo->setLista_Personajes(seleccionar_Personaje(Lista_Personajes));
-
-            Lista_Personajes.erase(Lista_Personajes.begin() + tecla - 1); //Tecla no sale de seleccionar_personaje, por tanto es la tecla aanterior simpre =1
-          //  Lista_Personajes.push_back(Equipo->getLista_Personajes()[tmp-1]);
-           // Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tmp-1);
+            Lista_Personajes.erase(Lista_Personajes.begin() + tecla - 1);
+            // Lista_Personajes.push_back(Equipo->getLista_Personajes()[tmp-1]);
+            // Equipo->getLista_Personajes().erase(Equipo->getLista_Personajes().begin()+tmp-1);
 
             cout << "El Personaje ha sido añadido correctamente. Desea añadir otro mas?" << endl;
             cout<<"1. SI"<<endl<<"2. NO"<<endl;
-            tecla=seleccion_invalida(1,2);
+            tecla_pulsada=seleccion_invalida(1,2);
         }
     }
 }
