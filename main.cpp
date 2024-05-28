@@ -114,7 +114,7 @@ int main() {
     funcion.cargar(Lista_Equipos,"GuardadoEquiposPredeterminado");
     funcion.cargar(Lista_Hechizos,"GuardadoHechizosPredeterminado");
     funcion.cargar(Lista_Objetos,"GuardadoObjetosPredeterminado");
-    funcion.cargar(Lista_Personajes,"GuardadoPersonajesPredeterminado");
+    //funcion.cargar(Lista_Personajes,"GuardadoPersonajesPredeterminado");
     int tecla=0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 6) {

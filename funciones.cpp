@@ -41,20 +41,20 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
                 pos = posicion;
                 lineaencontrada = parametros[i];
                 switch(i){
+                case 0:
                 case 1:
-                case 2:
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     comprobar[i]=true;
                     nombre=linea.substr(posicion+lineaencontrada.size()+1);
                     QuitarEspacios(nombre);
                     break;
-                case 3:
+                case 2:
                     comprobar[i]=true;
                     tipo=linea.substr(posicion+lineaencontrada.size()+1);
                     QuitarEspacios(tipo);
                     to_uppercase(tipo);
                     break;
-                case 4:
+                case 3:
                     tmp=linea.substr(posicion+lineaencontrada.size()+1);
                     QuitarEspacios(tmp);
                     if(esNumero(tmp)==1){
@@ -274,37 +274,37 @@ void Funciones::cargar(vector<Personajes*>& Lista_Personajes, string nombreArchi
                         comprobar[i]=1;
                     }
                 }
-                if(comprobar[0]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[8]==1&&personaje==1){
-                    Listatemporal.push_back(new Mago(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[8]));
+                if(comprobar[0]==1&&comprobar[7]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[12]==1&&personaje==1){
+                    Listatemporal.push_back(new Mago(nombre,valores[7],valores[8],valores[9],valores[10],valores[11],valores[12]));
                     personajetmp=Listatemporal[Listatemporal.size()-1];
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
-                else if(comprobar[1]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[9]==1&&comprobar[10]==1&&personaje==1){
-                    Listatemporal.push_back(new Arquero(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[9],valores[10]));
+                else if(comprobar[1]==1&&comprobar[7]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[13]==1&&comprobar[14]==1&&personaje==1){
+                    Listatemporal.push_back(new Arquero(nombre,valores[7],valores[8],valores[9],valores[10],valores[11],valores[13],valores[14]));
                     personajetmp=Listatemporal[Listatemporal.size()-1];
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
-                else if(comprobar[2]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[11]==1&&comprobar[12]==1&&personaje==1){
-                    Listatemporal.push_back(new Guerrero(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[11],valores[12]));
+                else if(comprobar[2]==1&&comprobar[7]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[15]==1&&comprobar[16]==1&&personaje==1){
+                    Listatemporal.push_back(new Guerrero(nombre,valores[7],valores[8],valores[9],valores[10],valores[11],valores[15],valores[16]));
                     personajetmp=Listatemporal[Listatemporal.size()-1];
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
-                else if(comprobar[3]==1&&comprobar[7]==1&&comprobar[18]==1&&personaje==1){
+                else if(comprobar[3]==1&&comprobar[6]==1&&comprobar[17]==1&&personaje==1){
                     hechizotmp=new Hechizos(valores[18],tipo,nombre);
                     if(Mago* tmp2=dynamic_cast<Mago*>(personajetmp)) tmp2->setHechizos(hechizotmp);
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
-                else if(comprobar[4]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                else if(comprobar[4]==1&&comprobar[6]==1&&comprobar[9]==1&&personaje==1){
                     objetotmp=new Armas(nombre,tipo,valores[10]);
                     if(personajetmp!=nullptr) if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
-                else if(comprobar[5]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                else if(comprobar[5]==1&&comprobar[6]==1&&comprobar[9]==1&&personaje==1){
                     objetotmp=new Pociones(nombre,tipo,valores[10]);
                     if(personajetmp!=nullptr) if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
