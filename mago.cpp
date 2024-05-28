@@ -76,15 +76,16 @@ bool Mago::comprobarInventario(){
 }
 
 ostream& Mago::Display(ostream &os){
-    os<< "Mago: "<<_name<<" Atributos: "<<endl;
-    os <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+    os<< rosa<<"Mago: "<<_name<<" Atributos: "<<endl;
+    os <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl<<blanco<<BLUE;
     if(_inventario.size()>0){
         os<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
-            os<<"     "<<i+1<<". ";
+            os<<blanco<<BLUE<<"     "<<i+1<<". ";
             os<<*_inventario[i];
         }
     }
+    os<<amarillo<<BLUE;
     if(_hechizos.size()>0){
         os<<"     Hechizos:"<<endl;
         for(unsigned int i=0;i<_hechizos.size();i++){
@@ -92,18 +93,20 @@ ostream& Mago::Display(ostream &os){
             os<<*_hechizos[i];
         }
     }
+    os<<RESET;
     return os;
 }
 void Mago::Display() const {
-    cout<< "Mago: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl;
+    cout<<rosa<< "Mago: "<<_name<<" Atributos: "<<endl;
+    cout <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Mana: "<<_atributos[5]<<endl<<blanco<<BLUE;
     if(_inventario.size()>0){
         cout<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
-            cout<<"     "<<i+1<<". ";
+            cout<<blanco<<BLUE<<"     "<<i+1<<". ";
             _inventario[i]->Display();
         }
     }
+    cout<<amarillo<<BLUE;
     if(_hechizos.size()>0){
         cout<<"     Hechizos:"<<endl;
         for(unsigned int i=0;i<_hechizos.size();i++){
@@ -111,6 +114,7 @@ void Mago::Display() const {
             _hechizos[i]->Display();
         }
     }
+    cout<<RESET;
 }
 void Mago::DisplayAtaque() const{
     cout<<"Ataque efectivo, hará "<<_atributos[2]<<" * "<<_atributos[0]<<" + ";

@@ -259,9 +259,9 @@ void Funciones::setAtributos(bool random, Arquero* A)
         A->setAtributos(1 + rand() % (15-1+1),6); //carcaj
     }else
     {
-        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cout << verde <<"Dime la salud de tu personaje (0-100)"<<RESET<< endl;
         A->setAtributos(seleccion_invalida(0,100),1);
-        cout << "Dime el poder de tu personaje (0-30)"<< endl;
+        cout << rojo<<"Dime el poder de tu personaje (0-30)"<< endl;
         A->setAtributos(seleccion_invalida(0,30),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
         A->setAtributos(seleccion_invalida(1,12),3);
@@ -269,7 +269,7 @@ void Funciones::setAtributos(bool random, Arquero* A)
         A->setAtributos(seleccion_invalida(20,40),4);
         cout << "Dime la agilidad de tu personaje (1-10)"<< endl;
         A->setAtributos(seleccion_invalida(1,10),5);
-        cout << "Dime las flechas que tiene tu personaje en el carcaj (1-15)"<< endl;
+        cout << "Dime las flechas que tiene tu personaje en el carcaj (1-15)"<< endl<<RESET;
         A->setAtributos(seleccion_invalida(1,15),6);
     }
 }
@@ -287,9 +287,9 @@ void Funciones::setAtributos(bool random, Guerrero* A)
         A->setAtributos(1 + rand() % (15-1+1),6); //fuerza
     }else
     {
-        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cout <<verde<< "Dime la salud de tu personaje (0-100)"<< endl;
         A->setAtributos(seleccion_invalida(0,100),1);
-        cout << "Dime el poder de tu personaje (0-30)"<< endl;
+        cout << azul<<"Dime el poder de tu personaje (0-30)"<< endl;
         A->setAtributos(seleccion_invalida(0,30),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
         A->setAtributos(seleccion_invalida(1,12),3);
@@ -297,7 +297,7 @@ void Funciones::setAtributos(bool random, Guerrero* A)
         A->setAtributos(seleccion_invalida(15,30),4);
         cout << "Dime el escudo de tu personaje (0-30)"<< endl;
         A->setAtributos(seleccion_invalida(0,30),5);
-        cout << "Dime la fuerza de tu personaje (1-15)"<< endl;
+        cout << "Dime la fuerza de tu personaje (1-15)"<< endl<<RESET;
         A->setAtributos(seleccion_invalida(1,15),6);
     }
 }
@@ -314,15 +314,15 @@ void Funciones::setAtributos(bool random, Mago* A)
         A->setAtributos(0 + rand() % (100-0+1),5); //mana
     }else
     {
-        cout << "Dime la salud de tu personaje (0-100)"<< endl;
+        cout << verde<<"Dime la salud de tu personaje (0-100)"<< endl;
         A->setAtributos(seleccion_invalida(0,100),1);
-        cout << "Dime el poder de tu personaje (50-70)"<< endl;
+        cout <<rosa<< "Dime el poder de tu personaje (50-70)"<< endl;
         A->setAtributos(seleccion_invalida(50,70),2);
         cout << "Dime precision de tu personaje (1-12)"<< endl;
         A->setAtributos(seleccion_invalida(1,12),3);
         cout << "Dime protecion de tu personaje (50-60)"<< endl;
         A->setAtributos(seleccion_invalida(50,60),4);
-        cout << "Dime el mana de tu personaje (0-100)"<< endl;
+        cout << "Dime el mana de tu personaje (0-100)"<< endl<<RESET;
         A->setAtributos(seleccion_invalida(0,100),5);
     }
 }
@@ -367,7 +367,7 @@ int Funciones::setAtributos(bool random,int LI,int LS){
 }
 void Funciones::setAtributos(Objetos* Objeto){
     bool random;
-    cout << "Como quieres asignarle el poder?" <<endl<<"1. Random"<<endl<<"2. Manualmente"<<endl;
+    cout <<"Como quieres asignarle el poder?" <<endl<<"1. Random"<<endl<<"2. Manualmente"<<endl;
     tecla = seleccion_invalida(1,2);
     (tecla==1) ? random=1 : random=0;
     if(Armas *tmp=dynamic_cast<Armas*>(Objeto)){
@@ -1042,6 +1042,7 @@ bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*
     vector<Equipo*> Partida;
     vector <string*> Nombres;
     bool turno=0;
+    DisplayLucha();
     cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
     cin.clear();
     cin.ignore();
@@ -1131,4 +1132,5 @@ while(tecla<LI||tecla>LS)
 }
 return tecla;
 }
+
 Funciones::~Funciones(){}

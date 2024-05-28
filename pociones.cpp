@@ -24,10 +24,10 @@ void Pociones::serializar(ofstream& archivo) const {
     archivo << "Pocion: " << _name << "\n       Tipo:" << _TipoPocion<< "\n       Poder:"<< _power  <<endl;
 }
 ostream& Pociones::Display(ostream& os){
-    os << "Pocion: " << getName() << " Tipo: " << getTipo() <<" Poder: "<<getPower()<<endl;
+    os << GREEN<<blanco<<"Pocion: " << getName() << " Tipo: " << getTipo() <<" Poder: "<<getPower()<<RESET<<endl;
     return os;
 }
 void Pociones::Display() const {
-    cout << "Pocion: " << getName() << " Tipo: " << getTipo() <<" Poder: "<<getPower()<<endl;
+    cout << GREEN<<blanco<<"Pocion: " << getName() << " Tipo: " << getTipo() <<" Poder: "<<getPower()<<RESET<<endl;
 }
 

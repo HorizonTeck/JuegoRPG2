@@ -2,6 +2,9 @@
 #define HECHIZOS_H
 
 #include <iostream>
+#define amarillo "\033[43m"
+#define RESET "\033[0m"
+#define BLUE "\033[34m"
 //#include <personajes.h>
 using namespace std;
 

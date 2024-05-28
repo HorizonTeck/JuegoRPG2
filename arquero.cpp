@@ -50,8 +50,8 @@ bool Arquero::comprobarInventario(){
 }
 
 ostream& Arquero::Display(ostream &os){
-    os<< "Arquero: "<<_name<<" Atributos: "<<endl;
-    os <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
+    os<< rojo<<"Arquero: "<<_name<<" Atributos: "<<endl;
+    os <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<blanco<<BLUE<<endl;
     if(_inventario.size()>0){
         os<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
@@ -59,11 +59,12 @@ ostream& Arquero::Display(ostream &os){
             os<<*_inventario[i];
         }
     }
+    os<<RESET;
     return os;
 }
 void Arquero::Display() const {
-    cout<< "Arquero: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<endl;
+    cout<<rojo<< "Arquero: "<<_name<<" Atributos: "<<endl;
+    cout <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Agilidad: "<<_atributos[5]<<" Carcaj: "<<_atributos[6]<<blanco<<BLUE<<endl;
     if(_inventario.size()>0){
         cout<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
@@ -71,6 +72,7 @@ void Arquero::Display() const {
             _inventario[i]->Display();
         }
     }
+    cout<<RESET;
 }
 void Arquero::DisplayAtaque() const
 {

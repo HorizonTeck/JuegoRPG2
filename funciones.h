@@ -14,7 +14,6 @@
 #include <chrono>
 #include <cctype>
 
-
 class Funciones{
 private:
     int tecla;
@@ -90,6 +89,8 @@ public:
         tecla=seleccion_invalida(1,vec.size());
         return vec[tecla-1];
     }
+
+
 
     //Combate
     bool InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Muertos);

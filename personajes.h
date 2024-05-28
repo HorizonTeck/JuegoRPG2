@@ -6,6 +6,19 @@
 #include <armas.h>
 #include <pociones.h>
 #include <hechizos.h>
+#define RED "\033[31m"
+#define BLUE "\033[34m"
+#define GREEN "\033[32m"
+#define PINK "\033[38;5;205m"
+#define YELLOW "\033[33m"
+#define rojo "\033[41m"
+#define azul "\033[44m"
+#define verde "\033[42m"
+#define rosa  "\033[48;5;205m"
+#define amarillo "\033[43m"
+#define blanco "\033[47m"
+#define RESET "\033[0m"
+
 using namespace std;
 
 class Personajes{

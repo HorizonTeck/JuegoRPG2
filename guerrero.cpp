@@ -51,21 +51,22 @@ bool Guerrero::comprobarInventario(){
 }
 
 ostream& Guerrero::Display(ostream &os){
-    os<< "Guerrero: "<<_name<<" Atributos: "<<endl;
-    os <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+    os<< azul<<"Guerrero: "<<_name<<" Atributos: "<<endl;
+    os <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<blanco<<BLUE<<endl;
     if(_inventario.size()>0){
         os<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
             os<<"     "<<i+1<<". ";
             os<<*_inventario[i];
         }
+        os<<RESET;
     }
     return os;
 }
 
 void Guerrero::Display() const {
-    cout<< "Guerrero: "<<_name<<" Atributos: "<<endl;
-    cout <<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<endl;
+    cout<< azul<<"Guerrero: "<<_name<<" Atributos: "<<endl;
+    cout <<verde<<"Nivel: "<< _atributos[0] <<" Salud: "<< _atributos[1] <<" Poder: "<< _atributos[2] <<" Precisión: "<<_atributos[3]<<" Protección: "<<_atributos[4]<<" Fuerza: "<<_atributos[6]<<" Escudo: "<<_atributos[5]<<blanco<<BLUE<<endl;
     if(_inventario.size()>0){
         cout<<"     Inventario:"<<endl;
         for(int i=0;i<static_cast<int>(_inventario.size());i++){
@@ -73,6 +74,7 @@ void Guerrero::Display() const {
             _inventario[i]->Display();
         }
     }
+    cout<<RESET;
 }
 void Guerrero::DisplayAtaque() const
 {

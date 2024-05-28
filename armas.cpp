@@ -24,9 +24,9 @@ void Armas::serializar(ofstream& archivo) const {
     archivo << "Arma: " << _name << "\n       Tipo:" << _TipoArma << "\n       Poder:" <<_power << endl;
 }
 ostream& Armas::Display(ostream& os){
-    os << "Arma: "<< getName() << " Tipo: " << getTipo() << " Poder: "<< getPower()<<endl;
+    os <<RED<<blanco<< "Arma: "<< getName() << " Tipo: " << getTipo() << " Poder: "<< getPower()<<RESET<<endl;
     return os;
 }
 void Armas::Display() const {
-    cout << "Arma: "<< getName() << " Tipo: " << getTipo() << " Poder: "<< getPower()<<endl;
+    cout <<RED<<blanco "Arma: "<< getName() << " Tipo: " << getTipo() << " Poder: "<< getPower()<<RESET<<endl;
 }

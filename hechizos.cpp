@@ -61,7 +61,7 @@ void Hechizos::setName(const string& nombre)
     _nombre = nombre;
 }
 ostream& operator<<(ostream& os, Hechizos& Hechizo){
-    os << "Hechizo: " << Hechizo._nombre << " Tipo: " << Hechizo._TipoHechizo << " Coste: " << Hechizo._coste << endl;
+    os << amarillo<<BLUE<<"Hechizo: " << Hechizo._nombre << " Tipo: " << Hechizo._TipoHechizo << " Coste: " << Hechizo._coste << endl<<RESET;
     return os;
 }
 /*void Hechizos::Display(ostream &os){
@@ -69,6 +69,6 @@ ostream& operator<<(ostream& os, Hechizos& Hechizo){
 }*/
 void Hechizos::Display()
 {
-    cout << "Hechizo: " << getName() << " Tipo: " << getTipoHechizo() << " Coste: " << getCoste() << endl;
+    cout << amarillo<<BLUE<< "Hechizo: " << getName() << " Tipo: " << getTipoHechizo() << " Coste: " << getCoste() << endl<<RESET;
 }
 Hechizos::~Hechizos(){}
