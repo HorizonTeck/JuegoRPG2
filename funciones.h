@@ -30,6 +30,7 @@ public:
     void guardar(vector<Objetos*> objetos, ofstream &archivo);
     void guardar(vector<Personajes*> personajes, const string& nombreArchivo);
     void guardar(vector<Equipo*> equipos, const string& nombreArchivo);
+    void guardar(vector<Hechizos*> hechizos, string nombrearchivo);
     int contarLineas(const string& nombreArchivo);
     void QuitarEspacios(string& palabra);
 

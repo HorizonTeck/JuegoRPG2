@@ -30,6 +30,7 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
     string linea, lineaencontrada="";
     size_t posicion=0;
     size_t pos =string::npos;
+    vector<Objetos*> Listatemporal;
     while(getline(archivo,linea)){
         lineas++;
         QuitarEspacios(linea);
@@ -62,11 +63,18 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
                     }
                     break;
                 }
-                if(comprobar[0]==1&&comprobar[2]==1&&comprobar[3]==1) Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
-                else if(comprobar[1]==1&&comprobar[2]==1&&comprobar[3]==1) Lista_Objetos.push_back(new Pociones(nombre,tipo,poder));
+                if(comprobar[0]==1&&comprobar[2]==1&&comprobar[3]==1) Listatemporal.push_back(new Armas(nombre,tipo,poder));
+                else if(comprobar[1]==1&&comprobar[2]==1&&comprobar[3]==1) Listatemporal.push_back(new Pociones(nombre,tipo,poder));
             }
         }
     }
+    if(Listatemporal.size()>0){
+        if(Lista_Objetos.size()>0) liberar_memoria(Lista_Objetos);
+        Lista_Objetos.clear();
+        Lista_Objetos.resize(Listatemporal.size());
+        for(auto objeto:Listatemporal) Lista_Objetos.push_back(objeto);
+    }
+
 }
 void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
     vector<string> parametros = {"EQUIPO","Mago","Arquero","Guerrero","Hechizo","Arma","Pocion","Tipo","Nivel","Salud","Poder","Precision","Proteccion","Mana","Agilidad","Carcaj","Fuerza","Escudo","Coste","Dinero"};
@@ -191,13 +199,196 @@ void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
             }
         }
     }
-    for(auto objeto : lista) Lista_Equipos.push_back(objeto);
+    if(lista.size()>0){
+        if(Lista_Equipos.size()>0) liberar_memoria(Lista_Equipos);
+        Lista_Equipos.clear();
+        for(auto objeto : lista) Lista_Equipos.push_back(objeto);
+    }
 }
 void Funciones::cargar(vector<Personajes*>& Lista_Personajes, string nombreArchivo){
-
+    vector<string> parametros = {"Mago","Arquero","Guerrero","Hechizo","Arma","Pocion","Tipo","Nivel","Salud","Poder","Precision","Proteccion","Mana","Agilidad","Carcaj","Fuerza","Escudo","Coste"};
+    vector<bool> comprobar;
+    comprobar.resize(parametros.size());
+    vector<int> valores;
+    valores.resize(parametros.size());
+    vector<Personajes*> Listatemporal;
+    string nombre,tmp,tipo;
+    ifstream archivo(nombreArchivo);
+    string linea, lineaencontrada="";
+    size_t posicion=0;
+    size_t pos =string::npos;
+    Objetos *objetotmp;
+    Personajes *personajetmp;
+    Hechizos* hechizotmp;
+    int lineas=0;
+    bool personaje=0;
+    while(getline(archivo,linea)){
+        lineas++;
+        QuitarEspacios(linea);
+        pos =string::npos;
+        for(int i=0;i<static_cast<int>(parametros.size());i++){
+            posicion=linea.find(parametros[i]);
+            if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
+                pos = posicion;
+                lineaencontrada = parametros[i];
+                switch(i){
+                case 0:
+                case 1:
+                case 2:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    personaje=1;
+                    comprobar[i]=1;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    comprobar[i]=1;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 6:
+                    comprobar[i]=1;
+                    tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tipo);
+                    to_uppercase(tipo);
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                    tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tmp);
+                    if(esNumero(tmp)==1){
+                        valores[i]=stoi(tmp);
+                        comprobar[i]=1;
+                    }
+                }
+                if(comprobar[0]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[8]==1&&personaje==1){
+                    Listatemporal.push_back(new Mago(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[8]));
+                    personajetmp=Listatemporal[Listatemporal.size()-1];
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+                else if(comprobar[1]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[9]==1&&comprobar[10]==1&&personaje==1){
+                    Listatemporal.push_back(new Arquero(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[9],valores[10]));
+                    personajetmp=Listatemporal[Listatemporal.size()-1];
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+                else if(comprobar[2]==1&&comprobar[3]==1&&comprobar[4]==1&&comprobar[5]==1&&comprobar[6]==1&&comprobar[7]==1&&comprobar[11]==1&&comprobar[12]==1&&personaje==1){
+                    Listatemporal.push_back(new Guerrero(nombre,valores[3],valores[4],valores[5],valores[6],valores[7],valores[11],valores[12]));
+                    personajetmp=Listatemporal[Listatemporal.size()-1];
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+                else if(comprobar[3]==1&&comprobar[7]==1&&comprobar[18]==1&&personaje==1){
+                    hechizotmp=new Hechizos(valores[18],tipo,nombre);
+                    if(Mago* tmp2=dynamic_cast<Mago*>(personajetmp)) tmp2->setHechizos(hechizotmp);
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+                else if(comprobar[4]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                    objetotmp=new Armas(nombre,tipo,valores[10]);
+                    if(personajetmp!=nullptr) if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+                else if(comprobar[5]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                    objetotmp=new Pociones(nombre,tipo,valores[10]);
+                    if(personajetmp!=nullptr) if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+            }
+        }
+    }
+    if(Listatemporal.size()>0){
+        if(Lista_Personajes.size()>0) liberar_memoria(Lista_Personajes);
+        Lista_Personajes.clear();
+        for(auto objeto:Listatemporal) Lista_Personajes.push_back(objeto);
+    }
 }
 void Funciones::cargar(vector<Hechizos*>& Lista_Hechizos,string nombreArchivo){
-
+    vector<string> parametros = {"Hechizo","Tipo","Coste"};
+    vector<bool> comprobar;
+    comprobar.resize(parametros.size());
+    vector<int> valores;
+    valores.resize(parametros.size());
+    vector<Hechizos*> Listatemporal;
+    string nombre,tmp,tipo;
+    ifstream archivo(nombreArchivo);
+    string linea, lineaencontrada="";
+    size_t posicion=0;
+    size_t pos =string::npos;
+    int lineas=0;
+    bool personaje=0;
+    while(getline(archivo,linea)){
+        lineas++;
+        QuitarEspacios(linea);
+        pos =string::npos;
+        for(int i=0;i<static_cast<int>(parametros.size());i++){
+            posicion=linea.find(parametros[i]);
+            if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
+                pos = posicion;
+                lineaencontrada = parametros[i];
+                switch(i){
+                case 0:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    comprobar[i]=1;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 1:
+                    comprobar[i]=1;
+                    tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tipo);
+                    to_uppercase(tipo);
+                    break;
+                case 2:
+                    tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tmp);
+                    if(esNumero(tmp)==1){
+                        valores[i]=stoi(tmp);
+                        comprobar[i]=1;
+                    }
+                }
+                if(comprobar[3]==1&&comprobar[7]==1&&comprobar[18]==1&&personaje==1){
+                    Listatemporal.push_back(new Hechizos(valores[18],tipo,nombre));
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                }
+            }
+        }
+    }
+    if(Listatemporal.size()>0){
+        if(Lista_Hechizos.size()>0) liberar_memoria(Lista_Hechizos);
+        Lista_Hechizos.clear();
+        for(auto objeto:Listatemporal) Lista_Hechizos.push_back(objeto);
+    }
+}
+void Funciones::guardar(vector<Hechizos *> hechizos, string nombrearchivo){
+    ofstream archivo(nombrearchivo);
+    if (archivo.is_open()) {
+        for (auto objeto : hechizos) {
+            archivo<<"      Hechizo: "<<objeto->getName()<<endl;
+            archivo<<"        Tipo: "<<objeto->getTipoHechizo()<<endl;
+            archivo<<"        Coste: "<<objeto->getCoste()<<endl;
+        }
+    } else {
+        cerr << "Error al abrir el archivo para escritura." << endl;
+    }
 }
 bool Funciones::esNumero(string &linea){
     for(char c : linea){
@@ -1193,47 +1384,47 @@ bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*
     //-------------------------------------------Funciones----------------------------------------
 void Funciones::comprobarSalud(Equipo *Defensor, Personajes* personaje, vector<Personajes *> &Muertos)
 {
-if(personaje->getAtributos(1)<=0)
-{
-    cout<<personaje->getName() << " Ha muerto. RIP"<<endl;
-    Muertos.push_back(personaje);
-    for(int i=0; i<static_cast<int>(Defensor->getLista_Personajes().size());i++)
+    if(personaje->getAtributos(1)<=0)
     {
-        if(Defensor->getLista_Personajes(i)==personaje)
+        cout<<personaje->getName() << " Ha muerto. RIP"<<endl;
+        Muertos.push_back(personaje);
+        for(int i=0; i<static_cast<int>(Defensor->getLista_Personajes().size());i++)
         {
-            Defensor->getLista_Personajes().erase(Defensor->getLista_Personajes().begin()+i);
+            if(Defensor->getLista_Personajes(i)==personaje)
+            {
+                Defensor->getLista_Personajes().erase(Defensor->getLista_Personajes().begin()+i);
+            }
         }
-    }
 
-}else
-{
-    cout<< "Estaba de parranda"<<endl;
-}
+    }else
+    {
+        cout<< "Estaba de parranda"<<endl;
+    }
 }
 void Funciones::espera(){
-cout<<"Presione 1 para continuar"<<endl;
-tecla=seleccion_invalida(1,1);
-system("clear");
+    cout<<"Presione 1 para continuar"<<endl;
+    tecla=seleccion_invalida(1,1);
+    system("clear");
 }
 string Funciones::to_uppercase(string& linea){
-string result;
-for (char c : linea) {
-    result += toupper(c);
-}
-return result;
+    string result;
+    for (char c : linea) {
+        result += toupper(c);
+    }
+    return result;
 }
 
 int Funciones::seleccion_invalida(int LI,int LS){
-cin.clear();
-cin>>tecla;
-while(tecla<LI||tecla>LS)
-{
-    cout << "Seleccion invalida" <<endl;
     cin.clear();
-    cin.ignore(100, '\n');
     cin>>tecla;
-}
-return tecla;
+    while(tecla<LI||tecla>LS)
+    {
+        cout << "Seleccion invalida" <<endl;
+        cin.clear();
+        cin.ignore(100, '\n');
+        cin>>tecla;
+    }
+    return tecla;
 }
 
 Funciones::~Funciones(){}

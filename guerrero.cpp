@@ -40,8 +40,8 @@ bool Guerrero::comprobarInventario(Objetos *objeto){
     }else if(dynamic_cast<Pociones*>(objeto)){
         for(auto objetos : _inventario){
             if(dynamic_cast<Pociones*>(objetos)) pociones++;
-            if(pociones<1&&objeto->getTipo()=="SALUD") return 1;
         }
+        if(pociones<1&&objeto->getTipo()=="SALUD") return 1;
     }
     return 0;
 }
