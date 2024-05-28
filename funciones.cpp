@@ -21,14 +21,16 @@ int Funciones::contarLineas(const string& nombreArchivo) {
     return contador;
 }
 void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
-    vector<string> parametros = {"Arma","Tipo","Poder","Pocion"};
+    vector<string> parametros = {"Arma","Pocion","Tipo","Poder"};
     string nombre, tipo, tipoObjeto;
     int poder=0;
     ifstream archivo(nombreArchivo);
     string linea, lineaencontrada="";
     size_t posicion=0;
     size_t pos =string::npos;
+    int completo=0, armas=0, pociones=0, lineas=0;
     while(getline(archivo,linea)){
+        lineas++;
         QuitarEspacios(linea);
         pos =string::npos;
         for(string objeto : parametros){
@@ -37,26 +39,153 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
                 pos = posicion;
                 lineaencontrada = objeto;
                 if(lineaencontrada=="Arma"){
+                    armas++;
                     tipoObjeto="ARMA";
                     nombre=linea.substr(posicion+lineaencontrada.size()+1);
                 }else if(lineaencontrada=="Pocion"){
+                    pociones++;
                     tipoObjeto="POCION";
                     nombre=linea.substr(posicion+lineaencontrada.size()+1);
                 }
                 else if(lineaencontrada=="Tipo"){
+                    completo++;
                     tipo=linea.substr(posicion+lineaencontrada.size()+1);
                     to_uppercase(tipo);
                 }
                 else if(lineaencontrada=="Poder"){
+                    completo++;
                     string tmp=linea.substr(posicion+lineaencontrada.size()+1);
                     if(esNumero(tmp)==1) poder=stoi(tmp);
                 }
             }
         }
+        if(armas>=1&&pociones>=1){
+            cout<<"Error al cargar el archivo objeto en la linea: "<<lineas<<endl;
+            pociones=completo=armas=0;
+        }
+        if(completo+armas==3&&poder!=0&&tipo!=""&&tipoObjeto=="ARMA"){
+            Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
+            pociones=completo=armas=0;
+        }
+        else if(completo+pociones==3&&poder!=0&&tipo!=""&&tipoObjeto=="POCION"){
+            Lista_Objetos.push_back(new Pociones(nombre, tipo, poder));
+            pociones=completo=armas=0;
+        }
+        cout<<"Objeto completo: "<<tipoObjeto<<": "<<nombre<<" Tipo: "<<tipo<<" Poder: "<<poder<<endl;
     }
-    if(tipoObjeto=="ARMA") Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
-    else if(tipoObjeto=="POCION") Lista_Objetos.push_back(new Pociones(nombre,tipo,poder));
-    cout<<"Objeto completo: "<<tipoObjeto<<": "<<nombre<<" Tipo: "<<tipo<<" Poder: "<<poder<<endl;
+}
+void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
+    vector<string> parametros = {"EQUIPO","Mago","Arquero","Guerrero","Hechizo","Arma","Pocion","Tipo","Nivel","Salud","Poder","Precision","Proteccion","Mana","Agilidad","Carcaj","Fuerza","Escudo","Coste"};
+    vector<bool> comprobar;
+    comprobar.resize(parametros.size());
+    vector<int> valores;
+    valores.resize(parametros.size());
+    string nombre, tipo,tmp;
+    ifstream archivo(nombreArchivo);
+    string linea, lineaencontrada="";
+    size_t posicion=0;
+    size_t pos =string::npos;
+    vector<Equipo*> lista;
+    Objetos *objetotmp;
+    Personajes *personajetmp;
+    Hechizos* hechizotmp;
+    Equipo* equipotmp;
+    int lineas=0;
+    bool personaje=0;
+    while(getline(archivo,linea)){
+        lineas++;
+        QuitarEspacios(linea);
+        pos =string::npos;
+        for(int i=0;i<static_cast<int>(parametros.size());i++){
+            posicion=linea.find(parametros[i]);
+            if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
+                pos = posicion;
+                lineaencontrada = parametros[i];
+                switch(i){
+                case 0:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    personaje=false;
+                    comprobar[i]=true;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    personaje=1;
+                    comprobar[i]=1;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
+                    comprobar[i]=1;
+                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(nombre);
+                    break;
+                case 7:
+                    comprobar[i]=1;
+                    tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tipo);
+                    to_uppercase(tipo);
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                case 18:
+                    tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tmp);
+                    if(esNumero(tmp)==1){
+                        valores[i]=stoi(tmp);
+                        comprobar[i]=1;
+                    }
+                }
+                if(comprobar[0]==1&&personaje==0){
+                    lista.push_back(new Equipo(nombre));
+                    equipotmp=lista[lista.size()-1];
+                }
+                else if(comprobar[1]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[12]==1&&comprobar[13]==1&&personaje==1){
+                    equipotmp->setLista_Personajes(new Mago(nombre,valores[8],valores[9],valores[10],valores[11],valores[12],valores[13]));
+                    personajetmp=equipotmp->getLista_Personajes(equipotmp->gettamaño()-1);
+                }
+                else if(comprobar[2]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[12]==1&&comprobar[14]==1&&comprobar[15]==1&&personaje==1){
+                    equipotmp->setLista_Personajes(new Arquero(nombre,valores[8],valores[9],valores[10],valores[11],valores[12],valores[14],valores[15]));
+                    personajetmp=equipotmp->getLista_Personajes(equipotmp->gettamaño()-1);
+                }
+                else if(comprobar[3]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[12]==1&&comprobar[16]==1&&comprobar[17]==1&&personaje==1){
+                    equipotmp->setLista_Personajes(new Guerrero(nombre,valores[8],valores[9],valores[10],valores[11],valores[12],valores[16],valores[17]));
+                    personajetmp=equipotmp->getLista_Personajes(equipotmp->gettamaño()-1);
+                }
+                else if(comprobar[4]==1&&comprobar[7]==1&&comprobar[18]==1&&personaje==1){
+                    hechizotmp=new Hechizos(valores[18],tipo,nombre);
+                    if(Mago* tmp2=dynamic_cast<Mago*>(personajetmp)) tmp2->setHechizos(hechizotmp);
+                }
+                else if(comprobar[5]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                    objetotmp=new Armas(nombre,tipo,valores[10]);
+                    if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
+                }
+                else if(comprobar[6]==1&&comprobar[7]==1&&comprobar[10]==1&&personaje==1){
+                    objetotmp=new Pociones(nombre,tipo,valores[10]);
+                    if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
+                }
+
+            }
+        }
+    }
+    for(auto objeto : lista) Lista_Equipos.push_back(objeto);
 }
 bool Funciones::esNumero(string &linea){
     for(char c : linea){
@@ -106,7 +235,7 @@ bool completo=false;
         }
         return completo;
 }
-void Funciones::cargar(ifstream& archivo,string& nombre,string& tipo, string& linea, vector<int> atributos, vector <Objetos*> objetos){
+/*void Funciones::cargar(ifstream& archivo,string& nombre,string& tipo, string& linea, vector<int> atributos, vector <Objetos*> objetos){
     bool completo=false;
     vector <string> atrib;
     if (archivo.is_open()) {
@@ -220,7 +349,7 @@ void Funciones::cargar(ifstream& archivo,string& nombre,string& tipo, string& li
         }
 
     }
-}
+}*/
 void Funciones::guardar(vector<Personajes*> personajes, const string& nombreArchivo){
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
@@ -248,7 +377,7 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(equipos.size()); i++) {
-            archivo<< "EQUIPO: \n "<<equipos[i]->getName()<<":\n";
+            archivo<< "EQUIPO: "<<equipos[i]->getName()<<"\n";
             for (auto objeto : equipos[i]->getLista_Personajes()) {
                 archivo<<"  ";
                 objeto->serializar(archivo);

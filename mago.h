@@ -10,6 +10,7 @@ public:
     Mago();
     Mago(const string& name);
     Mago(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
+    Mago(const string& name, int nivel, int salud,int poder, int precision, int proteccion, int mana);
     Mago(Mago& Mago);
     virtual void setAtributos(int atrib, int posicion);
     virtual void setAtributos(const vector<int> atributos);

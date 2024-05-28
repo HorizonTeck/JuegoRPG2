@@ -19,7 +19,6 @@ public:
     Personajes(const string& name);
     Personajes(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
     Personajes(Personajes* P);
-
     //Gestion de variables basicas
     string getName() const;
     void setName(const string& name);

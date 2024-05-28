@@ -2,7 +2,7 @@
 #define HECHIZOS_H
 
 #include <iostream>
-#include <personajes.h>
+//#include <personajes.h>
 using namespace std;
 
 class Hechizos

@@ -6,7 +6,16 @@ Arquero::Arquero() : Personajes() {_atributos.resize(7);}
 Arquero::Arquero(const string& name) : Personajes(name) {_atributos.resize(7);}
 
 Arquero::Arquero(const string& name, vector<int> atributos, vector <Objetos*> inventario) : Personajes(name, atributos, inventario) {_atributos.resize(7);}
-
+Arquero::Arquero(const string& name, int nivel, int salud,int poder, int precision, int proteccion, int agilidad, int carcaj) : Personajes(name){
+    _atributos.resize(7);
+    _atributos[0]=nivel;
+    _atributos[1]=salud;
+    _atributos[2]=poder;
+    _atributos[3]=precision;
+    _atributos[4]=proteccion;
+    _atributos[5]=agilidad;
+    _atributos[6]=carcaj;
+}
 Arquero::Arquero(Arquero& Arquero) : Personajes(Arquero){}
 
 void Arquero::setAtributos(vector<int> atributos) {
@@ -102,7 +111,7 @@ int Arquero::Defensa() {
 
 void Arquero::serializar(ofstream& archivo) const
 {
-    archivo<< "Arquero: "<<_name<<" \n   Nivel: "<< _atributos[0] <<"\n   Salud: "<< _atributos[1] <<"\n   Poder: "<< _atributos[2] <<"\n   Precisión: "<<_atributos[3]<<"\n   Protección: "<<_atributos[4]<<"\n   Agilidad: "<<_atributos[5]<<"\n   Carcaj: "<<_atributos[6]<<endl;
+    archivo<< "Arquero: "<<_name<<" \n   Nivel: "<< _atributos[0] <<"\n   Salud: "<< _atributos[1] <<"\n   Poder: "<< _atributos[2] <<"\n   Precision: "<<_atributos[3]<<"\n   Proteccion: "<<_atributos[4]<<"\n   Agilidad: "<<_atributos[5]<<"\n   Carcaj: "<<_atributos[6]<<endl;
  }
 
 

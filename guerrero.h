@@ -8,6 +8,7 @@ public:
     Guerrero();
     Guerrero(const string& name);
     Guerrero(const string& name, const vector<int> atributos,const vector<Objetos*> inventario);
+    Guerrero(const string& name, int nivel, int salud,int poder, int precision, int proteccion, int fuerza, int escudo);
     Guerrero(Guerrero& Guerrero);
     virtual void setAtributos(const vector<int> atributos);
     virtual void setAtributos(int atrib, int posicion);

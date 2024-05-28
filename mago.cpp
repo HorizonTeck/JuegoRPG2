@@ -5,7 +5,15 @@ Mago::Mago() : Personajes() {_atributos.resize(6);}
 Mago::Mago(const string& name) : Personajes(name) {_atributos.resize(6);}
 
 Mago::Mago(const string& name,vector<int> atributos, vector<Objetos*>  inventario) : Personajes(name, atributos, inventario) {_atributos.resize(6);}
-
+Mago::Mago(const string& name, int nivel, int salud,int poder, int precision, int proteccion, int mana) : Personajes(name){
+    _atributos.resize(6);
+    _atributos[0]=nivel;
+    _atributos[1]=salud;
+    _atributos[2]=poder;
+    _atributos[3]=precision;
+    _atributos[4]=proteccion;
+    _atributos[5]=mana;
+}
 Mago::Mago(Mago& Mago) : Personajes(Mago){
     for(auto hechizo : Mago._hechizos) setHechizos(hechizo);
 }
@@ -149,7 +157,7 @@ void Mago::LanzarPocion(Pociones* P)
 
 void Mago::serializar(ofstream &archivo) const
 {
-   archivo<< "Mago: "<<_name<<"\n   Nivel: "<< _atributos[0] <<"\n   Salud: "<< _atributos[1] <<"\n   Poder: "<< _atributos[2] <<"\n   Precisión: "<<_atributos[3]<<"\n   Protección: "<<_atributos[4]<<"\n   Mana: "<<_atributos[5]<<endl;
+   archivo<< "Mago: "<<_name<<"\n   Nivel: "<< _atributos[0] <<"\n   Salud: "<< _atributos[1] <<"\n   Poder: "<< _atributos[2] <<"\n   Precision: "<<_atributos[3]<<"\n   Proteccion: "<<_atributos[4]<<"\n   Mana: "<<_atributos[5]<<endl;
    for(auto hechizo : _hechizos)
    {
        archivo<< "    Hechizo: " << hechizo->getName()<<"\n     Tipo: "<<hechizo->getTipoHechizo()<<"\n     Coste: "<<hechizo->getCoste()<<"\n";
