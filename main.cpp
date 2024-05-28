@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     Funciones funcion;
-    Objetos *objeto=new Armas("ElPalo","BACULO",100);
+    Objetos *objeto=new Armas("baston","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
     Objetos *objeto3=new Armas("ElLargo","DISTANCIA", 100);
     Personajes *personaje=new Mago("Julian");
@@ -15,19 +15,58 @@ int main() {
     *personaje>>objeto>>objeto2;
     *personaje2>>objeto2>>objeto3;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
+
+    Objetos *objeto4=new Armas("ElPalo","BACULO",100);
+    Objetos *objeto5=new Pociones("lasaluud", "SALUD", 80);
+    Objetos *objeto6=new Armas("ElDuro","CONTUNDENTE", 100);
+    Personajes *personaje3=new Mago("PEDRO");
+    Personajes *personaje4=new Guerrero("PicaPiedra");
+    Equipo *equipo2=new Equipo("LosJefes");
+    Hechizos *hechizo2=new Hechizos(40, "FUEGO", "llamas");
+    *personaje3>>objeto4>>objeto5;
+    *personaje4>>objeto5>>objeto6;
+    if(Mago *tmp=dynamic_cast<Mago*>(personaje3)) *tmp>>hechizo2;
+
+    Objetos *objeto7=new Armas("bastoncillo","BACULO",10);
+    Objetos *objeto8=new Pociones("lañurativa", "SALUD", 10);
+    Objetos *objeto9=new Armas("ElFino","DISTANCIA", 10);
+    Personajes *personaje5=new Mago("Javier");
+    Personajes *personaje6=new Arquero("Gazo");
+    Equipo *equipo3=new Equipo("LosMejores");
+    Hechizos *hechizo3=new Hechizos(20, "AGUA", "Sanacion");
+    *personaje5>>objeto7>>objeto8;
+    *personaje6>>objeto8>>objeto9;
+    if(Mago *tmp=dynamic_cast<Mago*>(personaje5)) *tmp>>hechizo3;
     Graveyard cementerio;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
     vector<Hechizos*> Lista_Hechizos;
     vector<Personajes*> Cementerio;
+    funcion.setAtributos(personaje3);
+    funcion.setAtributos(personaje4);
+    funcion.setAtributos(personaje5);
+    funcion.setAtributos(personaje6);
     funcion.setAtributos(personaje);
     funcion.setAtributos(personaje2);
     Lista_Equipos.push_back(equipo);
+    Lista_Equipos.push_back(equipo2);
+    Lista_Equipos.push_back(equipo3);
     Lista_Objetos.push_back(objeto);
     Lista_Objetos.push_back(objeto2);
+    Lista_Objetos.push_back(objeto3);
+    Lista_Objetos.push_back(objeto4);
+    Lista_Objetos.push_back(objeto5);
+    Lista_Objetos.push_back(objeto6);
+    Lista_Objetos.push_back(objeto7);
+    Lista_Objetos.push_back(objeto8);
+    Lista_Objetos.push_back(objeto9);
+    Lista_Hechizos.push_back(hechizo2);
+    Lista_Hechizos.push_back(hechizo3);
     Lista_Hechizos.push_back(hechizo);
     *Lista_Equipos[0]>>personaje>>personaje2;
+    *Lista_Equipos[1]>>personaje3>>personaje4;
+    *Lista_Equipos[2]>>personaje5>>personaje6;
     int tecla=0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 6) {
