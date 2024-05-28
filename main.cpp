@@ -7,10 +7,13 @@ int main() {
     Funciones funcion;
     Objetos *objeto=new Armas("ElPalo","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
+    Objetos *objeto3=new Armas("ElLargo","DISTANCIA", 100);
     Personajes *personaje=new Mago("Julian");
+    Personajes *personaje2=new Arquero("Gordito");
     Equipo *equipo=new Equipo("Losduros");
     Hechizos *hechizo=new Hechizos(50, "TIERRA", "Placas");
     *personaje>>objeto>>objeto2;
+    *personaje2>>objeto2>>objeto3;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
@@ -18,13 +21,13 @@ int main() {
     vector<Hechizos*> Lista_Hechizos;
     vector<Personajes*> Cementerio;
     funcion.setAtributos(personaje);
+    funcion.setAtributos(personaje2);
     Lista_Equipos.push_back(equipo);
-    Lista_Personajes.push_back(personaje);
     Lista_Objetos.push_back(objeto);
     Lista_Objetos.push_back(objeto2);
     Lista_Hechizos.push_back(hechizo);
-    Lista_Equipos[0]->setLista_Personajes(Lista_Personajes[Lista_Personajes.size()-1]);
-    Lista_Personajes.pop_back();
+    Lista_Equipos[0]->setLista_Personajes(personaje);
+    Lista_Equipos[0]->setLista_Personajes(personaje2);
     int tecla=0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 6) {
@@ -46,41 +49,9 @@ int main() {
                 cout << "5. Cargar personajes Sin Equipo"<<endl<<"6. Guardar Personaje Sin Equipo"<<endl<<"7. Atrás" << endl;
                 cin >> tecla;
                 switch (tecla){
-                case 1: {
-                    funcion.cargar(Lista_Equipos,"GuardadoEquipos");
-                    /*funcion.cargar(Lista_Objetos,"GuardadoObjetos");
-                    ifstream archivo("GuardadoObjetos");
-                    string linea, name, tipo, power;
-                    while(getline(archivo,linea)){
-                        funcion.QuitarEspacios(linea);
-                        int posicion=linea.find_first_of(":");
-                        string cadena=linea.substr(posicion+1);
-                        cout<<cadena<<endl;
-                    }
-                    funcion.cargar(Lista_Equipos,"GuardadoEquipos");
-                    cout<<endl<<endl<<endl<<*Lista_Objetos[Lista_Objetos.size()-1];*/
-                    break;
-                }
+                case 1: funcion.cargar(Lista_Equipos,"GuardadoEquipos"); break;
                 case 2: funcion.guardar(Lista_Equipos,"GuardadoEquipos"); break;
-                case 3: {
-                    ifstream archivo("GuardadoObjetos");
-                    string linea,name,tipo,power;
-                    if(archivo.is_open())
-                    {
-
-                        while(getline(archivo,linea))
-                        {
-                            if(funcion.cargar(linea,name,tipo,power,archivo))
-                            {
-                                cout<<"Objeto completo: "<< name<<" "<< tipo<<" "<< power<<endl;
-                            }
-                        }
-
-                    }
-                    archivo.close();
-
-                    break;
-                }
+                case 3: funcion.cargar(Lista_Objetos,"GuardadoObjetos"); break;
                 case 4: {
                     ofstream archivo("GuardadoObjetos");
                     funcion.guardar(Lista_Objetos,archivo);
