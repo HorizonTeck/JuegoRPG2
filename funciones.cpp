@@ -1174,6 +1174,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
                 if(Combatientes[turno_opuesto]->getAtributos(1)<=0)
                 {
                     //Combatientes[turno]++; //Subida de nivel
+                    Combatientes[turno]->setAtributos(Combatientes[turno]->getAtributos(0)+1,0);
                     archivo<< Combatientes[turno]->getName() <<" Ha subido de nivel"<<endl;
                     comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
                 }

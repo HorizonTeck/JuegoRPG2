@@ -41,7 +41,7 @@ public:
     int getAtributos(int atrib);
     virtual void setAtributos(const vector<int> atributos)=0;
     virtual void setAtributos(int atrib, int posicion) =0;
-    friend bool operator++(Personajes& Personaje);
+    friend Personajes& operator++(Personajes& Personaje);
 
     //Gestion Inventario
     vector<Objetos*>& getInventario();
