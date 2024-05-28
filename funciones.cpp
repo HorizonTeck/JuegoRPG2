@@ -888,7 +888,7 @@ void Funciones::LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, b
         cout<<"Este mago no tiene hechizos, tranquilo, no consumes turno"<<endl;
     }
 }
-void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<Hechizos *> &Lista_Hechizos, vector<Personajes *> &Lista_Personajes,bool turno){
+void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<Hechizos *> &Lista_Hechizos, vector<Personajes *> &Lista_Personajes){
     cout<<"Tienes un total de: "<<Equipo->getDinero()<<" monedas"<<endl;
     while(tecla!=4){
         cout<<"Que quieres hacer? "<<endl<<"1. Comprar un Objeto"<<endl<<"2. Comprar un Hechizo"<<endl<<"3. Reclutar un Personaje"<<endl<<"4. Salir"<<endl;
@@ -896,7 +896,7 @@ void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<
         switch(tecla){
         case 1:
             if(Lista_Objetos.size()>0){
-                cout<<"Selecciona un objeto"<<endl;
+                cout<<"Selecciona un objeto para comprar (el coste es el poder)"<<endl;
                 Objetos *objetotmp=seleccionar(Lista_Objetos);
                 if(objetotmp->getPower()<=Equipo->getDinero()){
                     cout<<"A que personaje quieres añadir el objeto?"<<endl;
@@ -911,11 +911,30 @@ void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<
             break;
         case 2:
             if(Lista_Hechizos.size()>0){
-
+                cout<<"Elige un hechizo para comprar"<<endl;
+                Hechizos* hechizotmp=seleccionar(Lista_Hechizos);
+                if(hechizotmp->getCoste()<=Equipo->getDinero()){
+                    cout<<"Selecciona un personaje (Recuerda que solo puede ser mago)"<<endl;
+                    Personajes *personajetmp=seleccionar(Equipo->getLista_Personajes());
+                    if(Mago *mago=dynamic_cast<Mago*>(personajetmp)){
+                        mago->setHechizos(hechizotmp);
+                        Equipo->setDinero(Equipo->getDinero()-hechizotmp->getCoste());
+                    } else cout<<"El personaje seleccionado no es un mago"<<endl;
+                }else cout<<"No tienes dinero suficiente"<<endl;
             }else cout<<"No hay hehcizos declarados"<<endl;
             break;
         case 3:
+            if(Lista_Personajes.size()>0){
+                cout<<"Selecciona un Personaje (El coste es el poder*nivel)"<<endl;
+                Personajes *personajetmp=seleccionar(Lista_Personajes);
+                if(Equipo->getDinero()>=(personajetmp->getAtributos(0)*personajetmp->getAtributos(2))){
+                    Equipo->setDinero(Equipo->getDinero()-(personajetmp->getAtributos(0)*personajetmp->getAtributos(2)));
+                    Equipo->setLista_Personajes(personajetmp);
+                    cout<<"Personaje reclutado con exito"<<endl;
+                }else cout<<"No tienes dinero para reclutar el personaje"<<endl;
+            }else cout<<"No hay personajes sin equipo"<<endl;
             break;
+        case 4: break;
         }
     }
 }
@@ -938,6 +957,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
     Combatientes[turno_opuesto]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
     archivo<<"Se han inicializado los Combatientes: 1. "<< Combatientes[turno]->getName() <<  " 2. "<<Combatientes[turno_opuesto]->getName()<<endl;
     while(tecla!=8&&Partida[0]->getLista_Personajes().size()>0&&Partida[1]->getLista_Personajes().size()>0){
+        cout<<"Turno de "<<Nombres[turno]<<" con el equipo:"<<endl<<*Partida[turno]<<endl;
         cout<<"Personaje en uso:  "<<Combatientes[turno]->getName()<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
         {
@@ -1037,8 +1057,8 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             break;
         case 5:
             if(Partida[turno]->getDinero()>0&&(Lista_Objetos.size()>0||Lista_Hechizos.size()>0||Lista_Personajes.size()>0)){
-                tienda(Partida[turno],Lista_Objetos,Lista_Hechizos,Lista_Personajes,turno);
-            }else cout<<"No tienes dinero suficiente"<<endl;
+                tienda(Partida[turno],Lista_Objetos,Lista_Hechizos,Lista_Personajes);
+            }else cout<<"No tienes dinero"<<endl;
             break;
         case 6:
             espera();
