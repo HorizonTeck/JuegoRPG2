@@ -140,18 +140,20 @@ int Mago::Defensa() {
     return defensa;
 }
 
-void Mago::LanzarPocion(Pociones* P)
+bool Mago::LanzarPocion(Pociones* P)
 {
-    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="SALUD")
     {
         cout<< "El mago " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
         _atributos[1]+=P->getPower();
-    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
+        return 1;
+    }else if (P->getTipo()=="MANA"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
         cout<< "El mago " << _name << " ha restaurado  " << P->getPower()<<" puntos de maná"<<endl;
         _atributos[5]+=P->getPower();
-    }else
-        cout<< "Pocion no valida"<<endl;
+        return 1;
+    }else cout<< "Pocion no valida"<<endl;
+    return 0;
 
 }
 

@@ -28,6 +28,7 @@ public:
     int getAtributos(int atrib);
     virtual void setAtributos(const vector<int> atributos)=0;
     virtual void setAtributos(int atrib, int posicion) =0;
+    friend bool operator++(Personajes& Personaje);
 
     //Gestion Inventario
     vector<Objetos*>& getInventario();
@@ -39,16 +40,15 @@ public:
 
     //Gestion Display
     virtual ostream& Display(ostream& os) =0;
-    virtual void Display() const =0; //Display
+    virtual void Display() const =0;
     friend ostream& operator<<(ostream& os, Personajes& P);
-    friend bool operator++(Personajes& Personaje);
     virtual void DisplayAtaque() const =0;
 
     //Funciones varias
     int tirar_dados() const;
     virtual int Ataque() =0;
     virtual int Defensa() =0;
-    virtual void LanzarPocion(Pociones* P)=0;
+    virtual bool LanzarPocion(Pociones* P)=0;
     virtual void serializar(ofstream& archivo) const =0;
     virtual~Personajes();
 };

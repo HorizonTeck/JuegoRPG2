@@ -19,7 +19,7 @@ public:
     virtual void DisplayAtaque() const;
     virtual int Ataque();
     virtual int Defensa();
-    virtual void LanzarPocion(Pociones* P);
+    virtual bool LanzarPocion(Pociones* P);
     virtual void serializar(ofstream& archivo) const;
     virtual~Guerrero();
 };

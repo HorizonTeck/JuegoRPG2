@@ -95,6 +95,7 @@ public:
     bool InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Muertos);
     void menucombate (vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno);
     void LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, bool& turno, ofstream& archivo);
+    void LanzarPocion(Personajes* Personaje, vector<Equipo*>& Partida, bool& turno, ofstream& archivo);
 
      //Funciones varias
     void comprobarSalud(Equipo* Defensor,Personajes* personaje ,vector<Personajes*>& Muertos);

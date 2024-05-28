@@ -115,16 +115,18 @@ void Arquero::serializar(ofstream& archivo) const
  }
 
 
-void Arquero::LanzarPocion(Pociones* P)
+bool Arquero::LanzarPocion(Pociones* P)
 {
-    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="SALUD")
     {
         cout<< "El arquero " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
         _atributos[1]+=P->getPower();
-    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
+        return 1;
+    }else if (P->getTipo()=="MANA"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
         cout<< "El arquero " << _name << " no ha sido capaz de lanzar la pocion"<<endl;
-    }else
-        cout<< "Pocion no valida"<<endl;
+        return 0;
+    }else cout<< "Pocion no valida"<<endl;
+    return 0;
 }
 Arquero::~Arquero(){}

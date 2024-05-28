@@ -181,6 +181,12 @@ void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
     }
     for(auto objeto : lista) Lista_Equipos.push_back(objeto);
 }
+void Funciones::cargar(vector<Personajes*>& Lista_Personajes, string nombreArchivo){
+
+}
+void Funciones::cargar(vector<Hechizos*>& Lista_Hechizos,string nombreArchivo){
+
+}
 bool Funciones::esNumero(string &linea){
     for(char c : linea){
         if(!isdigit(c)) return 0;
@@ -865,6 +871,7 @@ void Funciones::LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, b
         }
         turno=turno_opuesto;
         archivo<<Atacante->getName()<<" Ha lanzado un hechizo de tipo "<<hechizo->getTipoHechizo()<<endl;
+        archivo<<"Cambio de turno"<<endl;
     }else{
         cout<<"Este mago no tiene hechizos, tranquilo, no consumes turno"<<endl;
     }
@@ -892,7 +899,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         cout<<"Personaje en uso:  "<<Combatientes[turno]->getName()<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
         {
-            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario"<<endl;//ver el log de combate y salir del combate, vender objetos
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion \n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario"<<endl;//ver el log de combate y salir del combate, vender objetos
         }
         else
         {
@@ -929,23 +936,49 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         }
         case 2:{
             if(Combatientes[turno]->NumPociones()>0){ //Pociones esta mal
-                int pociones=0;
-                cout<<"¿Que pocion quieres elegir?"<<endl;
-                for(auto objeto : Combatientes[turno]->getInventario()){
-                    if(dynamic_cast<Pociones*>(objeto)){
-                        pociones++;
-                        cout<<pociones<<". "<<objeto<<endl;
+                LanzarPocion(Combatientes[turno],Partida,turno,archivo);
+                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            }else if(Combatientes[turno]->getAtributos(1)<=50){
+                cout<<"Este personaje no tiene pociones, sin embargo al tener menos de 50 de vida puede recibir una pocion de otro personaje"<<endl;
+                cout<<"Deseas coger la pocion de otro personaje? "<<endl<<"1. SI (perderas turno)"<<endl<<"2. NO (saldras sin perder turno)"<<endl;
+                tecla=seleccion_invalida(1,2);
+                while(tecla!=2){
+                    cout<<"Selecciona un Personaje de tu Equipo"<<endl;
+                    Personajes *donante=seleccionar(Partida[turno]->getLista_Personajes());
+                    vector<Objetos*> inventariotemporal;
+                    if(donante->NumPociones()>0){
+                        int pociones=0;
+                        for(auto objeto : donante->getInventario()){
+                            if(dynamic_cast<Pociones*>(objeto)){
+                                pociones++;
+                                cout<<pociones<<". "<<objeto<<endl;
+                                inventariotemporal.push_back(objeto);
+                            }
+                        }
+                        tecla=seleccion_invalida(1,pociones);
+                        cout<<"Has seleccionado la pocion: "<<endl<<*inventariotemporal[tecla]<<endl;
+                        if(Combatientes[turno]->comprobarInventario(inventariotemporal[tecla])==1){
+                            Combatientes[turno]->setInventario(inventariotemporal[tecla]);
+                            archivo<<"El personaje: "<<Combatientes[turno]->getName()<<" del equipo"<<Partida[turno]->getName()<<" ha recibido la pocion "<<inventariotemporal[tecla]->getName();
+                            archivo<<" del personaje "<<donante->getName()<<endl;
+                            turno=turno_opuesto;
+                            (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+                            tecla=2;
+                            archivo<<"Cambio de turno"<<endl;
+
+                        }
+                        else{
+                            cout<<"La pocion que has elegido puede que no sea compatible con este personaje o que no tenga espacio suficiente en el inventario "<<endl;
+                            cout<<"Desea volver a intentar con otra pocion o otro personaje?"<<endl<<"1. SI"<<endl<<"2. NO (saldras y no perderas turno)"<<endl;
+                            tecla=seleccion_invalida(1,2);
+                        }
+
+                    }else{
+                        cout<<"Este Personaje no tiene Pociones, desea volver a intentar con otro?"<<endl<<"1. SI"<<endl<<"2. NO (saldras y no perderas turno)"<<endl;
+                        tecla=seleccion_invalida(1,2);
                     }
                 }
-                seleccion=seleccion_invalida(1,pociones);
-                Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
-                archivo<<Combatientes[turno]->getName()<<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
-                turno=turno_opuesto;
-                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
-                archivo<< "Cambio de turno"<<endl;
-            }else{
-                cout<<"No tienes pociones, tranquilo, no pierdes turno"<<endl;
-            }
+            }else cout<<"Este personaje no tiene pociones y tampoco tiene menos de 50 de vida"<<endl;
             break;
         }
         case 3:
@@ -975,52 +1008,82 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
 
         archivo.close();
     }
-    bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Cementerio){
-        vector<Equipo*> Partida;
-        vector <string*> Nombres;
-        bool turno=0;
-        cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
-        cin.clear();
-        cin.ignore();
-        getline(cin,*Nombres[0]);
-        cout<<"Jugador 2:"<<endl;
-        cin.clear();
-        cin.ignore();
-        getline(cin,*Nombres[1]);
-        cout<<Nombres[0]<<", Elige el equipo con el que quieras jugar:" << endl;
-        Partida.push_back(seleccionar_Equipo(Lista_Equipos));
-        cout<<"\n"<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
-        Partida.push_back(seleccionar_Equipo(Lista_Equipos));
-        cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
-        if(Partida[0]==Partida[1])
-        {
-            system("clear");
-            cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
+void Funciones::LanzarPocion(Personajes *Combatiente, vector<Equipo *> &Partida, bool& turno, ofstream& archivo){
+    int pociones=0, seleccionado=0;
+    vector <Objetos*> inventariotemporal;
+    tecla=0;
+    while(tecla!=2){
+        cout<<"Elige una pocion: "<<endl;
+        for(auto objeto : Combatiente->getInventario()){
+            if(dynamic_cast<Pociones*>(objeto)){
+                pociones++;
+                cout<<pociones<<". "<<objeto<<endl;
+                inventariotemporal.push_back(objeto);
+            }
+        }
+        seleccionado=seleccion_invalida(1,pociones);
+        cout<<"Has elegido la pocion: "<<endl;
+        cout<<*inventariotemporal[seleccionado]<<endl;
+        cout<<"A quien le quieres lanzar la pocion? (Puedes elegir el personaje actual tambien)"<<endl;
+        Personajes *recibe=seleccionar(Partida[turno]->getLista_Personajes());
+        if(recibe->LanzarPocion(dynamic_cast<Pociones*>(inventariotemporal[seleccionado]))==1){
+            archivo<<"El personaje "<<Combatiente->getName()<<" ha lanzado una pocion de "<<inventariotemporal[seleccionado]->getTipo()<<" al personaje "<<recibe->getName()<<endl;
+            (turno==1) ? turno=0 : turno=1;
+            tecla=2;
+            archivo<<"Cambio de turno"<<endl;
+        }else{
+            cout<<"El personaje no ha podido lanzar la pocion, es posible que la pocion no sea compatible con este personaje"<<endl;
+            cout<<"Desea seguir intentando con otro personaje/pocion o quiere salir"<<endl<<"1. SEGUIR"<<endl<<"2. SALIR"<<endl;
+            tecla=seleccion_invalida(1,2);
+        }
     }
-        while(Partida[0]==Partida[1])
-           {
-               cout<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
-               Partida[1] = seleccionar_Equipo(Lista_Equipos);
-               cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
-               if(Partida[1]==Partida[0])
-               {
-                   cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
-                   cout<<"¿Quiere seguir probando? 1.SI 2.NO"<<endl;
-                   tecla=seleccion_invalida(1,2);
-                   if(tecla==2)
-                   {
-                       break; //Para salir del while
-                   }
-               }
-               system("clear");
-           }
-           system("clear");
-           if(Partida[0]==Partida[1])
-           {
-               return 0;//Para salir del switch
-           }
-           menucombate(Partida,Cementerio,Nombres,turno);
-           return 0;
+}
+bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Cementerio){
+    vector<Equipo*> Partida;
+    vector <string*> Nombres;
+    bool turno=0;
+    cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
+    cin.clear();
+    cin.ignore();
+    getline(cin,*Nombres[0]);
+    cout<<"Jugador 2:"<<endl;
+    cin.clear();
+    cin.ignore();
+    getline(cin,*Nombres[1]);
+    cout<<Nombres[0]<<", Elige el equipo con el que quieras jugar:" << endl;
+    Partida.push_back(seleccionar_Equipo(Lista_Equipos));
+    cout<<"\n"<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
+    Partida.push_back(seleccionar_Equipo(Lista_Equipos));
+    cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
+    if(Partida[0]==Partida[1])
+    {
+        system("clear");
+        cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
+    }
+    while(Partida[0]==Partida[1])
+    {
+        cout<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
+        Partida[1] = seleccionar_Equipo(Lista_Equipos);
+        cout<< "Equipo rival: "<<Partida[0]->getName()<< endl;
+        if(Partida[1]==Partida[0])
+        {
+            cout<< "\nMismo equipo que tu rival, seleciona otro diferente"<<endl;
+            cout<<"¿Quiere seguir probando? 1.SI 2.NO"<<endl;
+            tecla=seleccion_invalida(1,2);
+            if(tecla==2)
+            {
+                break; //Para salir del while
+            }
+        }
+        system("clear");
+    }
+    system("clear");
+    if(Partida[0]==Partida[1])
+    {
+        return 0;//Para salir del switch
+    }
+    menucombate(Partida,Cementerio,Nombres,turno);
+    return 0;
 }
 
     //-------------------------------------------Funciones----------------------------------------

@@ -112,16 +112,18 @@ void Guerrero::serializar(ofstream &archivo) const
     archivo<< "Guerrero: "<<_name<<"\n   Nivel: "<< _atributos[0] <<"\n   Salud: "<< _atributos[1] <<"\n   Poder: "<< _atributos[2] <<"\n   Precision: "<<_atributos[3]<<"\n   Proteccion: "<<_atributos[4]<<"\n   Fuerza: "<<_atributos[6]<<"\n   Escudo: "<<_atributos[5]<<endl;
 }
 
-void Guerrero::LanzarPocion(Pociones* P)
+bool Guerrero::LanzarPocion(Pociones* P)
 {
-    if(P->getTipo()=="Salud"||P->getTipo()=="salud")
+    if(P->getTipo()=="Salud"||P->getTipo()=="SALUD")
     {
         cout<< "El guerrero " << _name << " se ha curado " << P->getPower()<<" puntos de salud"<<endl;
         _atributos[1]+=P->getPower();
-    }else if (P->getTipo()=="Mana"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
+        return 1;
+    }else if (P->getTipo()=="MANA"||P->getTipo()=="mana"||P->getTipo()=="Maná"||P->getTipo()=="maná")
     {
         cout<< "El guerrero " << _name << " no ha sido capaz de lanzar la pocion"<<endl;
-    }else
-        cout<< "Pocion no valida"<<endl;
+        return 0;
+    }else cout<< "Pocion no valida"<<endl;
+    return 0;
 }
 Guerrero::~Guerrero(){}
