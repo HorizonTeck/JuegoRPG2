@@ -14,7 +14,8 @@ SOURCES += \
         main.cpp \
         objetos.cpp \
         personajes.cpp \
-        pociones.cpp
+        pociones.cpp \
+        graveyard.cpp
 
 HEADERS += \
     armas.h \
@@ -26,4 +27,5 @@ HEADERS += \
     mago.h \
     objetos.h \
     personajes.h \
-    pociones.h
+    pociones.h \
+    graveyard.h

@@ -153,12 +153,12 @@ int main() {
                 break;
             }
             tecla=0;
-            while(tecla!=5){
+            while(tecla!=6){
                 funcion.espera();
                 system("clear");
                 cout<<"---MENU DE DISPLAY---"<<endl;
-                cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Hechizos"<<endl<<"5. Salir"<<endl;
-                tecla=funcion.seleccion_invalida(1,5);
+                cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Hechizos"<<endl<<"5. Cementerio"<<endl<<"6. Salir"<<endl;
+                tecla=funcion.seleccion_invalida(1,6);
                 switch(tecla){
                 case 1:{
                     Equipo* Equipo;
@@ -178,6 +178,7 @@ int main() {
                 case 2: funcion.Recorrer(Lista_Personajes); break;
                 case 3: funcion.Recorrer(Lista_Objetos); break;
                 case 4: funcion.Recorrer(Lista_Hechizos); break;
+                case 5: funcion.Recorrer(cementerio.getLista_Personajes());
                 default: break;
                 }
             }
