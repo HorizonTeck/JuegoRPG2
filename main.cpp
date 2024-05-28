@@ -7,13 +7,14 @@ int main() {
     Funciones funcion;
     Objetos *objeto=new Armas("baston","BACULO",100);
     Objetos *objeto2=new Pociones("lacurativa", "SALUD", 100);
+    Objetos *objeto12=new Pociones("lamarvilla", "SALUD", 100);
     Objetos *objeto3=new Armas("ElLargo","DISTANCIA", 100);
     Personajes *personaje=new Mago("Julian");
     Personajes *personaje2=new Arquero("Gordito");
     Equipo *equipo=new Equipo("Losduros");
     Hechizos *hechizo=new Hechizos(50, "TIERRA", "Placas");
     *personaje>>objeto>>objeto2;
-    *personaje2>>objeto2>>objeto3;
+    *personaje2>>objeto2>>objeto3>>objeto12;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
 
     Objetos *objeto4=new Armas("ElPalo","BACULO",100);
@@ -31,13 +32,15 @@ int main() {
 
     Objetos *objeto7=new Armas("bastoncillo","BACULO",10);
     Objetos *objeto8=new Pociones("lañurativa", "SALUD", 10);
+    Objetos *objeto13=new Pociones("laHijaDELAMANA", "MANA", 10);
+    Objetos *objeto14=new Pociones("lañurativaMejorada", "SALUD", 11);
     Objetos *objeto9=new Armas("ElFino","DISTANCIA", 10);
     Personajes *personaje5=new Mago("Javier");
     Personajes *personaje6=new Arquero("Gazo");
     Equipo *equipo3=new Equipo("LosMejores");
     Hechizos *hechizo3=new Hechizos(20, "AGUA", "Sanacion");
-    *personaje5>>objeto7>>objeto8;
-    *personaje6>>objeto8>>objeto9;
+    *personaje5>>objeto7>>objeto8>>objeto13;
+    *personaje6>>objeto8>>objeto9>>objeto14;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje5)) *tmp>>hechizo3;
     Graveyard cementerio;
     vector<Equipo*> Lista_Equipos;
@@ -65,6 +68,9 @@ int main() {
     Lista_Objetos.push_back(objeto9);
     Lista_Objetos.push_back(objeto10);
     Lista_Objetos.push_back(objeto11);
+    Lista_Objetos.push_back(objeto12);
+    Lista_Objetos.push_back(objeto13);
+    Lista_Objetos.push_back(objeto14);
     Lista_Hechizos.push_back(hechizo2);
     Lista_Hechizos.push_back(hechizo3);
     Lista_Hechizos.push_back(hechizo);
