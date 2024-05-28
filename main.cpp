@@ -15,6 +15,7 @@ int main() {
     *personaje>>objeto>>objeto2;
     *personaje2>>objeto2>>objeto3;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje)) *tmp>>hechizo;
+    Graveyard cementerio;
     vector<Equipo*> Lista_Equipos;
     vector<Personajes*> Lista_Personajes;
     vector<Objetos*> Lista_Objetos;
@@ -35,8 +36,8 @@ int main() {
             funcion.espera();
         }
         system("clear");
-        cout << "---MENU PRINCIPAL---"<<endl;
-        cout << "1. Menu de carga \n2. Menu de creacion \n3. Menu de Modificaciones \n4. Menu de Juego \n5. Menu de Display \n6. Salir"<<endl;
+        cout <<blanco<<RED<< "------MENU PRINCIPAL------"<<endl;
+        cout << "1. Menu de carga          \n2. Menu de creacion       \n3. Menu de Modificaciones \n4. Menu de Juego          \n5. Menu de Display        \n6. Salir                  "<<RESET<<endl;
         cin >> tecla;
         switch (tecla) {
         case 1: {
@@ -77,9 +78,9 @@ int main() {
             while (tecla != 9) {
                 funcion.espera();
                 system("clear");
-                cout << "---MENU DE CREACION---"<<endl;
-                cout << "1. Crear un equipo"<<endl<<"2. Eliminar un equipo"<<endl<<"3. Crear un personaje"<<endl<<"4. Eliminar un personaje" << endl;
-                cout << "5. Crear un objeto"<<endl<<"6. Eliminar un objeto"<<endl<<"7. Crear Hechizo"<<endl<<"8. Eliminar Hechizo"<<endl<<"9. Atrás" << endl;
+                cout << "----MENU DE CREACION----"<<endl;
+                cout << "1. Crear un equipo      "<<endl<<"2. Eliminar un equipo   "<<endl<<"3. Crear un personaje   "<<endl<<"4. Eliminar un personaje" << endl;
+                cout << "5. Crear un objeto      "<<endl<<"6. Eliminar un objeto   "<<endl<<"7. Crear Hechizo        "<<endl<<"8. Eliminar Hechizo     "<<endl<<"9. Atrás                " <<endl;
                 cin >> tecla;
                 switch (tecla) {
                 case 1: funcion.crear_equipo(Lista_Equipos, Lista_Personajes); break;
@@ -126,7 +127,7 @@ int main() {
             cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Mostrar Log de combate anterior"<<endl<<"3. MODO PACIFICO "<<endl<<"4. Salir"<<endl;
             tecla=funcion.seleccion_invalida(1,4);
             switch(tecla){
-            case 1: while(funcion.InicioCombate(Lista_Equipos, Cementerio)!=0); break;
+            case 1: while(funcion.InicioCombate(Lista_Equipos, Cementerio)!=0); cementerio.set_Muertos(Cementerio);break;
             case 2:{
                 ifstream archivo("Log.txt");
                 if (!archivo.is_open()) {
@@ -201,56 +202,6 @@ int main() {
     funcion.liberar_memoria(Lista_Objetos);
     funcion.liberar_memoria(Lista_Hechizos);
     funcion.liberar_memoria(Lista_Personajes);
-
-
-
-
-
-    //Ejemplo de crear y guardar objetos en txt
-    /*vector<Objetos*> Lista_Objetos;
-    Lista_Objetos.push_back(new Armas("Arma", "julian", "Cortante", 46));
-    Lista_Objetos.push_back(new Armas("Arma", "Pepe", "Contundente", 50));
-    Lista_Objetos.push_back(new Pociones("Pocion", "ladolorosa", "Salud", 100));
-    funcion.guardar(Lista_Objetos, "ObjetosPrueba.txt");
-    for(auto objeto : Lista_Objetos){
-        delete objeto;
-    }*/
-
-
-    //Ejemplo de como se instanciarian objetos cargandolos desde txt en el programa
-
-    /*if(funcion.contarLineas("ObjetosPrueba.txt") < 0) cout<<"No hay suficientes objetos"<<endl;
-    else{
-        vector<Objetos*> Lista_Objetos;
-        funcion.cargar(Lista_Objetos,"ObjetosPrueba.txt");
-        for (int i=0;i<static_cast<int>(Lista_Objetos.size());i++){
-            Lista_Objetos[i]->display();
-            delete Lista_Objetos[i];
-        }
-    }*/
-
-    //ejemplo de ataque y defensa de un personaje (si salen numeros mas grandes de salud, es porque no estan metidas las armas todavia
-    /* vector<Personajes*> Personajes;
-    Personajes.push_back(new Guerrero("Pepito"));
-    Personajes.push_back(new Arquero("Fulanito"));
-    for(auto objeto : Personajes){
-        objeto->setAtributos(0);
-        objeto->Display();
-        cout<<endl;
-    }
-    if(Personajes[0]->tirar_dados() < Personajes[0]->getAtributos(3)){
-        cout << "Ataque efectivo"<<endl;
-        int ataque = Personajes[0]->Ataque();
-        int defensa = Personajes[1]->Defensa();
-        int salud = Personajes[1]->getAtributos(1);
-        Personajes[1]->setAtributos(salud-(ataque-defensa), 1);
-        cout << "Nuevas estadisticas de: "<<Personajes[1]->getName()<<endl<<endl;
-        Personajes[1]->Display();
-    }
-    else{
-        cout << "Ataque inefectivo"<<endl;
-    } */
-
     return 0;
 }
 

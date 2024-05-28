@@ -13,6 +13,7 @@
 #include <thread>
 #include <chrono>
 #include <cctype>
+#include <graveyard.h>
 
 class Funciones{
 private:

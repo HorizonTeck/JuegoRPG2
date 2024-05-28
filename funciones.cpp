@@ -897,9 +897,8 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
     {
         cout<<"Log no preparado"<<endl;
     }
-    tecla=0;
     vector <Personajes*> Combatientes;
-    int dados=0,seleccion=0;
+    int dados=0,tecla=0;
     bool turno_opuesto;
     (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
     cout<<"Turno de "<< Nombres[turno]<< "\n ¿Cual es tu combatiente?"<<endl;
@@ -1054,7 +1053,6 @@ bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*
     vector<Equipo*> Partida;
     vector <string*> Nombres;
     bool turno=0;
-    DisplayLucha();
     cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
     cin.clear();
     cin.ignore();
