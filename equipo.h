@@ -19,6 +19,7 @@ public:
     Personajes* getLista_Personajes(int n) const;
     void setName(const string& name);
     int getDinero();
+    void setDinero(int dinero);
     void setLista_Personajes(vector<Personajes*> lista);
     void setLista_Personajes(Personajes*);
     int gettamaño();

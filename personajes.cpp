@@ -39,6 +39,7 @@ bool operator++(Personajes& Personaje){
 }
 Personajes& Personajes::operator>>(Objetos *Objeto){
     if(comprobarInventario(Objeto)==1) this->setInventario(Objeto);
+    else cout<<"No se ha podido añadir el objeto porque o no es compatible o el inventario esta lleno"<<endl;
     return *this;
 }
 string Personajes::getName() const{

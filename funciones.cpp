@@ -854,7 +854,7 @@ void Funciones::eliminar_hechizo(vector<Hechizos *>& Lista_Hechizos){
 }
 
 //-------------------------------------------Combate------------------------------------------
-void Funciones::LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, bool& turno, ofstream& archivo){
+void Funciones::LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, bool& turno, fstream& archivo){
     bool turno_opuesto;
     (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
     if(Atacante->getHechizos().size()>0){
@@ -888,8 +888,39 @@ void Funciones::LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, b
         cout<<"Este mago no tiene hechizos, tranquilo, no consumes turno"<<endl;
     }
 }
-void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno){
-    ofstream archivo ("Log.txt");
+void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<Hechizos *> &Lista_Hechizos, vector<Personajes *> &Lista_Personajes,bool turno){
+    cout<<"Tienes un total de: "<<Equipo->getDinero()<<" monedas"<<endl;
+    while(tecla!=4){
+        cout<<"Que quieres hacer? "<<endl<<"1. Comprar un Objeto"<<endl<<"2. Comprar un Hechizo"<<endl<<"3. Reclutar un Personaje"<<endl<<"4. Salir"<<endl;
+        tecla=seleccion_invalida(1,4);
+        switch(tecla){
+        case 1:
+            if(Lista_Objetos.size()>0){
+                cout<<"Selecciona un objeto"<<endl;
+                Objetos *objetotmp=seleccionar(Lista_Objetos);
+                if(objetotmp->getPower()<=Equipo->getDinero()){
+                    cout<<"A que personaje quieres añadir el objeto?"<<endl;
+                    Personajes *personajetmp=seleccionar(Equipo->getLista_Personajes());
+                    if(personajetmp->comprobarInventario(objetotmp)==1){
+                        *personajetmp>>objetotmp;
+                        Equipo->setDinero(Equipo->getDinero()-objetotmp->getPower());
+                    }
+                    else cout<<"El objeto o no es compatible o el inventario esta lleno"<<endl;
+                }else cout<<"No tienes dinero suficiente"<<endl;
+            }else cout<<"No hay objetos declarados"<<endl;
+            break;
+        case 2:
+            if(Lista_Hechizos.size()>0){
+
+            }else cout<<"No hay hehcizos declarados"<<endl;
+            break;
+        case 3:
+            break;
+        }
+    }
+}
+void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes){
+    fstream archivo ("Log.txt");
     if(archivo.is_open()){
         cout<<"Log preparado"<<endl;
         archivo<< "Inicio de Combate\n";
@@ -906,15 +937,15 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
     cout<<"Turno de "<< Nombres[turno_opuesto]<< "\n ¿Cual es tu combatiente?"<<endl;
     Combatientes[turno_opuesto]=seleccionar_Personaje(Partida[turno]->getLista_Personajes());
     archivo<<"Se han inicializado los Combatientes: 1. "<< Combatientes[turno]->getName() <<  " 2. "<<Combatientes[turno_opuesto]->getName()<<endl;
-    while(tecla!=5&&Partida[0]->getLista_Personajes().size()>0&&Partida[1]->getLista_Personajes().size()>0){
+    while(tecla!=8&&Partida[0]->getLista_Personajes().size()>0&&Partida[1]->getLista_Personajes().size()>0){
         cout<<"Personaje en uso:  "<<Combatientes[turno]->getName()<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
         {
-            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion \n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario"<<endl;//ver el log de combate y salir del combate, vender objetos
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion \n3. Cambiar Personaje \n4. Ver inventario \n5. Comprar Objetos \n6. Log del combate \n7. Lanzar Hechizo \n8. Rendirse"<<endl;//ver el log de combate y salir del combate, vender objetos
         }
         else
         {
-            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Ver inventario"<<endl;
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Ver inventario \n5. Comprar Objetos \n6. Log del combate \n7. Rendirse"<<endl;
         }
         tecla=seleccion_invalida(1,5);
         switch(tecla){
@@ -1001,25 +1032,67 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             archivo<< "Cambio de turno"<<endl;
             break;
         case 4:
-            if(dynamic_cast<Mago*>(Combatientes[turno]))
-            {
-                LanzarHechizo(Partida,dynamic_cast<Mago*>(Combatientes[turno]),turno,archivo);
-                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
-            }else
-            {
-                Recorrer(Combatientes[turno]->getInventario());
-                archivo<< "Impresion del inventario de: "<< Combatientes[turno]->getName()<<endl;
-            }
+            Recorrer(Combatientes[turno]->getInventario());
+            archivo<< "Impresion del inventario de: "<< Combatientes[turno]->getName()<<endl;
             break;
         case 5:
-            tecla=4;
-
+            if(Partida[turno]->getDinero()>0&&(Lista_Objetos.size()>0||Lista_Hechizos.size()>0||Lista_Personajes.size()>0)){
+                tienda(Partida[turno],Lista_Objetos,Lista_Hechizos,Lista_Personajes,turno);
+            }else cout<<"No tienes dinero suficiente"<<endl;
+            break;
+        case 6:
+            espera();
+            if(archivo.is_open()){
+                string linea;
+                archivo<<Nombres[turno]<<"Ha mirado el Log"<<endl;
+                while(getline(archivo,linea)){
+                    cout<<linea<<endl;
+                }
+                espera();
+            }else cout<<"No se ha podido abrir el arhivo"<<endl;
+            break;
+        case 7:
+            if(dynamic_cast<Mago*>(Combatientes[turno])){
+                LanzarHechizo(Partida,dynamic_cast<Mago*>(Combatientes[turno]),turno,archivo);
+                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+            }else{
+                cout<<"Estas seguro de que quieres Rendirte?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
+                tecla=seleccion_invalida(1,2);
+                if(tecla==1){
+                    tecla=8;
+                    cout<<"HA GANADO EL EQUIPO DE "<<Nombres[turno_opuesto]<<" CON NOMBRE: "<<Partida[turno_opuesto]->getName()<<endl;
+                    archivo<<"HA GANADO EL EQUIPO DE "<<Nombres[turno_opuesto]<<" CON NOMBRE: "<<Partida[turno_opuesto]->getName()<<endl;
+                }
+                else tecla=6;
+            }
+            break;
+        case 8:
+            if(dynamic_cast<Mago*>(Combatientes[turno])){
+                cout<<"Estas seguro de que quieres Rendirte?"<<endl<<"1. SI"<<endl<<"2. NO"<<endl;
+                tecla=seleccion_invalida(1,2);
+                if(tecla==1){
+                    tecla=8;
+                    cout<<"HA GANADO EL EQUIPO DE "<<Nombres[turno_opuesto]<<" CON NOMBRE: "<<Partida[turno_opuesto]->getName()<<endl;
+                    archivo<<"HA GANADO EL EQUIPO DE "<<Nombres[turno_opuesto]<<" CON NOMBRE: "<<Partida[turno_opuesto]->getName()<<endl;
+                }
+                else tecla=6;
+            }else{
+                cout<<"seleccion invalida"<<endl;
+                tecla=6;
+            }
+            break;
         }
-    }//Guardar equipo ganador
-
-        archivo.close();
     }
-void Funciones::LanzarPocion(Personajes *Combatiente, vector<Equipo *> &Partida, bool& turno, ofstream& archivo){
+    if(Partida[0]->gettamaño()<=0){
+        cout<<"HA GANADO EL EQUIPO DE "<<Nombres[1]<<" CON NOMBRE: "<<Partida[1]->getName()<<endl;
+        archivo<<"HA GANADO EL EQUIPO DE "<<Nombres[1]<<" CON NOMBRE: "<<Partida[1]->getName()<<endl;
+    }else if(Partida[1]->gettamaño()<=0){
+        cout<<"HA GANADO EL EQUIPO DE "<<Nombres[0]<<" CON NOMBRE: "<<Partida[0]->getName()<<endl;
+        archivo<<"HA GANADO EL EQUIPO DE "<<Nombres[0]<<" CON NOMBRE: "<<Partida[0]->getName()<<endl;
+    }
+    archivo.close();
+}
+void Funciones::LanzarPocion(Personajes *Combatiente, vector<Equipo *> &Partida, bool& turno, fstream& archivo){
     int pociones=0, seleccionado=0;
     vector <Objetos*> inventariotemporal;
     tecla=0;
@@ -1049,7 +1122,7 @@ void Funciones::LanzarPocion(Personajes *Combatiente, vector<Equipo *> &Partida,
         }
     }
 }
-bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Cementerio){
+bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Cementerio,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes){
     vector<Equipo*> Partida;
     vector <string*> Nombres;
     bool turno=0;
@@ -1093,7 +1166,7 @@ bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*
     {
         return 0;//Para salir del switch
     }
-    menucombate(Partida,Cementerio,Nombres,turno);
+    menucombate(Partida,Cementerio,Nombres,turno,Lista_Objetos,Lista_Hechizos,Lista_Personajes);
     return 0;
 }
 

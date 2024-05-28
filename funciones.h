@@ -94,12 +94,12 @@ public:
 
 
     //Combate
-    bool InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Muertos);
-    void menucombate (vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno);
-    void LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, bool& turno, ofstream& archivo);
-    void LanzarPocion(Personajes* Personaje, vector<Equipo*>& Partida, bool& turno, ofstream& archivo);
-
-     //Funciones varias
+    bool InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Muertos,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes);
+    void menucombate (vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes);
+    void LanzarHechizo(vector<Equipo *>& Lista_Equipos, Mago* Atacante, bool& turno, fstream& archivo);
+    void LanzarPocion(Personajes* Personaje, vector<Equipo*>& Partida, bool& turno, fstream& archivo);
+    void tienda(Equipo* Equipo, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes, bool turno);
+    //Funciones varias
     void comprobarSalud(Equipo* Defensor,Personajes* personaje ,vector<Personajes*>& Muertos);
     int seleccion_invalida(int LI, int LS);
     void espera();

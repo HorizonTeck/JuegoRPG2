@@ -36,16 +36,16 @@ int main() {
             funcion.espera();
         }
         system("clear");
-        cout <<blanco<<RED<< "------MENU PRINCIPAL------"<<endl;
-        cout << "1. Menu de carga          \n2. Menu de creacion       \n3. Menu de Modificaciones \n4. Menu de Juego          \n5. Menu de Display        \n6. Salir                  "<<RESET<<endl;
+        cout <<blanco<<BLUE<<"--------------------------\n------MENU PRINCIPAL------\n--------------------------\n"<<endl;
+        cout <<RESET<<"1. Menu de carga          \n2. Menu de creacion       \n3. Menu de Modificaciones \n4. Menu de Juego          \n5. Menu de Display        \n6. Salir                  "<<RESET<<endl;
         cin >> tecla;
         switch (tecla) {
         case 1: {
             while (tecla != 11) {
                 funcion.espera();
                 system("clear");
-                cout << "---MENU DE CARGA---"<<endl;
-                cout << "1. Cargar arbol"<<endl<<"2. Guardar arbol"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<<endl;
+                cout << blanco<<RED<<"-------------------"<<endl<< "---MENU DE CARGA---"<<endl<< "-------------------"<<endl;
+                cout << RESET<<"1. Cargar arbol"<<endl<<"2. Guardar arbol"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<<endl;
                 cout << "5. Cargar personajes Sin Equipo"<<endl<<"6. Guardar Personaje Sin Equipo"<<endl<<"7. Cargar Hechizos"<<endl<<"8. Guardar Hechizos"<<endl;
                 cout << "9. Cargar Hechizos"<<endl<<"10. Guardar Hechizos"<<endl<<"11. atras"<<endl;
                 cin >> tecla;
@@ -78,8 +78,8 @@ int main() {
             while (tecla != 9) {
                 funcion.espera();
                 system("clear");
-                cout << "----MENU DE CREACION----"<<endl;
-                cout << "1. Crear un equipo      "<<endl<<"2. Eliminar un equipo   "<<endl<<"3. Crear un personaje   "<<endl<<"4. Eliminar un personaje" << endl;
+                cout << blanco<<YELLOW<<"------------------------"<<endl<< "----MENU DE CREACION----"<<endl<< "------------------------"<<endl;
+                cout << RESET<<"1. Crear un equipo      "<<endl<<"2. Eliminar un equipo   "<<endl<<"3. Crear un personaje   "<<endl<<"4. Eliminar un personaje" << endl;
                 cout << "5. Crear un objeto      "<<endl<<"6. Eliminar un objeto   "<<endl<<"7. Crear Hechizo        "<<endl<<"8. Eliminar Hechizo     "<<endl<<"9. Atrás                " <<endl;
                 cin >> tecla;
                 switch (tecla) {
@@ -103,8 +103,8 @@ int main() {
         case 3:{
             funcion.espera();
             system("clear");
-            cout<<"---MENU DE MODIFICACIONES---"<<endl;
-            cout<<"1. Modificar Arbol"<<endl<<"2. Modificar Personaje sin Equipo"<<endl<<"3. Modificar Objeto"<<endl<<"4. Modificar Hechizos"<<endl<<"5. Salir"<<endl;
+            cout<<blanco<<GREEN<<"----------------------------"<<endl<<"---MENU DE MODIFICACIONES---"<<endl<<"----------------------------"<<endl;
+            cout<<RESET<<"1. Modificar Arbol"<<endl<<"2. Modificar Personaje sin Equipo"<<endl<<"3. Modificar Objeto"<<endl<<"4. Modificar Hechizos"<<endl<<"5. Salir"<<endl;
             tecla=funcion.seleccion_invalida(1,5);
             switch(tecla){
             case 1: funcion.modificar_equipo(Lista_Equipos, Lista_Personajes, Lista_Objetos, Lista_Hechizos); break;
@@ -124,14 +124,16 @@ int main() {
             break;
         }
         case 4: funcion.espera();
-            cout<<"MENU DE JUEGO:" <<endl <<"1. Empezar combate"<<endl<<"2. Mostrar Log de combate anterior"<<endl<<"3. MODO PACIFICO "<<endl<<"4. Salir"<<endl;
+            cout<<blanco<<PINK<<"-------------------"<<endl<<"---MENU DE JUEGO---" <<endl<<"-------------------"<<endl;
+            cout<<RESET<<"1. Empezar combate"<<endl<<"2. Mostrar Log de combate anterior"<<endl<<"3. MODO PACIFICO "<<endl<<"4. Salir"<<endl;
             tecla=funcion.seleccion_invalida(1,4);
             switch(tecla){
-            case 1: while(funcion.InicioCombate(Lista_Equipos, Cementerio)!=0); cementerio.set_Muertos(Cementerio);break;
+            case 1: while(funcion.InicioCombate(Lista_Equipos, Cementerio,Lista_Objetos,Lista_Hechizos,Lista_Personajes)!=0); cementerio.set_Muertos(Cementerio);break;
             case 2:{
                 ifstream archivo("Log.txt");
                 if (!archivo.is_open()) {
                     cerr << "Error al abrir el archivo" <<endl;
+                    break;
                 }
                 string linea;
                 while (getline(archivo, linea)) {
@@ -144,8 +146,6 @@ int main() {
             default:
                 break;
             }
-
-
             break;
         case 5: {
             if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
@@ -156,8 +156,8 @@ int main() {
             while(tecla!=6){
                 funcion.espera();
                 system("clear");
-                cout<<"---MENU DE DISPLAY---"<<endl;
-                cout<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Hechizos"<<endl<<"5. Cementerio"<<endl<<"6. Salir"<<endl;
+                cout<<blanco<<GREEN<<"---------------------"<<endl<<"---MENU DE DISPLAY---"<<endl<<"---------------------"<<endl;
+                cout<<RESET<<"1. Arbol"<<endl<<"2. Personajes Sin Equipo"<<endl<<"3. Objetos"<<endl<<"4. Hechizos"<<endl<<"5. Cementerio"<<endl<<"6. Salir"<<endl;
                 tecla=funcion.seleccion_invalida(1,6);
                 switch(tecla){
                 case 1:{
