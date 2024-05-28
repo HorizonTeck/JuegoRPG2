@@ -1129,7 +1129,7 @@ void Funciones::tienda(Equipo *Equipo, vector<Objetos *> &Lista_Objetos, vector<
         }
     }
 }
-void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string*>& Nombres, bool turno,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes){
+void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muertos, vector<string>& Nombres, bool turno,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes){
     fstream archivo ("Log.txt");
     if(archivo.is_open()){
         cout<<"Log preparado"<<endl;
@@ -1139,6 +1139,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         cout<<"Log no preparado"<<endl;
     }
     vector <Personajes*> Combatientes;
+    Combatientes.resize(2);
     int dados=0,tecla=0;
     bool turno_opuesto;
     (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
@@ -1335,16 +1336,19 @@ void Funciones::LanzarPocion(Personajes *Combatiente, vector<Equipo *> &Partida,
 }
 bool Funciones::InicioCombate(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Cementerio,vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos, vector<Personajes*>& Lista_Personajes){
     vector<Equipo*> Partida;
-    vector <string*> Nombres;
+    vector <string> Nombres;
+    string nombre;
     bool turno=0;
     cout<< "Nombre de los jugadores \nJugador 1:"<<endl;
     cin.clear();
     cin.ignore();
-    getline(cin,*Nombres[0]);
+    getline(cin,nombre);
+    Nombres.push_back(nombre);
     cout<<"Jugador 2:"<<endl;
     cin.clear();
     cin.ignore();
-    getline(cin,*Nombres[1]);
+    getline(cin,nombre);
+    Nombres.push_back(nombre);
     cout<<Nombres[0]<<", Elige el equipo con el que quieras jugar:" << endl;
     Partida.push_back(seleccionar_Equipo(Lista_Equipos));
     cout<<"\n"<<Nombres[1]<<", Elige el equipo con el que quieras jugar:\n" << endl;
