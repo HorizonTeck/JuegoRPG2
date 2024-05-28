@@ -71,7 +71,6 @@ void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
     if(Listatemporal.size()>0){
         if(Lista_Objetos.size()>0) liberar_memoria(Lista_Objetos);
         Lista_Objetos.clear();
-        Lista_Objetos.resize(Listatemporal.size());
         for(auto objeto:Listatemporal) Lista_Objetos.push_back(objeto);
     }
 
@@ -257,6 +256,7 @@ void Funciones::cargar(vector<Personajes*>& Lista_Personajes, string nombreArchi
                     QuitarEspacios(tipo);
                     to_uppercase(tipo);
                     break;
+                case 7:
                 case 8:
                 case 9:
                 case 10:
@@ -293,7 +293,7 @@ void Funciones::cargar(vector<Personajes*>& Lista_Personajes, string nombreArchi
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
                 else if(comprobar[3]==1&&comprobar[6]==1&&comprobar[17]==1&&personaje==1){
-                    hechizotmp=new Hechizos(valores[18],tipo,nombre);
+                    hechizotmp=new Hechizos(valores[17],tipo,nombre);
                     if(Mago* tmp2=dynamic_cast<Mago*>(personajetmp)) tmp2->setHechizos(hechizotmp);
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
@@ -364,8 +364,8 @@ void Funciones::cargar(vector<Hechizos*>& Lista_Hechizos,string nombreArchivo){
                         comprobar[i]=1;
                     }
                 }
-                if(comprobar[3]==1&&comprobar[7]==1&&comprobar[18]==1&&personaje==1){
-                    Listatemporal.push_back(new Hechizos(valores[18],tipo,nombre));
+                if(comprobar[0]==1&&comprobar[1]==1&&comprobar[2]==1){
+                    Listatemporal.push_back(new Hechizos(valores[2],tipo,nombre));
                     for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
                     for(int i=0;i<static_cast<int>(valores.size());i++) valores[i]=0;
                 }
