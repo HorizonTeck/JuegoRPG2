@@ -18,13 +18,15 @@ int main() {
 
     Objetos *objeto4=new Armas("ElPalo","BACULO",100);
     Objetos *objeto5=new Pociones("lasaluud", "SALUD", 80);
+    Objetos *objeto11=new Pociones("LAMANADELAMANA","MANA", 100);
     Objetos *objeto6=new Armas("ElDuro","CONTUNDENTE", 100);
+    Objetos *objeto10=new Armas("ElAfilado","CORTANTE", 100);
     Personajes *personaje3=new Mago("PEDRO");
     Personajes *personaje4=new Guerrero("PicaPiedra");
     Equipo *equipo2=new Equipo("LosJefes");
     Hechizos *hechizo2=new Hechizos(40, "FUEGO", "llamas");
-    *personaje3>>objeto4>>objeto5;
-    *personaje4>>objeto5>>objeto6;
+    *personaje3>>objeto4>>objeto5>>objeto11;
+    *personaje4>>objeto5>>objeto6>>objeto10;
     if(Mago *tmp=dynamic_cast<Mago*>(personaje3)) *tmp>>hechizo2;
 
     Objetos *objeto7=new Armas("bastoncillo","BACULO",10);
@@ -61,6 +63,8 @@ int main() {
     Lista_Objetos.push_back(objeto7);
     Lista_Objetos.push_back(objeto8);
     Lista_Objetos.push_back(objeto9);
+    Lista_Objetos.push_back(objeto10);
+    Lista_Objetos.push_back(objeto11);
     Lista_Hechizos.push_back(hechizo2);
     Lista_Hechizos.push_back(hechizo3);
     Lista_Hechizos.push_back(hechizo);
