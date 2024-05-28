@@ -26,8 +26,7 @@ int main() {
     Lista_Objetos.push_back(objeto);
     Lista_Objetos.push_back(objeto2);
     Lista_Hechizos.push_back(hechizo);
-    Lista_Equipos[0]->setLista_Personajes(personaje);
-    Lista_Equipos[0]->setLista_Personajes(personaje2);
+    *Lista_Equipos[0]>>personaje>>personaje2;
     int tecla=0;
     cout << "Bienvenido a JuegoRPG2, ¿qué desea hacer?" << endl;
     while (tecla != 6) {
@@ -41,12 +40,13 @@ int main() {
         cin >> tecla;
         switch (tecla) {
         case 1: {
-            while (tecla != 7) {
+            while (tecla != 11) {
                 funcion.espera();
                 system("clear");
                 cout << "---MENU DE CARGA---"<<endl;
-                cout << "1. Cargar arbol"<<endl<<"2. Guardar arbol"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<< endl;
-                cout << "5. Cargar personajes Sin Equipo"<<endl<<"6. Guardar Personaje Sin Equipo"<<endl<<"7. Atrás" << endl;
+                cout << "1. Cargar arbol"<<endl<<"2. Guardar arbol"<<endl<<"3. Cargar los objetos"<<endl<<"4. Guardar los objetos"<<endl;
+                cout << "5. Cargar personajes Sin Equipo"<<endl<<"6. Guardar Personaje Sin Equipo"<<endl<<"7. Cargar Hechizos"<<endl<<"8. Guardar Hechizos"<<endl;
+                cout << "9. Cargar Hechizos"<<endl<<"10. Guardar Hechizos"<<endl<<"11. atras"<<endl;
                 cin >> tecla;
                 switch (tecla){
                 case 1: funcion.cargar(Lista_Equipos,"GuardadoEquipos"); break;
@@ -58,12 +58,13 @@ int main() {
                     archivo.close();
                     break;
                 }
-                case 5: {
-                    //funcion.cargar(Lista_Personajes,"GuardadoPersonajes");
-                    break;
-                }
+                case 5: funcion.cargar(Lista_Personajes,"GuardadoPersonajes"); break;
                 case 6: funcion.guardar(Lista_Personajes,"GuardadoPersonajes"); break;
-                case 7: break;
+                case 7: funcion.cargar(Lista_Hechizos,"GuardadoHechizos"); break;
+                case 8: //funcion.guardar(Lista_Hechizos, "GuardadoHechizos"); break;
+                case 9:
+                case 10:
+                case 11: break;
                 default: {
                     cout << "No has introducido una tecla válida, se volverá al menú anterior" << endl;
                     break;

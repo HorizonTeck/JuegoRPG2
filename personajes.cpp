@@ -32,7 +32,11 @@ void Personajes::setInventario(Objetos* objeto){
     }
     _inventario.push_back(copia);
 }
-
+bool operator++(Personajes& Personaje){
+    if(Personaje.getAtributos(0)+1<=100) Personaje.setAtributos(Personaje.getAtributos(0)+1,0);
+    else return 0;
+    return 1;
+}
 Personajes& Personajes::operator>>(Objetos *Objeto){
     if(comprobarInventario(Objeto)==1) this->setInventario(Objeto);
     return *this;

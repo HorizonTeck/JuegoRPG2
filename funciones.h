@@ -24,6 +24,8 @@ public:
     Funciones();
     void cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo);
     void cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo);
+    void cargar(vector<Hechizos*>& Lista_Hechizos, string nombreArchivo);
+    void cargar(vector<Personajes*>& Lista_Personajes, string nombreArchivo);
 
     void guardar(vector<Objetos*> objetos, ofstream &archivo);
     void guardar(vector<Personajes*> personajes, const string& nombreArchivo);

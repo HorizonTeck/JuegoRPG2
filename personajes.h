@@ -41,6 +41,7 @@ public:
     virtual ostream& Display(ostream& os) =0;
     virtual void Display() const =0; //Display
     friend ostream& operator<<(ostream& os, Personajes& P);
+    friend bool operator++(Personajes& Personaje);
     virtual void DisplayAtaque() const =0;
 
     //Funciones varias

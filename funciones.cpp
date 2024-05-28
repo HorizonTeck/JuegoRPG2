@@ -22,60 +22,54 @@ int Funciones::contarLineas(const string& nombreArchivo) {
 }
 void Funciones::cargar(vector<Objetos*>& Lista_Objetos, string nombreArchivo){
     vector<string> parametros = {"Arma","Pocion","Tipo","Poder"};
-    string nombre, tipo, tipoObjeto;
-    int poder=0;
+    vector<bool> comprobar;
+    comprobar.resize(parametros.size());
+    string nombre, tipo,tmp;
+    int poder=0,lineas=0;
     ifstream archivo(nombreArchivo);
     string linea, lineaencontrada="";
     size_t posicion=0;
     size_t pos =string::npos;
-    int completo=0, armas=0, pociones=0, lineas=0;
     while(getline(archivo,linea)){
         lineas++;
         QuitarEspacios(linea);
         pos =string::npos;
-        for(string objeto : parametros){
-            posicion=linea.find(objeto);
+        for(int i=0;i<static_cast<int>(parametros.size());i++){
+            posicion=linea.find(parametros[i]);
             if (posicion != string::npos && (pos == string::npos || posicion < pos)) {
                 pos = posicion;
-                lineaencontrada = objeto;
-                if(lineaencontrada=="Arma"){
-                    armas++;
-                    tipoObjeto="ARMA";
+                lineaencontrada = parametros[i];
+                switch(i){
+                case 1:
+                case 2:
+                    for(int i=0;i<static_cast<int>(comprobar.size());i++) comprobar[i]=false;
+                    comprobar[i]=true;
                     nombre=linea.substr(posicion+lineaencontrada.size()+1);
-                }else if(lineaencontrada=="Pocion"){
-                    pociones++;
-                    tipoObjeto="POCION";
-                    nombre=linea.substr(posicion+lineaencontrada.size()+1);
-                }
-                else if(lineaencontrada=="Tipo"){
-                    completo++;
+                    QuitarEspacios(nombre);
+                    break;
+                case 3:
+                    comprobar[i]=true;
                     tipo=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tipo);
                     to_uppercase(tipo);
+                    break;
+                case 4:
+                    tmp=linea.substr(posicion+lineaencontrada.size()+1);
+                    QuitarEspacios(tmp);
+                    if(esNumero(tmp)==1){
+                        poder=stoi(tmp);
+                        comprobar[i]=true;
+                    }
+                    break;
                 }
-                else if(lineaencontrada=="Poder"){
-                    completo++;
-                    string tmp=linea.substr(posicion+lineaencontrada.size()+1);
-                    if(esNumero(tmp)==1) poder=stoi(tmp);
-                }
+                if(comprobar[0]==1&&comprobar[2]==1&&comprobar[3]==1) Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
+                else if(comprobar[1]==1&&comprobar[2]==1&&comprobar[3]==1) Lista_Objetos.push_back(new Pociones(nombre,tipo,poder));
             }
         }
-        if(armas>=1&&pociones>=1){
-            cout<<"Error al cargar el archivo objeto en la linea: "<<lineas<<endl;
-            pociones=completo=armas=0;
-        }
-        if(completo+armas==3&&poder!=0&&tipo!=""&&tipoObjeto=="ARMA"){
-            Lista_Objetos.push_back(new Armas(nombre,tipo,poder));
-            pociones=completo=armas=0;
-        }
-        else if(completo+pociones==3&&poder!=0&&tipo!=""&&tipoObjeto=="POCION"){
-            Lista_Objetos.push_back(new Pociones(nombre, tipo, poder));
-            pociones=completo=armas=0;
-        }
-        cout<<"Objeto completo: "<<tipoObjeto<<": "<<nombre<<" Tipo: "<<tipo<<" Poder: "<<poder<<endl;
     }
 }
 void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
-    vector<string> parametros = {"EQUIPO","Mago","Arquero","Guerrero","Hechizo","Arma","Pocion","Tipo","Nivel","Salud","Poder","Precision","Proteccion","Mana","Agilidad","Carcaj","Fuerza","Escudo","Coste"};
+    vector<string> parametros = {"EQUIPO","Mago","Arquero","Guerrero","Hechizo","Arma","Pocion","Tipo","Nivel","Salud","Poder","Precision","Proteccion","Mana","Agilidad","Carcaj","Fuerza","Escudo","Coste","Dinero"};
     vector<bool> comprobar;
     comprobar.resize(parametros.size());
     vector<int> valores;
@@ -146,6 +140,7 @@ void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
                 case 16:
                 case 17:
                 case 18:
+                case 19:
                     tmp=linea.substr(posicion+lineaencontrada.size()+1);
                     QuitarEspacios(tmp);
                     if(esNumero(tmp)==1){
@@ -153,8 +148,8 @@ void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
                         comprobar[i]=1;
                     }
                 }
-                if(comprobar[0]==1&&personaje==0){
-                    lista.push_back(new Equipo(nombre));
+                if(comprobar[0]==1&&personaje==0&&comprobar[19]==1){
+                    lista.push_back(new Equipo(nombre,valores[19]));
                     equipotmp=lista[lista.size()-1];
                 }
                 else if(comprobar[1]==1&&comprobar[8]==1&&comprobar[9]==1&&comprobar[10]==1&&comprobar[11]==1&&comprobar[12]==1&&comprobar[13]==1&&personaje==1){
@@ -181,7 +176,6 @@ void Funciones::cargar(vector<Equipo*>& Lista_Equipos, string nombreArchivo){
                     objetotmp=new Pociones(nombre,tipo,valores[10]);
                     if(personajetmp->comprobarInventario(objetotmp)==1)personajetmp->setInventario(objetotmp);
                 }
-
             }
         }
     }
@@ -220,7 +214,7 @@ void Funciones::guardar(vector<Equipo*> equipos, const string &nombreArchivo)
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         for (int i = 0; i < static_cast<int>(equipos.size()); i++) {
-            archivo<< "EQUIPO: "<<equipos[i]->getName()<<"\n";
+            archivo<< "EQUIPO: "<<equipos[i]->getName()<<"\nDinero: "<<equipos[i]->getDinero()<<endl;
             for (auto objeto : equipos[i]->getLista_Personajes()) {
                 archivo<<"  ";
                 objeto->serializar(archivo);
@@ -898,7 +892,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
         cout<<"Personaje en uso:  "<<Combatientes[turno]->getName()<<endl;
         if(dynamic_cast<Mago*>(Combatientes[turno]))
         {
-            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario"<<endl;
+            cout<<"¿Que quieres hacer?\n1. Atacar \n2. Usar Pocion\n3. Cambiar Personaje \n4. Lanzar Hechizo\n5. Ver inventario"<<endl;//ver el log de combate y salir del combate, vender objetos
         }
         else
         {
@@ -918,7 +912,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
                 Combatientes[turno_opuesto]->setAtributos(Combatientes[turno_opuesto]->getAtributos(1)-(Combatientes[turno]->Ataque()-Combatientes[turno_opuesto]->Defensa()),1);
                 if(Combatientes[turno_opuesto]->getAtributos(1)<=0)
                 {
-                    Combatientes[turno]->setAtributos(Combatientes[turno]->getAtributos(0)+1,0);//Subida de nivel
+                    Combatientes[turno]++; //Subida de nivel
                     archivo<< Combatientes[turno]->getName() <<" Ha subido de nivel"<<endl;
                     comprobarSalud(Partida[turno_opuesto],Combatientes[turno_opuesto],Muertos);
                 }
@@ -934,7 +928,7 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
             break;
         }
         case 2:{
-            if(Combatientes[turno]->NumPociones()>0){
+            if(Combatientes[turno]->NumPociones()>0){ //Pociones esta mal
                 int pociones=0;
                 cout<<"¿Que pocion quieres elegir?"<<endl;
                 for(auto objeto : Combatientes[turno]->getInventario()){
@@ -944,15 +938,14 @@ void Funciones::menucombate(vector<Equipo*>& Partida, vector<Personajes*>& Muert
                     }
                 }
                 seleccion=seleccion_invalida(1,pociones);
-                                Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
-                                archivo<<Combatientes[turno]->getName()<<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
-                                turno=turno_opuesto;
-                                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
-                                archivo<< "Cambio de turno"<<endl;
-                            }else{
-                                cout<<"No tienes pociones, tranquilo, no pierdes turno"<<endl;
+                Combatientes[turno]->LanzarPocion(dynamic_cast<Pociones*>(Combatientes[turno]->getInventario()[seleccion]));
+                archivo<<Combatientes[turno]->getName()<<" lanza la pocion: " << Combatientes[turno]->getInventario()[seleccion]<<" de tipo "<<Combatientes[turno]->getInventario()[seleccion]->getTipo()<< endl;
+                turno=turno_opuesto;
+                (turno==1) ? turno_opuesto=0 : turno_opuesto=1;
+                archivo<< "Cambio de turno"<<endl;
+            }else{
+                cout<<"No tienes pociones, tranquilo, no pierdes turno"<<endl;
             }
-
             break;
         }
         case 3:

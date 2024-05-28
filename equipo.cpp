@@ -1,13 +1,14 @@
 #include "equipo.h"
 
-Equipo::Equipo(const string& name) : _name(name){
+Equipo::Equipo(const string& name) : _name(name), _dinero(1000){
 }
-
-Equipo::Equipo() : _name("NO_NAME_DEFINED"){}
+Equipo::Equipo(const string& name, int dinero) : _name(name), _dinero(dinero){}
+Equipo::Equipo() : _name("NO_NAME_DEFINED"), _dinero(1000){}
 
 Equipo::Equipo(Equipo& Equipo) {
     setLista_Personajes(Equipo._Lista_Personajes);
     _name=Equipo._name;
+    _dinero=Equipo._dinero;
 }
 
 string Equipo::getName() const {
@@ -20,11 +21,14 @@ vector<Personajes*>& Equipo::getLista_Personajes(){
 Personajes* Equipo::getLista_Personajes(int n) const{
     return _Lista_Personajes[n];
 }
-
+int Equipo::getDinero(){ return _dinero;}
 void Equipo::setName(const string& name) {
     _name = name;
 }
-
+Equipo& Equipo::operator>>(Personajes *Personaje){
+    this->setLista_Personajes(Personaje);
+    return *this;
+}
 void Equipo::setLista_Personajes(vector<Personajes*> lista) {
     for (auto personaje : lista) {
         if (dynamic_cast<Guerrero*>(personaje)) {
@@ -52,7 +56,7 @@ int Equipo::gettamaño(){
 }
 
 ostream& operator<<(ostream& os, Equipo& E){
-    os << "Nombre del equipo: " << E._name << ", tamaño del equipo: " << static_cast<int>(E._Lista_Personajes.size()) << endl;
+    os << "Nombre del equipo: " << E._name << ", tamaño del equipo: " << static_cast<int>(E._Lista_Personajes.size()) <<" Dinero: "<<E._dinero<< endl;
     os << "Integrantes:" << endl;
     for (int i = 0; i < static_cast<int>(E._Lista_Personajes.size()); i++) {
         os << i+1<<". "<<E._Lista_Personajes[i]->getName() << endl;
@@ -60,7 +64,7 @@ ostream& operator<<(ostream& os, Equipo& E){
     return os;
 }
 void Equipo::Display() const {
-    cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << endl;
+    cout << "Nombre del equipo: " << _name << ", tamaño del equipo: " << static_cast<int>(_Lista_Personajes.size()) << " Dinero: "<<_dinero<< endl;
     cout << "Integrantes:" << endl;
     for (int i = 0; i < static_cast<int>(_Lista_Personajes.size()); i++) {
         cout << i+1<<". "<<_Lista_Personajes[i]->getName() << endl;
