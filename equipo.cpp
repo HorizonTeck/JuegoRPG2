@@ -53,7 +53,7 @@ void Equipo::borrarPersonaje(int posicion){
     _Lista_Personajes.erase(it);
 }
 
-int Equipo::gettamaño(){
+int Equipo::gettamano(){
     return static_cast<int>(_Lista_Personajes.size());
 }
 

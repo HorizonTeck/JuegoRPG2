@@ -22,7 +22,7 @@ public:
     void setDinero(int dinero);
     void setLista_Personajes(vector<Personajes*> lista);
     void setLista_Personajes(Personajes*);
-    int gettamaño();
+    int gettamano();
     void borrarPersonaje(int n);
     friend ostream& operator<<(ostream& os, Equipo& E);
     Equipo& operator>>(Personajes* P);

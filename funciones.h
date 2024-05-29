@@ -48,28 +48,28 @@ public:
     //Gestion Equipos//
     void crear_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes); //Crea un Equipo preguntando al usuario
     void eliminar_equipo(vector<Equipo*>& Lista_Equipos);
-    int tamaño_equipos(vector<Equipo*>& Lista_Equipos);
+    int tamano_equipos(vector<Equipo*>& Lista_Equipos);
     void modificar_personaje(Equipo* Equipo, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos);
     void modificar_equipo(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes, vector<Objetos*>& Lista_Objetos, vector<Hechizos*>& Lista_Hechizos);
     Equipo* seleccionar_Equipo(vector<Equipo*>& Lista_Equipos);
 
     //Gestion Objetos
     Objetos* crear_objeto();
-    void añadir_objeto(Personajes* Personaje, vector<Objetos*>& Lista_Objetos);
+    void anadir_objeto(Personajes* Personaje, vector<Objetos*>& Lista_Objetos);
     void modificar_objetos(Personajes* Personaje, vector<Objetos*>& Lista_Objetos);
     void modificar_objetos(vector<Objetos*>& Lista_Objetos);
     void eliminar_objeto(vector<Objetos*>& Lista_Objetos);
 
     //Gestion Hechizos
     Hechizos* crear_hechizo();
-    void añadir_hechizos(Mago* Mago, vector<Hechizos*>& Lista_Hechizos);
+    void anadir_hechizos(Mago* Mago, vector<Hechizos*>& Lista_Hechizos);
     void modificar_hechizos(Mago* Mago, vector<Hechizos*>& Lista_Hechizos);
     void modificar_hechizos(vector<Hechizos*>& Lista_Hechizos);
     void eliminar_hechizo(vector<Hechizos*>& Lista_Hechizos);
 
 
     //Gestion Personajes
-    void añadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
+    void anadir_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
     void quitar_personaje(Equipo* Equipo, vector<Personajes*>& Lista_Personajes);
     void crear_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);
     void eliminar_personaje(vector<Equipo*>& Lista_Equipos, vector<Personajes*>& Lista_Personajes);

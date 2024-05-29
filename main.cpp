@@ -134,7 +134,7 @@ int main() {
             }
             break;
         case 5: {
-            if(Lista_Equipos.size()<=0&&funcion.tamaño_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
+            if(Lista_Equipos.size()<=0&&funcion.tamano_equipos(Lista_Equipos)<=0&&Lista_Personajes.size()<=0&&Lista_Objetos.size()<=0){
                 cout<<"No hay nada creado todavia"<<endl;
                 break;
             }
@@ -154,7 +154,7 @@ int main() {
                         break;
                     }
                     Equipo=funcion.seleccionar_Equipo(Lista_Equipos);
-                    if(Equipo->gettamaño()<=0){
+                    if(Equipo->gettamano()<=0){
                         cout<<"Este equipo no tiene Personajes"<<endl;
                         break;
                     }
