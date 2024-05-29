@@ -32,10 +32,10 @@ void Personajes::setInventario(Objetos* objeto){
     }
     _inventario.push_back(copia);
 }
-Personajes& operator++(Personajes& Personaje){
+/*Personajes& operator++(Personajes& Personaje){
     if(Personaje.getAtributos(0)+1<=100) Personaje.setAtributos(Personaje.getAtributos(0)+1,0);
     return *this;
-}
+}*/
 Personajes& Personajes::operator>>(Objetos *Objeto){
     if(comprobarInventario(Objeto)==1) this->setInventario(Objeto);
     else cout<<"No se ha podido añadir el objeto porque o no es compatible o el inventario esta lleno"<<endl;

@@ -32,26 +32,7 @@ void Hechizos::setTipoHechizo(const string& TipoHechizo)
     _TipoHechizo=TipoHechizo;
 }
 
-/*void Hechizos::LanzarHechizo(Personajes* Defensor, Personajes* Atacante)
-{
-    //agua (restaura la salud de los compañeros), fuego (resta salud a los enemigos), tierra (debilita la protección de los enemigos) y aire (resta poder a los enemigos)
-    if (_TipoHechizo == "Agua"||_TipoHechizo == "agua") {
-        Defensor->setAtributos(100,1);
-        Atacante->setAtributos(Atacante->getAtributos(5)-_coste,5);
-    } else if (_TipoHechizo == "Fuego"||_TipoHechizo == "fuego") {
-        Defensor->setAtributos(Defensor->getAtributos(1)-20,1);
-        Atacante->setAtributos(Atacante->getAtributos(5)-_coste,5);
-    } else if (_TipoHechizo == "Tierra"||_TipoHechizo == "tierra") {
-        Defensor->setAtributos(Defensor->getAtributos(4)-7,4);
-        Atacante->setAtributos(Atacante->getAtributos(5)-_coste,5);
-    } else if(_TipoHechizo == "Aire"||_TipoHechizo == "aire")
-    {
-        Defensor->setAtributos(Defensor->getAtributos(2)-7,2);
-        Atacante->setAtributos(Atacante->getAtributos(5)-_coste,5);
-    }else
-        cout<< "Hechizo no encontrado"<<endl;
 
-}*/
 string Hechizos::getName()
 {
     return _nombre;
@@ -64,9 +45,6 @@ ostream& operator<<(ostream& os, Hechizos& Hechizo){
     os << amarillo<<BLUE<<"Hechizo: " << Hechizo._nombre << " Tipo: " << Hechizo._TipoHechizo << " Coste: " << Hechizo._coste << endl<<RESET;
     return os;
 }
-/*void Hechizos::Display(ostream &os){
-    os << "Hechizo: " << getName() << " Tipo: " << getTipoHechizo() << " Coste: " << getCoste() << endl;
-}*/
 void Hechizos::Display()
 {
     cout << amarillo<<BLUE<< "Hechizo: " << getName() << " Tipo: " << getTipoHechizo() << " Coste: " << getCoste() << endl<<RESET;
